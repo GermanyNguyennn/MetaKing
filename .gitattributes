@@ -1,1 +1,14 @@
-**/wwwroot/libs/** linguist-vendored
+*.cs linguist-detectable=true 
+*.cshtml linguist-detectable=true 
+*.csproj linguist-detectable=true 
+*.razor linguist-detectable=true 
+bin/ linguist-vendored 
+obj/ linguist-vendored 
+wwwroot/lib/ linguist-vendored 
+node_modules/ linguist-vendored 
+*.json linguist-detectable=true 
+*.js linguist-detectable=true 
+*.css linguist-detectable=true 
+*.html linguist-detectable=true 
+*.md linguist-documentation 
+Migrations/* linguist-vendored 
