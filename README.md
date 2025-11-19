@@ -65,7 +65,7 @@ You can see the following resources to learn more about your solution and the AB
 * [Application Startup Template](https://abp.io/docs/latest/startup-templates/application/index)
 =======
 # MetaKing
-Nền tảng thương mại điện tử bán thiết bị điện tử, phát triển bằng ASP.NET Core MVC và SQL Server. Bao gồm các chức năng: xem sản phẩm, giỏ hàng, đăng ký/đăng nhập, quản lý đơn hàng, quản trị viên, mã giảm giá và tích hợp thanh toán.
+Nền tảng thương mại điện tử bán thiết bị điện tử, phát triển bằng ASP.NET Core và SQL Server. Bao gồm các chức năng: xem sản phẩm, giỏ hàng, đăng ký/đăng nhập, quản lý đơn hàng, quản trị viên, mã giảm giá và tích hợp thanh toán.
 =======
 # MetaKing
 =======
