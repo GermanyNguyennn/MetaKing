@@ -43,6 +43,8 @@ namespace MetaKing.Orders
                 CustomerAddress = input.CustomerAddress,
                 CustomerName = input.CustomerName,
                 CustomerPhoneNumber = input.CustomerPhoneNumber,
+                Commune = input.Commune,
+                Province = input.Province,
                 ShippingFee = 50000,
                 CustomerUserId = input.CustomerUserId,
                 Tax = 0,
@@ -73,7 +75,6 @@ namespace MetaKing.Orders
 
             await _orderItemRepository.InsertManyAsync(items, autoSave: true);
 
-            // 3. Map lại
             return ObjectMapper.Map<Order, OrderDto>(order);
         }
     }

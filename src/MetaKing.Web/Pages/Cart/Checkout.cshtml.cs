@@ -48,11 +48,23 @@ namespace MetaKing.Pages.Cart
         {
             LoadCart();
 
-            ModelState.Remove("Order.Items");
+            if (string.IsNullOrWhiteSpace(Order.CustomerName) ||
+                string.IsNullOrWhiteSpace(Order.CustomerPhoneNumber) ||
+                string.IsNullOrWhiteSpace(Order.CustomerAddress) ||
+                string.IsNullOrWhiteSpace(Order.Province) ||
+                string.IsNullOrWhiteSpace(Order.Commune))
+            {
+                CreateStatus = false;
+                return Page();
+            }
 
             if (!ModelState.IsValid || !CartItems.Any())
             {
                 CreateStatus = false;
+
+                SubTotal = 0;
+                ShippingFee = 0;
+                Total = 0;
                 return Page();
             }
 
@@ -71,16 +83,16 @@ namespace MetaKing.Pages.Cart
 
             CreateStatus = order != null;
 
-            if (CreateStatus == true && Order.CustomerUserId.HasValue)
-            {
-                var email = User.GetSpecificClaim(ClaimTypes.Email);
+            //if (CreateStatus == true && Order.CustomerUserId.HasValue)
+            //{
+            //    var email = User.GetSpecificClaim(ClaimTypes.Email);
 
-                await _localEventBus.PublishAsync(new NewOrderCreatedEvent
-                {
-                    CustomerEmail = email,
-                    Message = "Create order successful."
-                });
-            }
+            //    await _localEventBus.PublishAsync(new NewOrderCreatedEvent
+            //    {
+            //        CustomerEmail = email,
+            //        Message = "Create order successful."
+            //    });
+            //}
 
             if (CreateStatus == true)
             {

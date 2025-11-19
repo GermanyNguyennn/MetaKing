@@ -22,48 +22,48 @@
     <div class="container-fluid pt-5">
         <div class="row px-xl-5">
             <div class="col-lg-8">
-                <div class="mb-4">
-                    @if (Model.CreateStatus != null)
-                    {
-                        <div class="row">
-                            @if (Model.CreateStatus == true)
-                            {
-                                <div class="alert alert-success" role="alert">
-                                    Create order successful.
-                                </div>
-                            }
-                            else
-                            {
-                                <div class="alert alert-danger" role="alert">
-                                    Create order failed, please try again!
-                                </div>
-                            }
+                <div class="mb-4">                   
+                    <h4 class="font-weight-semi-bold mb-4">Billing Address</h4>
+                    <div class="row">
+                        <div class="col-md form-group">
+                            <label>Name</label>
+                            <input class="form-control" type="text" asp-for="Order.CustomerName" placeholder="Name" required>
+                            <span asp-validation-for="Order.CustomerName" class="text-danger"></span>
+
                         </div>
-                    }
-                    @if (Model.CreateStatus == null)
-                    {
-                        <h4 class="font-weight-semi-bold mb-4">Billing Address</h4>
-                        <div class="row">
-                            <div class="col-md-6 form-group">
-                                <label>Name</label>
-                                <input class="form-control" type="text" asp-for="Order.CustomerName" placeholder="Name">
-                                <span asp-validation-for="Order.CustomerName" class="text-danger"></span>
+                            
+                        <div class="col-md-6 form-group">
+                            <label>Phone Number</label>
+                            <input class="form-control" type="text" asp-for="Order.CustomerPhoneNumber" placeholder="Phone Number" required>
+                            <span asp-validation-for="Order.CustomerPhoneNumber" class="text-danger"></span>
 
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label>Address</label>
-                                <input class="form-control" type="text" asp-for="Order.CustomerAddress" placeholder="Address">
-                                <span asp-validation-for="Order.CustomerAddress" class="text-danger"></span>
+                        </div>                           
 
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label>Phone Number</label>
-                                <input class="form-control" type="text" asp-for="Order.CustomerPhoneNumber" placeholder="Phone Number">
-                                <span asp-validation-for="Order.CustomerPhoneNumber" class="text-danger"></span>
+                        <div class="col-md-6 form-group">
+                            <label>Chọn Tỉnh Thành</label>
+                            <select class="form-control" id="tinh" name="tinh" title="Chọn Tỉnh Thành">
+                                <option value="0">Tỉnh Thành</option>
+                            </select>
+                            <input type="hidden" asp-for="Order.Province" id="provinceHidden" required />
 
-                            </div>
                         </div>
-                    }
+
+                        <div class="col-md-6 form-group">
+                            <label>Chọn Phường Xã</label>
+                            <select class="form-control" id="quan" name="quan" title="Chọn Phường Xã">
+                                <option value="0">Phường Xã</option>
+                            </select>
+                            <input type="hidden" asp-for="Order.Commune" id="communeHidden" required />
+
+                        </div>
+
+                        <div class="col-md-12 form-group">
+                            <label>Address</label>
+                            <input class="form-control" type="text" asp-for="Order.CustomerAddress" placeholder="Address" required>
+                            <span asp-validation-for="Order.CustomerAddress" class="text-danger"></span>
+
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-lg-4">
@@ -128,21 +128,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-footer border-secondary bg-transparent">
-                        @if (Model.CreateStatus == true)
-                        {
-                            <button class="btn btn-lg btn-block btn-secondary font-weight-bold my-3 py-3" disabled>
-                                Place Order
-                            </button>
-                        }
-                        else
-                        {
-                            <button class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3" type="submit">
-                                Place Order
-                            </button>
-                        }
 
-                    </div>
+                    <button class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3" type="submit"> Place Order </button>
+                        
                 </div>
             </div>
         </div>
@@ -151,5 +139,77 @@
 
 <!-- Checkout End -->
 @section scripts {
+    @if (Model.CreateStatus != null)
+    {
+        <script>
+            Swal.fire({
+                icon: '@(Model.CreateStatus == true ? "success" : "error")',
+                title: '@(Model.CreateStatus == true ? "Success" : "Error")',
+                text: '@(Model.CreateStatus == true ? "Order Created Successfully" : "Order Creation Failed")',
+                showConfirmButton: true,
+                confirmButtonText: "OK"
+            }).then((result) => {
+                if (@(Model.CreateStatus == true ? "true" : "false")) {
+                    window.location.href = "/";
+                }
+            });
+        </script>
+    }
+
+    <script>
+        $(document).ready(function () {
+
+            $.getJSON('https://esgoo.net/api-tinhthanh-new/1/0.htm', function (data_tinh) {
+                if (data_tinh.error == 0) {
+
+                    $.each(data_tinh.data, function (key, val) {
+                        $("#tinh").append('<option value="' + val.id + '">' + val.full_name + '</option>');
+                    });
+
+                    $("#tinh").change(function () {
+
+                        let province = $("#tinh option:selected").text();
+                        if (province === "Tỉnh Thành") province = "";
+
+                        $("#provinceHidden").val(province).trigger("change");
+
+                        let idtinh = $(this).val();
+
+                        $.getJSON('https://esgoo.net/api-tinhthanh-new/2/' + idtinh + '.htm', function (data_quan) {
+                            if (data_quan.error == 0) {
+                                $("#quan").html('<option value="0">Phường Xã</option>');
+                                $.each(data_quan.data, function (k, q) {
+                                    $("#quan").append('<option value="' + q.id + '">' + q.full_name + '</option>');
+                                });
+                            }
+                        });
+
+                    });
+
+                    $("#quan").change(function () {
+
+                        let commune = $("#quan option:selected").text();
+                        if (commune === "Phường Xã") commune = "";
+
+                        $("#communeHidden").val(commune).trigger("change");
+                    });
+                }
+            });
+
+        });
+    </script>
+
+    @if (!ModelState.IsValid)
+    {
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi',
+                text: '@string.Join(" ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage))',
+                confirmButtonText: 'OK'
+            });
+        </script>
+    }
+
     <partial name="_ValidationScriptsPartial" />
 }
