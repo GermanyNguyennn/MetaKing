@@ -1,0 +1,108 @@
+{
+  "template": "app",
+  "imports": {
+    "Volo.Abp.LeptonXLiteTheme": {
+      "version": "4.3.4",
+      "isInstalled": true
+    },
+    "Volo.Abp.Account": {
+      "version": "9.3.4",
+      "isInstalled": true,
+      "creationTime": "10/02/2025 13:57:36 +00:00"
+    },
+    "Volo.Abp.OpenIddict": {
+      "version": "9.3.4",
+      "isInstalled": true,
+      "creationTime": "10/02/2025 13:57:36 +00:00"
+    },
+    "Volo.Abp.Identity": {
+      "version": "9.3.4",
+      "isInstalled": true,
+      "creationTime": "10/02/2025 13:57:36 +00:00"
+    },
+    "Volo.Abp.TenantManagement": {
+      "version": "9.3.4",
+      "isInstalled": true,
+      "creationTime": "10/02/2025 13:57:36 +00:00"
+    },
+    "Volo.Abp.SettingManagement": {
+      "version": "9.3.4",
+      "isInstalled": true,
+      "creationTime": "10/02/2025 13:57:36 +00:00"
+    },
+    "Volo.Abp.PermissionManagement": {
+      "version": "9.3.4",
+      "isInstalled": true,
+      "creationTime": "10/02/2025 13:57:36 +00:00"
+    },
+    "Volo.Abp.FeatureManagement": {
+      "version": "9.3.4",
+      "isInstalled": true,
+      "creationTime": "10/02/2025 13:57:36 +00:00"
+    }
+  },
+  "folders": {
+    "items": {
+      "src": {},
+      "test": {}
+    }
+  },
+  "packages": {
+    "MetaKing.Application": {
+      "path": "src/MetaKing.Application/MetaKing.Application.abppkg",
+      "folder": "src"
+    },
+    "MetaKing.Application.Tests": {
+      "path": "test/MetaKing.Application.Tests/MetaKing.Application.Tests.abppkg",
+      "folder": "test"
+    },
+    "MetaKing.Domain.Shared": {
+      "path": "src/MetaKing.Domain.Shared/MetaKing.Domain.Shared.abppkg",
+      "folder": "src"
+    },
+    "MetaKing.Application.Contracts": {
+      "path": "src/MetaKing.Application.Contracts/MetaKing.Application.Contracts.abppkg",
+      "folder": "src"
+    },
+    "MetaKing.HttpApi": {
+      "path": "src/MetaKing.HttpApi/MetaKing.HttpApi.abppkg",
+      "folder": "src"
+    },
+    "MetaKing.HttpApi.Client": {
+      "path": "src/MetaKing.HttpApi.Client/MetaKing.HttpApi.Client.abppkg",
+      "folder": "src"
+    },
+    "MetaKing.EntityFrameworkCore.Tests": {
+      "path": "test/MetaKing.EntityFrameworkCore.Tests/MetaKing.EntityFrameworkCore.Tests.abppkg",
+      "folder": "test"
+    },
+    "MetaKing.EntityFrameworkCore": {
+      "path": "src/MetaKing.EntityFrameworkCore/MetaKing.EntityFrameworkCore.abppkg",
+      "folder": "src"
+    },
+    "MetaKing.TestBase": {
+      "path": "test/MetaKing.TestBase/MetaKing.TestBase.abppkg",
+      "folder": "test"
+    },
+    "MetaKing.Domain.Tests": {
+      "path": "test/MetaKing.Domain.Tests/MetaKing.Domain.Tests.abppkg",
+      "folder": "test"
+    },
+    "MetaKing.HttpApi.Client.ConsoleTestApp": {
+      "path": "test/MetaKing.HttpApi.Client.ConsoleTestApp/MetaKing.HttpApi.Client.ConsoleTestApp.abppkg",
+      "folder": "test"
+    },
+    "MetaKing.DbMigrator": {
+      "path": "src/MetaKing.DbMigrator/MetaKing.DbMigrator.abppkg",
+      "folder": "src"
+    },
+    "MetaKing.HttpApi.Host": {
+      "path": "src/MetaKing.HttpApi.Host/MetaKing.HttpApi.Host.abppkg",
+      "folder": "src"
+    },
+    "MetaKing.Domain": {
+      "path": "src/MetaKing.Domain/MetaKing.Domain.abppkg",
+      "folder": "src"
+    }
+  }
+}

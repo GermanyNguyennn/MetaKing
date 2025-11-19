@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <RootNamespace>MetaKing.Admin</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\MetaKing.Admin.Application\MetaKing.Admin.Application.csproj" />
+    <ProjectReference Include="..\MetaKing.Domain.Tests\MetaKing.Domain.Tests.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="12.0.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.0" />
+    <PackageReference Include="Volo.Abp.BlobStoring.FileSystem" Version="9.3.5" />
+    <PackageReference Include="Volo.Abp.FluentValidation" Version="9.3.5" />
+    <PackageReference Include="Volo.Abp.Identity.Web" Version="9.3.5" />
+    <PackageReference Include="Volo.Abp.SettingManagement.Web" Version="9.3.5" />
+    <PackageReference Include="Volo.Abp.TenantManagement.Web" Version="9.3.5" />
+  </ItemGroup>
+
+</Project>

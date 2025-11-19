@@ -1,0 +1,164 @@
+﻿@page "/cart"
+@model MetaKing.Pages.Cart.CartModel
+
+<!-- Page Header Start -->
+<div class="container-fluid bg-secondary mb-5">
+    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
+        <h1 class="font-weight-semi-bold text-uppercase mb-3">Shopping Cart</h1>
+        <div class="d-inline-flex">
+            <p class="m-0"><a href="/">Home</a></p>
+            <p class="m-0 px-2">-</p>
+            <p class="m-0">Shopping Cart</p>
+        </div>
+    </div>
+</div>
+<!-- Page Header End -->
+<!-- Cart Start -->
+<div class="container-fluid pt-5">
+    <div class="row px-xl-5">
+        <div class="col-lg-8 table-responsive mb-5">
+            <form method="post" asp-page-handler="Update">
+                <table class="table table-bordered text-center mb-0">
+                    <thead class="bg-secondary text-dark">
+                        <tr>
+                            <th>Products</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                            <th>Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody class="align-middle">
+                        @if (Model?.CartItems != null && Model.CartItems.Any())
+                        {
+                            @for (int i = 0; i < Model.CartItems.Count; i++)
+                            {
+                                <tr>
+                                    <td class="align-middle">
+                                        <img src="@Model.CartItems[i].Product.ThumbnailPicture" alt="@Model.CartItems[i].Product.Name" style="width: 50px;">
+                                        @Model.CartItems[i].Product.Name
+                                    </td>
+                                    <td class="align-middle" data-price="@Model.CartItems[i].Product.SellPrice">
+                                        @Model.CartItems[i].Product.SellPrice.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))
+                                    </td>
+                                    <td class="align-middle">
+                                        <div class="input-group quantity mx-auto" style="width: 100px;">
+                                            @* <div class="input-group-btn">
+                                                <button type="button" class="btn btn-sm btn-primary btn-minus">
+                                                    <i class="fa fa-minus"></i>
+                                                </button>
+                                            </div> *@
+                                            <input type="number"
+                                                   name="CartItems[@i].Quantity"
+                                                   value="@Model.CartItems[i].Quantity"
+                                                   class="form-control form-control-sm bg-secondary text-center"
+                                                   min="1" readonly />
+                                            <input type="hidden" name="CartItems[@i].Product.Id" value="@Model.CartItems[i].Product.Id" />
+                                            @* <div class="input-group-btn">
+                                                <button type="button" class="btn btn-sm btn-primary btn-plus">
+                                                    <i class="fa fa-plus"></i>
+                                                </button>
+                                            </div> *@
+                                        </div>
+                                    </td>
+                                    <td class="align-middle item-total" data-price="@Model.CartItems[i].Product.SellPrice">
+                                        @((Model.CartItems[i].Product.SellPrice * Model.CartItems[i].Quantity).ToString("N0", new System.Globalization.CultureInfo("vi-VN")))
+                                    </td>
+                                    <td class="align-middle">
+                                        <a asp-page-handler="Remove" asp-route-id="@Model.CartItems[i].Product.Id" class="btn btn-sm btn-primary">
+                                            <i class="fa fa-times"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </form>
+        </div>
+        <div class="col-lg-4">
+            <div class="card border-secondary mb-5">
+                <div class="card-header bg-secondary border-0">
+                    <h4 class="font-weight-semi-bold m-0">Cart Summary</h4>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between mb-3 pt-1">
+                        <h6 class="font-weight-medium">Subtotal</h6>
+                        <h6 class="font-weight-medium" id="cart-subtotal">
+                            @Model.SubTotal.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))
+                        </h6>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <h6 class="font-weight-medium">Shipping</h6>
+                        <h6 class="font-weight-medium" id="shipping-fee" data-fee="@Model.ShippingFee">
+                            @Model.ShippingFee.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))
+                        </h6>
+                    </div>
+                </div>
+                <div class="card-footer border-secondary bg-transparent">
+                    <div class="d-flex justify-content-between mt-2">
+                        <h5 class="font-weight-bold">Total</h5>
+                        <h5 class="font-weight-bold" id="cart-total">
+                            @Model.Total.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))
+                        </h5>
+                    </div>
+                    <a href="/checkout"
+                       class="btn btn-block btn-primary my-3 py-3 @(Model.CartItems == null || !Model.CartItems.Any() ? "disabled" : "")" type="submit">
+                        Proceed To Checkout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Cart End -->
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const shipping = parseFloat(document.getElementById("shipping-fee").dataset.fee);
+
+        function updateCartTotals() {
+            let subtotal = 0;
+            document.querySelectorAll("tbody tr").forEach(row => {
+                let quantityInput = row.querySelector("input[type='number']");
+                let priceCell = row.querySelector("td[data-price]");
+                let itemTotalSpan = row.querySelector(".item-total");
+
+                if (quantityInput && priceCell) {
+                    let quantity = parseInt(quantityInput.value) || 1;
+                    let price = parseFloat(priceCell.dataset.price);
+                    let itemTotal = quantity * price;
+                    subtotal += itemTotal;
+                    if (itemTotalSpan) itemTotalSpan.textContent = itemTotal.toLocaleString("vi-VN");
+                }
+            });
+            document.getElementById("cart-subtotal").textContent = subtotal.toLocaleString("vi-VN");
+            document.getElementById("cart-total").textContent = (subtotal + shipping).toLocaleString("vi-VN");
+        }
+
+        document.querySelectorAll(".btn-minus").forEach(btn => {
+            btn.addEventListener("click", function () {
+                let input = this.closest(".input-group").querySelector("input[type='number']");
+                if (input.value > 1) input.value = parseInt(input.value) - 1;
+                updateCartTotals();
+            });
+        });
+
+        document.querySelectorAll(".btn-plus").forEach(btn => {
+            btn.addEventListener("click", function () {
+                let input = this.closest(".input-group").querySelector("input[type='number']");
+                input.value = parseInt(input.value) + 1;
+                updateCartTotals();
+            });
+        });
+
+        document.querySelectorAll("input[type='number']").forEach(input => {
+            input.addEventListener("change", function () {
+                if (this.value < 1) this.value = 1;
+                updateCartTotals();
+            });
+        });
+
+        updateCartTotals();
+    });
+</script>

@@ -1,0 +1,23 @@
+{
+  "culture": "en",
+  "texts": {
+    "Permission:Catalog": "Danh Mục",
+    "Permission:Catalog.Product": "Sản Phẩm",
+    "Permission:Catalog.Product.Create": "Tạo Mới Sản Phẩm",
+    "Permission:Catalog.Product.Update": "Cập Nhật Sản Phẩm",
+    "Permission:Catalog.Product.Delete": "Xóa Sản Phẩm",
+    "Permission:Catalog.Product.AttributeManage": "Quản Lý Thuộc Tính",
+    "Permission:Catalog.Attribute": "Thuộc Tính",
+    "Permission:Catalog.Attribute.Create": "Tạo Mới Thuộc Tính",
+    "Permission:Catalog.Attribute.Update": "Cập Nhật Thuộc Tính",
+    "Permission:Catalog.Attribute.Delete": "Xóa Thuộc Tính",
+    "Permission:Catalog.Manufacturer": "Nhà Sản Xuất",
+    "Permission:Catalog.Manufacturer.Create": "Tạo Mới Nhà Sản Xuất",
+    "Permission:Catalog.Manufacturer.Update": "Cập Nhật Nhà Sản Xuất",
+    "Permission:Catalog.Manufacturer.Delete": "Xóa Nhà Sản Xuất",
+    "Permission:Catalog.ProductCategory": "Loại Sản Phẩm",
+    "Permission:Catalog.ProductCategory.Create": "Tạo Mới Loại Sản Phẩm",
+    "Permission:Catalog.ProductCategory.Update": "Cập Nhật Loại Sản Phẩm",
+    "Permission:Catalog.ProductCategory.Delete": "Xóa Loại Sản Phẩm"
+  }
+}

@@ -1,0 +1,155 @@
+﻿@page "/checkout"
+@using MetaKing.Catalog.Products
+@model MetaKing.Pages.Cart.CheckoutModel
+@inject IProductsAppService _productsAppService
+
+<!-- Page Header Start -->
+<div class="container-fluid bg-secondary mb-5">
+    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
+        <h1 class="font-weight-semi-bold text-uppercase mb-3">Checkout</h1>
+        <div class="d-inline-flex">
+            <p class="m-0"><a href="/">Home</a></p>
+            <p class="m-0 px-2">-</p>
+            <p class="m-0">Checkout</p>
+        </div>
+    </div>
+</div>
+<!-- Page Header End -->
+<!-- Checkout Start -->
+<form method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="container-fluid pt-5">
+        <div class="row px-xl-5">
+            <div class="col-lg-8">
+                <div class="mb-4">
+                    @if (Model.CreateStatus != null)
+                    {
+                        <div class="row">
+                            @if (Model.CreateStatus == true)
+                            {
+                                <div class="alert alert-success" role="alert">
+                                    Create order successful.
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="alert alert-danger" role="alert">
+                                    Create order failed, please try again!
+                                </div>
+                            }
+                        </div>
+                    }
+                    @if (Model.CreateStatus == null)
+                    {
+                        <h4 class="font-weight-semi-bold mb-4">Billing Address</h4>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label>Name</label>
+                                <input class="form-control" type="text" asp-for="Order.CustomerName" placeholder="Name">
+                                <span asp-validation-for="Order.CustomerName" class="text-danger"></span>
+
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Address</label>
+                                <input class="form-control" type="text" asp-for="Order.CustomerAddress" placeholder="Address">
+                                <span asp-validation-for="Order.CustomerAddress" class="text-danger"></span>
+
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Phone Number</label>
+                                <input class="form-control" type="text" asp-for="Order.CustomerPhoneNumber" placeholder="Phone Number">
+                                <span asp-validation-for="Order.CustomerPhoneNumber" class="text-danger"></span>
+
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card border-secondary mb-5">
+                    <div class="card-header bg-secondary border-0">
+                        <h4 class="font-weight-semi-bold m-0">Order Total</h4>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="font-weight-medium mb-3">Products</h5>
+                        @if (Model.CartItems != null && Model.CartItems.Any())
+                        {
+                            @foreach (var item in Model.CartItems)
+                            {
+                                <div class="d-flex justify-content-between">
+                                    <p>@item.Product.Name x @item.Quantity</p>
+                                    <p>@((item.Product.SellPrice * item.Quantity).ToString("N0", new System.Globalization.CultureInfo("vi-VN")))</p>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <p>No items in cart.</p>
+                        }
+                        <hr />
+                        <div class="d-flex justify-content-between mb-3 pt-1">
+                            <h6 class="font-weight-medium">Subtotal</h6>
+                            <h6 class="font-weight-medium">@Model.SubTotal.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</h6>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <h6 class="font-weight-medium">Shipping</h6>
+                            <h6 class="font-weight-medium">@Model.ShippingFee.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</h6>
+                        </div>
+                    </div>
+                    <div class="card-footer border-secondary bg-transparent">
+                        <div class="d-flex justify-content-between mt-2">
+                            <h5 class="font-weight-bold">Total</h5>
+                            <h5 class="font-weight-bold">@Model.Total.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="card border-secondary mb-5">
+                    <div class="card-header bg-secondary border-0">
+                        <h4 class="font-weight-semi-bold m-0">Payment</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" name="payment" id="paypal">
+                                <label class="custom-control-label" for="paypal">Paypal</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" name="payment" id="directcheck">
+                                <label class="custom-control-label" for="directcheck">Direct Check</label>
+                            </div>
+                        </div>
+                        <div class="">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" name="payment" id="banktransfer">
+                                <label class="custom-control-label" for="banktransfer">Bank Transfer</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer border-secondary bg-transparent">
+                        @if (Model.CreateStatus == true)
+                        {
+                            <button class="btn btn-lg btn-block btn-secondary font-weight-bold my-3 py-3" disabled>
+                                Place Order
+                            </button>
+                        }
+                        else
+                        {
+                            <button class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3" type="submit">
+                                Place Order
+                            </button>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<!-- Checkout End -->
+@section scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
