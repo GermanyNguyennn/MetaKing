@@ -14,7 +14,6 @@ namespace MetaKing.Orders
         public string Commune { get; set; }
         public string Province { get; set; }
         public Guid? CustomerUserId { get; set; }
-        [BindNever]
         public List<OrderItemDto>? Items { get; set; }
     }
 }

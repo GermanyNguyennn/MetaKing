@@ -3,7 +3,7 @@
 @model MetaKing.Pages.Products.DetailsModel
 
 <!-- Page Header Start -->
-<div class="container-fluid bg-secondary mb-5">
+@* <div class="container-fluid bg-secondary mb-5">
     <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
         <h1 class="font-weight-semi-bold text-uppercase mb-3">Shop Detail</h1>
         <div class="d-inline-flex">
@@ -12,7 +12,7 @@
             <p class="m-0">Shop Detail</p>
         </div>
     </div>
-</div>
+</div> *@
 <!-- Page Header End -->
 <!-- Shop Detail Start -->
 <div class="container-fluid py-5">
@@ -57,9 +57,9 @@
             <p class="mb-4">@Html.Raw(Model.Product.SeoMetaDescription)</p>
             
             <div class="d-flex align-items-center mb-4 pt-2">
-                <a asp-page="/Cart" asp-page-handler="Add" asp-route-id="@Model.Product.Id" class="btn btn-primary px-3">
-                    <i class="fa fa-shopping-cart mr-1"></i> Add To Cart
-                </a>
+                <button type="button" class="btn btn-primary px-3" onclick="addToCart('@Model.Product.Id')">
+                    <i class="fas fa-shopping-cart mr-1"></i> Add To Cart
+                </button>
             </div>
             <div class="d-flex pt-2">
                 <p class="text-dark font-weight-medium mb-0 mr-2">Share on:</p>
@@ -154,9 +154,9 @@
                         </div>
                         <div class="card-footer d-flex justify-content-between bg-light border">
                             <a href="/products/@item.CategorySlug/@item.Slug" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-                            <a asp-page="/Cart/Cart" asp-page-handler="Add" asp-route-id="@item.Id" class="btn btn-sm text-dark p-0">
+                            <button type="button" class="btn btn-sm text-dark p-0" onclick="addToCart('@item.Id')">
                                 <i class="fas fa-shopping-cart text-primary mr-1"></i> Add To Cart
-                            </a>
+                            </button>
                         </div>
                     </div>
                 }                              
@@ -165,3 +165,25 @@
     </div>
 </div>
 <!-- Products End -->
+
+<script>
+    async function addToCart(productId) {
+        try {
+            const res = await fetch(`/cart?handler=Add&id=${productId}`, { method: 'GET' });
+            const html = await res.text();
+
+            // Parse html trả về để lấy TempData (hoặc bạn có thể trả JSON từ handler)
+            // Đây là cách nhanh: chỉ hiển thị thông báo
+            Swal.fire({
+                icon: 'success',
+                title: 'Thành công',
+                text: 'Product has been added to cart!',
+                confirmButtonText: 'OK'
+            });
+
+            // Bạn có thể cập nhật cart count nếu có
+        } catch (err) {
+            console.error(err);
+        }
+    }
+</script>

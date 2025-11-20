@@ -102,9 +102,9 @@
                     </div>
                     <div class="card-footer d-flex justify-content-between bg-light border">
                         <a href="/products/@item.CategorySlug/@item.Slug" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-                        <a asp-page="/Cart/Cart" asp-page-handler="Add" asp-route-id="@item.Id" class="btn btn-sm text-dark p-0">
+                        <button type="button" class="btn btn-sm text-dark p-0" onclick="addToCart('@item.Id')">
                             <i class="fas fa-shopping-cart text-primary mr-1"></i> Add To Cart
-                        </a>
+                        </button>
                     </div>
                 </div>
       
@@ -154,9 +154,9 @@
                     </div>
                     <div class="card-footer d-flex justify-content-between bg-light border">
                         <a href="/products/@item.CategorySlug/@item.Slug" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-                        <a asp-page="/Cart/Cart" asp-page-handler="Add" asp-route-id="@item.Id" class="btn btn-sm text-dark p-0">
+                        <button type="button" class="btn btn-sm text-dark p-0" onclick="addToCart('@item.Id')">
                             <i class="fas fa-shopping-cart text-primary mr-1"></i> Add To Cart
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -164,3 +164,22 @@
     </div>
 </div>
 <!-- Products End -->
+
+<script>
+    async function addToCart(productId) {
+        try {
+            const res = await fetch(`/cart?handler=Add&id=${productId}`, { method: 'GET' });
+            const html = await res.text();
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: 'Product has been added to cart!',
+                confirmButtonText: 'OK'
+            });
+
+        } catch (err) {
+            console.error(err);
+        }
+    }
+</script>

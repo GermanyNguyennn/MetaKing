@@ -77,8 +77,11 @@ namespace MetaKing.Pages.Cart
             }
 
             HttpContext.Session.SetString(MetaKingConsts.Cart, JsonSerializer.Serialize(productCarts));
-            return RedirectToPage();
+
+            LoadCart();
+            return Page();
         }
+
 
         // --- Xóa sản phẩm
         public IActionResult OnGetRemove(string id)
@@ -111,12 +114,14 @@ namespace MetaKing.Pages.Cart
                     if (productCarts.ContainsKey(item.Product.Id.ToString()))
                     {
                         productCarts[item.Product.Id.ToString()].Quantity = item.Quantity;
+
                     }
                 }
             }
-
             HttpContext.Session.SetString(MetaKingConsts.Cart, JsonSerializer.Serialize(productCarts));
+
             return RedirectToPage();
+
         }
     }
 }
