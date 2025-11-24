@@ -16,6 +16,8 @@ namespace MetaKing.Admin.Catalog.ProductCategories
     {
         Task<PagedResultDto<ProductCategoryInListDto>> GetListFilterAsync(BaseListFilterDto input);
         Task<List<ProductCategoryInListDto>> GetListAllAsync();
+        Task<List<ProductCategoryInListDto>> GetListParentAsync();
+        Task<List<ProductCategoryInListDto>> GetListChildAsync(Guid parentId);
         Task DeleteMultipleAsync(IEnumerable<Guid> ids);
     }
 }

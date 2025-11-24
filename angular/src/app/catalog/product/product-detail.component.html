@@ -63,9 +63,18 @@
       <div class="field col-12">
         <label for="categoryId" class="block">Danh Mục <span class="required">*</span></label>
         <p-dropdown
-          [options]="productCategories"
+          [options]="parentCategories"
+          formControlName="parentCategoryId"
+          placeholder="Chọn Danh Mục Cha"
+          (onChange)="onParentChange($event.value)"
+          [showClear]="true"
+          autoWidth="false"
+          [style]="{ width: '100%' }"
+        ></p-dropdown>
+        <p-dropdown
+          [options]="childCategories"
           formControlName="categoryId"
-          placeholder="Chọn Danh Mục"
+          placeholder="Chọn Danh Mục Con"
           [showClear]="true"
           autoWidth="false"
           [style]="{ width: '100%' }"

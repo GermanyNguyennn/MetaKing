@@ -1,8 +1,8 @@
 import { PagedResultDto } from '@abp/ng.core';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ProductCategoriesService, ProductCategoryInListDto } from '@proxy/product-categories';
+import { ProductCategoriesService, ProductCategoryInListDto } from '@proxy/catalog/product-categories';
 import { ProductDto, ProductInListDto } from '@proxy/catalog/products';
-import { ProductsService } from '@proxy/products';
+import { ProductsService } from '@proxy/catalog/products';
 import { ProductType } from '@proxy/meta-king/products';
 import { ConfirmationService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
@@ -29,6 +29,7 @@ export class ProductComponent implements OnInit, OnDestroy {
 
   //Filter
   productCategories: any[] = [];
+  productCategoriesAll: ProductCategoryInListDto[] = [];
   keyword: string = '';
   categoryId: string = '';
 
@@ -47,7 +48,6 @@ export class ProductComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loadProductCategories();
-    this.loadData();
   }
 
   loadData() {
@@ -64,6 +64,22 @@ export class ProductComponent implements OnInit, OnDestroy {
         next: (response: PagedResultDto<ProductInListDto>) => {
           this.items = response.items;
           this.totalCount = response.totalCount;
+          // compute parent category name for each item
+          if (this.productCategoriesAll && this.productCategoriesAll.length > 0) {
+            const dict = new Map<string, ProductCategoryInListDto>();
+            this.productCategoriesAll.forEach(c => dict.set(c.id, c));
+
+            this.items.forEach(item => {
+              const cat = item.categoryId ? dict.get(item.categoryId) : undefined;
+              const parentId = cat ? (cat as any).parentId : undefined;
+              if (parentId) {
+                const parent = dict.get(parentId);
+                (item as any).parentCategoryName = parent ? parent.name : null;
+              } else {
+                (item as any).parentCategoryName = null;
+              }
+            });
+          }
           this.toggleBlockUI(false);
         },
         error: () => {
@@ -74,12 +90,19 @@ export class ProductComponent implements OnInit, OnDestroy {
 
   loadProductCategories() {
     this.productCategoryService.getListAll().subscribe((response: ProductCategoryInListDto[]) => {
+      // keep raw list for parent lookup
+      this.productCategoriesAll = response;
+
+      // build dropdown options
       response.forEach(element => {
         this.productCategories.push({
           value: element.id,
           label: element.name,
         });
       });
+
+      // after categories loaded, load products
+      this.loadData();
     });
   }
 

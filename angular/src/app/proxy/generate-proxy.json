@@ -873,16 +873,16 @@
       "rootPath": "app",
       "remoteServiceName": "Default",
       "controllers": {
-        "MetaKing.Admin.Manufacturers.ManufacturersAppService": {
+        "MetaKing.Admin.Catalog.Manufacturers.ManufacturersAppService": {
           "controllerName": "Manufacturers",
           "controllerGroupName": "Manufacturers",
           "isRemoteService": true,
           "isIntegrationService": false,
           "apiVersion": null,
-          "type": "MetaKing.Admin.Manufacturers.ManufacturersAppService",
+          "type": "MetaKing.Admin.Catalog.Manufacturers.ManufacturersAppService",
           "interfaces": [
             {
-              "type": "MetaKing.Admin.Manufacturers.IManufacturersAppService",
+              "type": "MetaKing.Admin.Catalog.Manufacturers.IManufacturersAppService",
               "name": "IManufacturersAppService",
               "methods": [
                 {
@@ -898,16 +898,16 @@
                     }
                   ],
                   "returnValue": {
-                    "type": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.Manufacturers.ManufacturerInListDto>",
-                    "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.Manufacturers.ManufacturerInListDto>"
+                    "type": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.Catalog.Manufacturers.ManufacturerInListDto>",
+                    "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.Catalog.Manufacturers.ManufacturerInListDto>"
                   }
                 },
                 {
                   "name": "GetListAllAsync",
                   "parametersOnMethod": [],
                   "returnValue": {
-                    "type": "System.Collections.Generic.List<MetaKing.Admin.Manufacturers.ManufacturerInListDto>",
-                    "typeSimple": "[MetaKing.Admin.Manufacturers.ManufacturerInListDto]"
+                    "type": "System.Collections.Generic.List<MetaKing.Admin.Catalog.Manufacturers.ManufacturerInListDto>",
+                    "typeSimple": "[MetaKing.Admin.Catalog.Manufacturers.ManufacturerInListDto]"
                   }
                 },
                 {
@@ -940,8 +940,8 @@
                     }
                   ],
                   "returnValue": {
-                    "type": "MetaKing.Admin.Manufacturers.ManufacturerDto",
-                    "typeSimple": "MetaKing.Admin.Manufacturers.ManufacturerDto"
+                    "type": "MetaKing.Admin.Catalog.Manufacturers.ManufacturerDto",
+                    "typeSimple": "MetaKing.Admin.Catalog.Manufacturers.ManufacturerDto"
                   }
                 },
                 {
@@ -957,8 +957,8 @@
                     }
                   ],
                   "returnValue": {
-                    "type": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.Manufacturers.ManufacturerDto>",
-                    "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.Manufacturers.ManufacturerDto>"
+                    "type": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.Catalog.Manufacturers.ManufacturerDto>",
+                    "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.Catalog.Manufacturers.ManufacturerDto>"
                   }
                 },
                 {
@@ -966,16 +966,16 @@
                   "parametersOnMethod": [
                     {
                       "name": "input",
-                      "typeAsString": "MetaKing.Admin.Manufacturers.CreateUpdateManufacturerDto, MetaKing.Admin.Application.Contracts",
-                      "type": "MetaKing.Admin.Manufacturers.CreateUpdateManufacturerDto",
-                      "typeSimple": "MetaKing.Admin.Manufacturers.CreateUpdateManufacturerDto",
+                      "typeAsString": "MetaKing.Admin.Catalog.Manufacturers.CreateUpdateManufacturerDto, MetaKing.Admin.Application.Contracts",
+                      "type": "MetaKing.Admin.Catalog.Manufacturers.CreateUpdateManufacturerDto",
+                      "typeSimple": "MetaKing.Admin.Catalog.Manufacturers.CreateUpdateManufacturerDto",
                       "isOptional": false,
                       "defaultValue": null
                     }
                   ],
                   "returnValue": {
-                    "type": "MetaKing.Admin.Manufacturers.ManufacturerDto",
-                    "typeSimple": "MetaKing.Admin.Manufacturers.ManufacturerDto"
+                    "type": "MetaKing.Admin.Catalog.Manufacturers.ManufacturerDto",
+                    "typeSimple": "MetaKing.Admin.Catalog.Manufacturers.ManufacturerDto"
                   }
                 },
                 {
@@ -991,16 +991,16 @@
                     },
                     {
                       "name": "input",
-                      "typeAsString": "MetaKing.Admin.Manufacturers.CreateUpdateManufacturerDto, MetaKing.Admin.Application.Contracts",
-                      "type": "MetaKing.Admin.Manufacturers.CreateUpdateManufacturerDto",
-                      "typeSimple": "MetaKing.Admin.Manufacturers.CreateUpdateManufacturerDto",
+                      "typeAsString": "MetaKing.Admin.Catalog.Manufacturers.CreateUpdateManufacturerDto, MetaKing.Admin.Application.Contracts",
+                      "type": "MetaKing.Admin.Catalog.Manufacturers.CreateUpdateManufacturerDto",
+                      "typeSimple": "MetaKing.Admin.Catalog.Manufacturers.CreateUpdateManufacturerDto",
                       "isOptional": false,
                       "defaultValue": null
                     }
                   ],
                   "returnValue": {
-                    "type": "MetaKing.Admin.Manufacturers.ManufacturerDto",
-                    "typeSimple": "MetaKing.Admin.Manufacturers.ManufacturerDto"
+                    "type": "MetaKing.Admin.Catalog.Manufacturers.ManufacturerDto",
+                    "typeSimple": "MetaKing.Admin.Catalog.Manufacturers.ManufacturerDto"
                   }
                 },
                 {
@@ -1059,7 +1059,7 @@
                 "typeSimple": "System.Void"
               },
               "allowAnonymous": true,
-              "implementFrom": "MetaKing.Admin.Manufacturers.IManufacturersAppService"
+              "implementFrom": "MetaKing.Admin.Catalog.Manufacturers.IManufacturersAppService"
             },
             "GetListAllAsync": {
               "uniqueName": "GetListAllAsync",
@@ -1070,11 +1070,11 @@
               "parametersOnMethod": [],
               "parameters": [],
               "returnValue": {
-                "type": "System.Collections.Generic.List<MetaKing.Admin.Manufacturers.ManufacturerInListDto>",
-                "typeSimple": "[MetaKing.Admin.Manufacturers.ManufacturerInListDto]"
+                "type": "System.Collections.Generic.List<MetaKing.Admin.Catalog.Manufacturers.ManufacturerInListDto>",
+                "typeSimple": "[MetaKing.Admin.Catalog.Manufacturers.ManufacturerInListDto]"
               },
               "allowAnonymous": true,
-              "implementFrom": "MetaKing.Admin.Manufacturers.IManufacturersAppService"
+              "implementFrom": "MetaKing.Admin.Catalog.Manufacturers.IManufacturersAppService"
             },
             "GetListFilterAsyncByInput": {
               "uniqueName": "GetListFilterAsyncByInput",
@@ -1131,11 +1131,11 @@
                 }
               ],
               "returnValue": {
-                "type": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.Manufacturers.ManufacturerInListDto>",
-                "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.Manufacturers.ManufacturerInListDto>"
+                "type": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.Catalog.Manufacturers.ManufacturerInListDto>",
+                "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.Catalog.Manufacturers.ManufacturerInListDto>"
               },
               "allowAnonymous": true,
-              "implementFrom": "MetaKing.Admin.Manufacturers.IManufacturersAppService"
+              "implementFrom": "MetaKing.Admin.Catalog.Manufacturers.IManufacturersAppService"
             },
             "CreateAsyncByInput": {
               "uniqueName": "CreateAsyncByInput",
@@ -1146,9 +1146,9 @@
               "parametersOnMethod": [
                 {
                   "name": "input",
-                  "typeAsString": "MetaKing.Admin.Manufacturers.CreateUpdateManufacturerDto, MetaKing.Admin.Application.Contracts",
-                  "type": "MetaKing.Admin.Manufacturers.CreateUpdateManufacturerDto",
-                  "typeSimple": "MetaKing.Admin.Manufacturers.CreateUpdateManufacturerDto",
+                  "typeAsString": "MetaKing.Admin.Catalog.Manufacturers.CreateUpdateManufacturerDto, MetaKing.Admin.Application.Contracts",
+                  "type": "MetaKing.Admin.Catalog.Manufacturers.CreateUpdateManufacturerDto",
+                  "typeSimple": "MetaKing.Admin.Catalog.Manufacturers.CreateUpdateManufacturerDto",
                   "isOptional": false,
                   "defaultValue": null
                 }
@@ -1158,8 +1158,8 @@
                   "nameOnMethod": "input",
                   "name": "input",
                   "jsonName": null,
-                  "type": "MetaKing.Admin.Manufacturers.CreateUpdateManufacturerDto",
-                  "typeSimple": "MetaKing.Admin.Manufacturers.CreateUpdateManufacturerDto",
+                  "type": "MetaKing.Admin.Catalog.Manufacturers.CreateUpdateManufacturerDto",
+                  "typeSimple": "MetaKing.Admin.Catalog.Manufacturers.CreateUpdateManufacturerDto",
                   "isOptional": false,
                   "defaultValue": null,
                   "constraintTypes": null,
@@ -1168,11 +1168,11 @@
                 }
               ],
               "returnValue": {
-                "type": "MetaKing.Admin.Manufacturers.ManufacturerDto",
-                "typeSimple": "MetaKing.Admin.Manufacturers.ManufacturerDto"
+                "type": "MetaKing.Admin.Catalog.Manufacturers.ManufacturerDto",
+                "typeSimple": "MetaKing.Admin.Catalog.Manufacturers.ManufacturerDto"
               },
               "allowAnonymous": true,
-              "implementFrom": "Volo.Abp.Application.Services.ICreateAppService<MetaKing.Admin.Manufacturers.ManufacturerDto,MetaKing.Admin.Manufacturers.CreateUpdateManufacturerDto>"
+              "implementFrom": "Volo.Abp.Application.Services.ICreateAppService<MetaKing.Admin.Catalog.Manufacturers.ManufacturerDto,MetaKing.Admin.Catalog.Manufacturers.CreateUpdateManufacturerDto>"
             },
             "UpdateAsyncByIdAndInput": {
               "uniqueName": "UpdateAsyncByIdAndInput",
@@ -1191,9 +1191,9 @@
                 },
                 {
                   "name": "input",
-                  "typeAsString": "MetaKing.Admin.Manufacturers.CreateUpdateManufacturerDto, MetaKing.Admin.Application.Contracts",
-                  "type": "MetaKing.Admin.Manufacturers.CreateUpdateManufacturerDto",
-                  "typeSimple": "MetaKing.Admin.Manufacturers.CreateUpdateManufacturerDto",
+                  "typeAsString": "MetaKing.Admin.Catalog.Manufacturers.CreateUpdateManufacturerDto, MetaKing.Admin.Application.Contracts",
+                  "type": "MetaKing.Admin.Catalog.Manufacturers.CreateUpdateManufacturerDto",
+                  "typeSimple": "MetaKing.Admin.Catalog.Manufacturers.CreateUpdateManufacturerDto",
                   "isOptional": false,
                   "defaultValue": null
                 }
@@ -1215,8 +1215,8 @@
                   "nameOnMethod": "input",
                   "name": "input",
                   "jsonName": null,
-                  "type": "MetaKing.Admin.Manufacturers.CreateUpdateManufacturerDto",
-                  "typeSimple": "MetaKing.Admin.Manufacturers.CreateUpdateManufacturerDto",
+                  "type": "MetaKing.Admin.Catalog.Manufacturers.CreateUpdateManufacturerDto",
+                  "typeSimple": "MetaKing.Admin.Catalog.Manufacturers.CreateUpdateManufacturerDto",
                   "isOptional": false,
                   "defaultValue": null,
                   "constraintTypes": null,
@@ -1225,11 +1225,11 @@
                 }
               ],
               "returnValue": {
-                "type": "MetaKing.Admin.Manufacturers.ManufacturerDto",
-                "typeSimple": "MetaKing.Admin.Manufacturers.ManufacturerDto"
+                "type": "MetaKing.Admin.Catalog.Manufacturers.ManufacturerDto",
+                "typeSimple": "MetaKing.Admin.Catalog.Manufacturers.ManufacturerDto"
               },
               "allowAnonymous": true,
-              "implementFrom": "Volo.Abp.Application.Services.IUpdateAppService<MetaKing.Admin.Manufacturers.ManufacturerDto,System.Guid,MetaKing.Admin.Manufacturers.CreateUpdateManufacturerDto>"
+              "implementFrom": "Volo.Abp.Application.Services.IUpdateAppService<MetaKing.Admin.Catalog.Manufacturers.ManufacturerDto,System.Guid,MetaKing.Admin.Catalog.Manufacturers.CreateUpdateManufacturerDto>"
             },
             "DeleteAsyncById": {
               "uniqueName": "DeleteAsyncById",
@@ -1299,11 +1299,11 @@
                 }
               ],
               "returnValue": {
-                "type": "MetaKing.Admin.Manufacturers.ManufacturerDto",
-                "typeSimple": "MetaKing.Admin.Manufacturers.ManufacturerDto"
+                "type": "MetaKing.Admin.Catalog.Manufacturers.ManufacturerDto",
+                "typeSimple": "MetaKing.Admin.Catalog.Manufacturers.ManufacturerDto"
               },
               "allowAnonymous": true,
-              "implementFrom": "Volo.Abp.Application.Services.IReadOnlyAppService<MetaKing.Admin.Manufacturers.ManufacturerDto,MetaKing.Admin.Manufacturers.ManufacturerDto,System.Guid,Volo.Abp.Application.Dtos.PagedResultRequestDto>"
+              "implementFrom": "Volo.Abp.Application.Services.IReadOnlyAppService<MetaKing.Admin.Catalog.Manufacturers.ManufacturerDto,MetaKing.Admin.Catalog.Manufacturers.ManufacturerDto,System.Guid,Volo.Abp.Application.Dtos.PagedResultRequestDto>"
             },
             "GetListAsyncByInput": {
               "uniqueName": "GetListAsyncByInput",
@@ -1348,24 +1348,24 @@
                 }
               ],
               "returnValue": {
-                "type": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.Manufacturers.ManufacturerDto>",
-                "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.Manufacturers.ManufacturerDto>"
+                "type": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.Catalog.Manufacturers.ManufacturerDto>",
+                "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.Catalog.Manufacturers.ManufacturerDto>"
               },
               "allowAnonymous": true,
-              "implementFrom": "Volo.Abp.Application.Services.IReadOnlyAppService<MetaKing.Admin.Manufacturers.ManufacturerDto,MetaKing.Admin.Manufacturers.ManufacturerDto,System.Guid,Volo.Abp.Application.Dtos.PagedResultRequestDto>"
+              "implementFrom": "Volo.Abp.Application.Services.IReadOnlyAppService<MetaKing.Admin.Catalog.Manufacturers.ManufacturerDto,MetaKing.Admin.Catalog.Manufacturers.ManufacturerDto,System.Guid,Volo.Abp.Application.Dtos.PagedResultRequestDto>"
             }
           }
         },
-        "MetaKing.Admin.ProductAttributes.ProductAttributesAppService": {
+        "MetaKing.Admin.Catalog.ProductAttributes.ProductAttributesAppService": {
           "controllerName": "ProductAttributes",
           "controllerGroupName": "ProductAttributes",
           "isRemoteService": true,
           "isIntegrationService": false,
           "apiVersion": null,
-          "type": "MetaKing.Admin.ProductAttributes.ProductAttributesAppService",
+          "type": "MetaKing.Admin.Catalog.ProductAttributes.ProductAttributesAppService",
           "interfaces": [
             {
-              "type": "MetaKing.Admin.ProductAttributes.IProductAttributesAppService",
+              "type": "MetaKing.Admin.Catalog.ProductAttributes.IProductAttributesAppService",
               "name": "IProductAttributesAppService",
               "methods": [
                 {
@@ -1381,16 +1381,16 @@
                     }
                   ],
                   "returnValue": {
-                    "type": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.ProductAttributes.ProductAttributeInListDto>",
-                    "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.ProductAttributes.ProductAttributeInListDto>"
+                    "type": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.Catalog.ProductAttributes.ProductAttributeInListDto>",
+                    "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.Catalog.ProductAttributes.ProductAttributeInListDto>"
                   }
                 },
                 {
                   "name": "GetListAllAsync",
                   "parametersOnMethod": [],
                   "returnValue": {
-                    "type": "System.Collections.Generic.List<MetaKing.Admin.ProductAttributes.ProductAttributeInListDto>",
-                    "typeSimple": "[MetaKing.Admin.ProductAttributes.ProductAttributeInListDto]"
+                    "type": "System.Collections.Generic.List<MetaKing.Admin.Catalog.ProductAttributes.ProductAttributeInListDto>",
+                    "typeSimple": "[MetaKing.Admin.Catalog.ProductAttributes.ProductAttributeInListDto]"
                   }
                 },
                 {
@@ -1423,8 +1423,8 @@
                     }
                   ],
                   "returnValue": {
-                    "type": "MetaKing.Admin.ProductAttributes.ProductAttributeDto",
-                    "typeSimple": "MetaKing.Admin.ProductAttributes.ProductAttributeDto"
+                    "type": "MetaKing.Admin.Catalog.ProductAttributes.ProductAttributeDto",
+                    "typeSimple": "MetaKing.Admin.Catalog.ProductAttributes.ProductAttributeDto"
                   }
                 },
                 {
@@ -1440,8 +1440,8 @@
                     }
                   ],
                   "returnValue": {
-                    "type": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.ProductAttributes.ProductAttributeDto>",
-                    "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.ProductAttributes.ProductAttributeDto>"
+                    "type": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.Catalog.ProductAttributes.ProductAttributeDto>",
+                    "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.Catalog.ProductAttributes.ProductAttributeDto>"
                   }
                 },
                 {
@@ -1449,16 +1449,16 @@
                   "parametersOnMethod": [
                     {
                       "name": "input",
-                      "typeAsString": "MetaKing.Admin.ProductAttributes.CreateUpdateProductAttributeDto, MetaKing.Admin.Application.Contracts",
-                      "type": "MetaKing.Admin.ProductAttributes.CreateUpdateProductAttributeDto",
-                      "typeSimple": "MetaKing.Admin.ProductAttributes.CreateUpdateProductAttributeDto",
+                      "typeAsString": "MetaKing.Admin.Catalog.ProductAttributes.CreateUpdateProductAttributeDto, MetaKing.Admin.Application.Contracts",
+                      "type": "MetaKing.Admin.Catalog.ProductAttributes.CreateUpdateProductAttributeDto",
+                      "typeSimple": "MetaKing.Admin.Catalog.ProductAttributes.CreateUpdateProductAttributeDto",
                       "isOptional": false,
                       "defaultValue": null
                     }
                   ],
                   "returnValue": {
-                    "type": "MetaKing.Admin.ProductAttributes.ProductAttributeDto",
-                    "typeSimple": "MetaKing.Admin.ProductAttributes.ProductAttributeDto"
+                    "type": "MetaKing.Admin.Catalog.ProductAttributes.ProductAttributeDto",
+                    "typeSimple": "MetaKing.Admin.Catalog.ProductAttributes.ProductAttributeDto"
                   }
                 },
                 {
@@ -1474,16 +1474,16 @@
                     },
                     {
                       "name": "input",
-                      "typeAsString": "MetaKing.Admin.ProductAttributes.CreateUpdateProductAttributeDto, MetaKing.Admin.Application.Contracts",
-                      "type": "MetaKing.Admin.ProductAttributes.CreateUpdateProductAttributeDto",
-                      "typeSimple": "MetaKing.Admin.ProductAttributes.CreateUpdateProductAttributeDto",
+                      "typeAsString": "MetaKing.Admin.Catalog.ProductAttributes.CreateUpdateProductAttributeDto, MetaKing.Admin.Application.Contracts",
+                      "type": "MetaKing.Admin.Catalog.ProductAttributes.CreateUpdateProductAttributeDto",
+                      "typeSimple": "MetaKing.Admin.Catalog.ProductAttributes.CreateUpdateProductAttributeDto",
                       "isOptional": false,
                       "defaultValue": null
                     }
                   ],
                   "returnValue": {
-                    "type": "MetaKing.Admin.ProductAttributes.ProductAttributeDto",
-                    "typeSimple": "MetaKing.Admin.ProductAttributes.ProductAttributeDto"
+                    "type": "MetaKing.Admin.Catalog.ProductAttributes.ProductAttributeDto",
+                    "typeSimple": "MetaKing.Admin.Catalog.ProductAttributes.ProductAttributeDto"
                   }
                 },
                 {
@@ -1542,7 +1542,7 @@
                 "typeSimple": "System.Void"
               },
               "allowAnonymous": true,
-              "implementFrom": "MetaKing.Admin.ProductAttributes.IProductAttributesAppService"
+              "implementFrom": "MetaKing.Admin.Catalog.ProductAttributes.IProductAttributesAppService"
             },
             "GetListAllAsync": {
               "uniqueName": "GetListAllAsync",
@@ -1553,11 +1553,11 @@
               "parametersOnMethod": [],
               "parameters": [],
               "returnValue": {
-                "type": "System.Collections.Generic.List<MetaKing.Admin.ProductAttributes.ProductAttributeInListDto>",
-                "typeSimple": "[MetaKing.Admin.ProductAttributes.ProductAttributeInListDto]"
+                "type": "System.Collections.Generic.List<MetaKing.Admin.Catalog.ProductAttributes.ProductAttributeInListDto>",
+                "typeSimple": "[MetaKing.Admin.Catalog.ProductAttributes.ProductAttributeInListDto]"
               },
               "allowAnonymous": true,
-              "implementFrom": "MetaKing.Admin.ProductAttributes.IProductAttributesAppService"
+              "implementFrom": "MetaKing.Admin.Catalog.ProductAttributes.IProductAttributesAppService"
             },
             "GetListFilterAsyncByInput": {
               "uniqueName": "GetListFilterAsyncByInput",
@@ -1614,11 +1614,11 @@
                 }
               ],
               "returnValue": {
-                "type": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.ProductAttributes.ProductAttributeInListDto>",
-                "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.ProductAttributes.ProductAttributeInListDto>"
+                "type": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.Catalog.ProductAttributes.ProductAttributeInListDto>",
+                "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.Catalog.ProductAttributes.ProductAttributeInListDto>"
               },
               "allowAnonymous": true,
-              "implementFrom": "MetaKing.Admin.ProductAttributes.IProductAttributesAppService"
+              "implementFrom": "MetaKing.Admin.Catalog.ProductAttributes.IProductAttributesAppService"
             },
             "CreateAsyncByInput": {
               "uniqueName": "CreateAsyncByInput",
@@ -1629,9 +1629,9 @@
               "parametersOnMethod": [
                 {
                   "name": "input",
-                  "typeAsString": "MetaKing.Admin.ProductAttributes.CreateUpdateProductAttributeDto, MetaKing.Admin.Application.Contracts",
-                  "type": "MetaKing.Admin.ProductAttributes.CreateUpdateProductAttributeDto",
-                  "typeSimple": "MetaKing.Admin.ProductAttributes.CreateUpdateProductAttributeDto",
+                  "typeAsString": "MetaKing.Admin.Catalog.ProductAttributes.CreateUpdateProductAttributeDto, MetaKing.Admin.Application.Contracts",
+                  "type": "MetaKing.Admin.Catalog.ProductAttributes.CreateUpdateProductAttributeDto",
+                  "typeSimple": "MetaKing.Admin.Catalog.ProductAttributes.CreateUpdateProductAttributeDto",
                   "isOptional": false,
                   "defaultValue": null
                 }
@@ -1641,8 +1641,8 @@
                   "nameOnMethod": "input",
                   "name": "input",
                   "jsonName": null,
-                  "type": "MetaKing.Admin.ProductAttributes.CreateUpdateProductAttributeDto",
-                  "typeSimple": "MetaKing.Admin.ProductAttributes.CreateUpdateProductAttributeDto",
+                  "type": "MetaKing.Admin.Catalog.ProductAttributes.CreateUpdateProductAttributeDto",
+                  "typeSimple": "MetaKing.Admin.Catalog.ProductAttributes.CreateUpdateProductAttributeDto",
                   "isOptional": false,
                   "defaultValue": null,
                   "constraintTypes": null,
@@ -1651,11 +1651,11 @@
                 }
               ],
               "returnValue": {
-                "type": "MetaKing.Admin.ProductAttributes.ProductAttributeDto",
-                "typeSimple": "MetaKing.Admin.ProductAttributes.ProductAttributeDto"
+                "type": "MetaKing.Admin.Catalog.ProductAttributes.ProductAttributeDto",
+                "typeSimple": "MetaKing.Admin.Catalog.ProductAttributes.ProductAttributeDto"
               },
               "allowAnonymous": true,
-              "implementFrom": "Volo.Abp.Application.Services.ICreateAppService<MetaKing.Admin.ProductAttributes.ProductAttributeDto,MetaKing.Admin.ProductAttributes.CreateUpdateProductAttributeDto>"
+              "implementFrom": "Volo.Abp.Application.Services.ICreateAppService<MetaKing.Admin.Catalog.ProductAttributes.ProductAttributeDto,MetaKing.Admin.Catalog.ProductAttributes.CreateUpdateProductAttributeDto>"
             },
             "UpdateAsyncByIdAndInput": {
               "uniqueName": "UpdateAsyncByIdAndInput",
@@ -1674,9 +1674,9 @@
                 },
                 {
                   "name": "input",
-                  "typeAsString": "MetaKing.Admin.ProductAttributes.CreateUpdateProductAttributeDto, MetaKing.Admin.Application.Contracts",
-                  "type": "MetaKing.Admin.ProductAttributes.CreateUpdateProductAttributeDto",
-                  "typeSimple": "MetaKing.Admin.ProductAttributes.CreateUpdateProductAttributeDto",
+                  "typeAsString": "MetaKing.Admin.Catalog.ProductAttributes.CreateUpdateProductAttributeDto, MetaKing.Admin.Application.Contracts",
+                  "type": "MetaKing.Admin.Catalog.ProductAttributes.CreateUpdateProductAttributeDto",
+                  "typeSimple": "MetaKing.Admin.Catalog.ProductAttributes.CreateUpdateProductAttributeDto",
                   "isOptional": false,
                   "defaultValue": null
                 }
@@ -1698,8 +1698,8 @@
                   "nameOnMethod": "input",
                   "name": "input",
                   "jsonName": null,
-                  "type": "MetaKing.Admin.ProductAttributes.CreateUpdateProductAttributeDto",
-                  "typeSimple": "MetaKing.Admin.ProductAttributes.CreateUpdateProductAttributeDto",
+                  "type": "MetaKing.Admin.Catalog.ProductAttributes.CreateUpdateProductAttributeDto",
+                  "typeSimple": "MetaKing.Admin.Catalog.ProductAttributes.CreateUpdateProductAttributeDto",
                   "isOptional": false,
                   "defaultValue": null,
                   "constraintTypes": null,
@@ -1708,11 +1708,11 @@
                 }
               ],
               "returnValue": {
-                "type": "MetaKing.Admin.ProductAttributes.ProductAttributeDto",
-                "typeSimple": "MetaKing.Admin.ProductAttributes.ProductAttributeDto"
+                "type": "MetaKing.Admin.Catalog.ProductAttributes.ProductAttributeDto",
+                "typeSimple": "MetaKing.Admin.Catalog.ProductAttributes.ProductAttributeDto"
               },
               "allowAnonymous": true,
-              "implementFrom": "Volo.Abp.Application.Services.IUpdateAppService<MetaKing.Admin.ProductAttributes.ProductAttributeDto,System.Guid,MetaKing.Admin.ProductAttributes.CreateUpdateProductAttributeDto>"
+              "implementFrom": "Volo.Abp.Application.Services.IUpdateAppService<MetaKing.Admin.Catalog.ProductAttributes.ProductAttributeDto,System.Guid,MetaKing.Admin.Catalog.ProductAttributes.CreateUpdateProductAttributeDto>"
             },
             "DeleteAsyncById": {
               "uniqueName": "DeleteAsyncById",
@@ -1782,11 +1782,11 @@
                 }
               ],
               "returnValue": {
-                "type": "MetaKing.Admin.ProductAttributes.ProductAttributeDto",
-                "typeSimple": "MetaKing.Admin.ProductAttributes.ProductAttributeDto"
+                "type": "MetaKing.Admin.Catalog.ProductAttributes.ProductAttributeDto",
+                "typeSimple": "MetaKing.Admin.Catalog.ProductAttributes.ProductAttributeDto"
               },
               "allowAnonymous": true,
-              "implementFrom": "Volo.Abp.Application.Services.IReadOnlyAppService<MetaKing.Admin.ProductAttributes.ProductAttributeDto,MetaKing.Admin.ProductAttributes.ProductAttributeDto,System.Guid,Volo.Abp.Application.Dtos.PagedResultRequestDto>"
+              "implementFrom": "Volo.Abp.Application.Services.IReadOnlyAppService<MetaKing.Admin.Catalog.ProductAttributes.ProductAttributeDto,MetaKing.Admin.Catalog.ProductAttributes.ProductAttributeDto,System.Guid,Volo.Abp.Application.Dtos.PagedResultRequestDto>"
             },
             "GetListAsyncByInput": {
               "uniqueName": "GetListAsyncByInput",
@@ -1831,24 +1831,24 @@
                 }
               ],
               "returnValue": {
-                "type": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.ProductAttributes.ProductAttributeDto>",
-                "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.ProductAttributes.ProductAttributeDto>"
+                "type": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.Catalog.ProductAttributes.ProductAttributeDto>",
+                "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.Catalog.ProductAttributes.ProductAttributeDto>"
               },
               "allowAnonymous": true,
-              "implementFrom": "Volo.Abp.Application.Services.IReadOnlyAppService<MetaKing.Admin.ProductAttributes.ProductAttributeDto,MetaKing.Admin.ProductAttributes.ProductAttributeDto,System.Guid,Volo.Abp.Application.Dtos.PagedResultRequestDto>"
+              "implementFrom": "Volo.Abp.Application.Services.IReadOnlyAppService<MetaKing.Admin.Catalog.ProductAttributes.ProductAttributeDto,MetaKing.Admin.Catalog.ProductAttributes.ProductAttributeDto,System.Guid,Volo.Abp.Application.Dtos.PagedResultRequestDto>"
             }
           }
         },
-        "MetaKing.Admin.ProductCategories.ProductCategoriesAppService": {
+        "MetaKing.Admin.Catalog.ProductCategories.ProductCategoriesAppService": {
           "controllerName": "ProductCategories",
           "controllerGroupName": "ProductCategories",
           "isRemoteService": true,
           "isIntegrationService": false,
           "apiVersion": null,
-          "type": "MetaKing.Admin.ProductCategories.ProductCategoriesAppService",
+          "type": "MetaKing.Admin.Catalog.ProductCategories.ProductCategoriesAppService",
           "interfaces": [
             {
-              "type": "MetaKing.Admin.ProductCategories.IProductCategoriesAppService",
+              "type": "MetaKing.Admin.Catalog.ProductCategories.IProductCategoriesAppService",
               "name": "IProductCategoriesAppService",
               "methods": [
                 {
@@ -1864,16 +1864,41 @@
                     }
                   ],
                   "returnValue": {
-                    "type": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.ProductCategories.ProductCategoryInListDto>",
-                    "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.ProductCategories.ProductCategoryInListDto>"
+                    "type": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.Catalog.ProductCategories.ProductCategoryInListDto>",
+                    "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.Catalog.ProductCategories.ProductCategoryInListDto>"
                   }
                 },
                 {
                   "name": "GetListAllAsync",
                   "parametersOnMethod": [],
                   "returnValue": {
-                    "type": "System.Collections.Generic.List<MetaKing.Admin.ProductCategories.ProductCategoryInListDto>",
-                    "typeSimple": "[MetaKing.Admin.ProductCategories.ProductCategoryInListDto]"
+                    "type": "System.Collections.Generic.List<MetaKing.Admin.Catalog.ProductCategories.ProductCategoryInListDto>",
+                    "typeSimple": "[MetaKing.Admin.Catalog.ProductCategories.ProductCategoryInListDto]"
+                  }
+                },
+                {
+                  "name": "GetListParentAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "System.Collections.Generic.List<MetaKing.Admin.Catalog.ProductCategories.ProductCategoryInListDto>",
+                    "typeSimple": "[MetaKing.Admin.Catalog.ProductCategories.ProductCategoryInListDto]"
+                  }
+                },
+                {
+                  "name": "GetListChildAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "parentId",
+                      "typeAsString": "System.Guid, System.Private.CoreLib",
+                      "type": "System.Guid",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Collections.Generic.List<MetaKing.Admin.Catalog.ProductCategories.ProductCategoryInListDto>",
+                    "typeSimple": "[MetaKing.Admin.Catalog.ProductCategories.ProductCategoryInListDto]"
                   }
                 },
                 {
@@ -1906,8 +1931,8 @@
                     }
                   ],
                   "returnValue": {
-                    "type": "MetaKing.Admin.ProductCategories.ProductCategoryDto",
-                    "typeSimple": "MetaKing.Admin.ProductCategories.ProductCategoryDto"
+                    "type": "MetaKing.Admin.Catalog.ProductCategories.ProductCategoryDto",
+                    "typeSimple": "MetaKing.Admin.Catalog.ProductCategories.ProductCategoryDto"
                   }
                 },
                 {
@@ -1923,8 +1948,8 @@
                     }
                   ],
                   "returnValue": {
-                    "type": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.ProductCategories.ProductCategoryDto>",
-                    "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.ProductCategories.ProductCategoryDto>"
+                    "type": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.Catalog.ProductCategories.ProductCategoryDto>",
+                    "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.Catalog.ProductCategories.ProductCategoryDto>"
                   }
                 },
                 {
@@ -1932,16 +1957,16 @@
                   "parametersOnMethod": [
                     {
                       "name": "input",
-                      "typeAsString": "MetaKing.Admin.ProductCategories.CreateUpdateProductCategoryDto, MetaKing.Admin.Application.Contracts",
-                      "type": "MetaKing.Admin.ProductCategories.CreateUpdateProductCategoryDto",
-                      "typeSimple": "MetaKing.Admin.ProductCategories.CreateUpdateProductCategoryDto",
+                      "typeAsString": "MetaKing.Admin.Catalog.ProductCategories.CreateUpdateProductCategoryDto, MetaKing.Admin.Application.Contracts",
+                      "type": "MetaKing.Admin.Catalog.ProductCategories.CreateUpdateProductCategoryDto",
+                      "typeSimple": "MetaKing.Admin.Catalog.ProductCategories.CreateUpdateProductCategoryDto",
                       "isOptional": false,
                       "defaultValue": null
                     }
                   ],
                   "returnValue": {
-                    "type": "MetaKing.Admin.ProductCategories.ProductCategoryDto",
-                    "typeSimple": "MetaKing.Admin.ProductCategories.ProductCategoryDto"
+                    "type": "MetaKing.Admin.Catalog.ProductCategories.ProductCategoryDto",
+                    "typeSimple": "MetaKing.Admin.Catalog.ProductCategories.ProductCategoryDto"
                   }
                 },
                 {
@@ -1957,16 +1982,16 @@
                     },
                     {
                       "name": "input",
-                      "typeAsString": "MetaKing.Admin.ProductCategories.CreateUpdateProductCategoryDto, MetaKing.Admin.Application.Contracts",
-                      "type": "MetaKing.Admin.ProductCategories.CreateUpdateProductCategoryDto",
-                      "typeSimple": "MetaKing.Admin.ProductCategories.CreateUpdateProductCategoryDto",
+                      "typeAsString": "MetaKing.Admin.Catalog.ProductCategories.CreateUpdateProductCategoryDto, MetaKing.Admin.Application.Contracts",
+                      "type": "MetaKing.Admin.Catalog.ProductCategories.CreateUpdateProductCategoryDto",
+                      "typeSimple": "MetaKing.Admin.Catalog.ProductCategories.CreateUpdateProductCategoryDto",
                       "isOptional": false,
                       "defaultValue": null
                     }
                   ],
                   "returnValue": {
-                    "type": "MetaKing.Admin.ProductCategories.ProductCategoryDto",
-                    "typeSimple": "MetaKing.Admin.ProductCategories.ProductCategoryDto"
+                    "type": "MetaKing.Admin.Catalog.ProductCategories.ProductCategoryDto",
+                    "typeSimple": "MetaKing.Admin.Catalog.ProductCategories.ProductCategoryDto"
                   }
                 },
                 {
@@ -2025,7 +2050,7 @@
                 "typeSimple": "System.Void"
               },
               "allowAnonymous": true,
-              "implementFrom": "MetaKing.Admin.ProductCategories.IProductCategoriesAppService"
+              "implementFrom": "MetaKing.Admin.Catalog.ProductCategories.IProductCategoriesAppService"
             },
             "GetListAllAsync": {
               "uniqueName": "GetListAllAsync",
@@ -2036,11 +2061,63 @@
               "parametersOnMethod": [],
               "parameters": [],
               "returnValue": {
-                "type": "System.Collections.Generic.List<MetaKing.Admin.ProductCategories.ProductCategoryInListDto>",
-                "typeSimple": "[MetaKing.Admin.ProductCategories.ProductCategoryInListDto]"
+                "type": "System.Collections.Generic.List<MetaKing.Admin.Catalog.ProductCategories.ProductCategoryInListDto>",
+                "typeSimple": "[MetaKing.Admin.Catalog.ProductCategories.ProductCategoryInListDto]"
               },
               "allowAnonymous": true,
-              "implementFrom": "MetaKing.Admin.ProductCategories.IProductCategoriesAppService"
+              "implementFrom": "MetaKing.Admin.Catalog.ProductCategories.IProductCategoriesAppService"
+            },
+            "GetListParentAsync": {
+              "uniqueName": "GetListParentAsync",
+              "name": "GetListParentAsync",
+              "httpMethod": "GET",
+              "url": "api/app/product-categories/parent",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<MetaKing.Admin.Catalog.ProductCategories.ProductCategoryInListDto>",
+                "typeSimple": "[MetaKing.Admin.Catalog.ProductCategories.ProductCategoryInListDto]"
+              },
+              "allowAnonymous": true,
+              "implementFrom": "MetaKing.Admin.Catalog.ProductCategories.IProductCategoriesAppService"
+            },
+            "GetListChildAsyncByParentId": {
+              "uniqueName": "GetListChildAsyncByParentId",
+              "name": "GetListChildAsync",
+              "httpMethod": "GET",
+              "url": "api/app/product-categories/child/{parentId}",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "parentId",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "parentId",
+                  "name": "parentId",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<MetaKing.Admin.Catalog.ProductCategories.ProductCategoryInListDto>",
+                "typeSimple": "[MetaKing.Admin.Catalog.ProductCategories.ProductCategoryInListDto]"
+              },
+              "allowAnonymous": true,
+              "implementFrom": "MetaKing.Admin.Catalog.ProductCategories.IProductCategoriesAppService"
             },
             "GetListFilterAsyncByInput": {
               "uniqueName": "GetListFilterAsyncByInput",
@@ -2097,11 +2174,11 @@
                 }
               ],
               "returnValue": {
-                "type": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.ProductCategories.ProductCategoryInListDto>",
-                "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.ProductCategories.ProductCategoryInListDto>"
+                "type": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.Catalog.ProductCategories.ProductCategoryInListDto>",
+                "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.Catalog.ProductCategories.ProductCategoryInListDto>"
               },
               "allowAnonymous": true,
-              "implementFrom": "MetaKing.Admin.ProductCategories.IProductCategoriesAppService"
+              "implementFrom": "MetaKing.Admin.Catalog.ProductCategories.IProductCategoriesAppService"
             },
             "CreateAsyncByInput": {
               "uniqueName": "CreateAsyncByInput",
@@ -2112,9 +2189,9 @@
               "parametersOnMethod": [
                 {
                   "name": "input",
-                  "typeAsString": "MetaKing.Admin.ProductCategories.CreateUpdateProductCategoryDto, MetaKing.Admin.Application.Contracts",
-                  "type": "MetaKing.Admin.ProductCategories.CreateUpdateProductCategoryDto",
-                  "typeSimple": "MetaKing.Admin.ProductCategories.CreateUpdateProductCategoryDto",
+                  "typeAsString": "MetaKing.Admin.Catalog.ProductCategories.CreateUpdateProductCategoryDto, MetaKing.Admin.Application.Contracts",
+                  "type": "MetaKing.Admin.Catalog.ProductCategories.CreateUpdateProductCategoryDto",
+                  "typeSimple": "MetaKing.Admin.Catalog.ProductCategories.CreateUpdateProductCategoryDto",
                   "isOptional": false,
                   "defaultValue": null
                 }
@@ -2124,8 +2201,8 @@
                   "nameOnMethod": "input",
                   "name": "input",
                   "jsonName": null,
-                  "type": "MetaKing.Admin.ProductCategories.CreateUpdateProductCategoryDto",
-                  "typeSimple": "MetaKing.Admin.ProductCategories.CreateUpdateProductCategoryDto",
+                  "type": "MetaKing.Admin.Catalog.ProductCategories.CreateUpdateProductCategoryDto",
+                  "typeSimple": "MetaKing.Admin.Catalog.ProductCategories.CreateUpdateProductCategoryDto",
                   "isOptional": false,
                   "defaultValue": null,
                   "constraintTypes": null,
@@ -2134,11 +2211,11 @@
                 }
               ],
               "returnValue": {
-                "type": "MetaKing.Admin.ProductCategories.ProductCategoryDto",
-                "typeSimple": "MetaKing.Admin.ProductCategories.ProductCategoryDto"
+                "type": "MetaKing.Admin.Catalog.ProductCategories.ProductCategoryDto",
+                "typeSimple": "MetaKing.Admin.Catalog.ProductCategories.ProductCategoryDto"
               },
               "allowAnonymous": true,
-              "implementFrom": "Volo.Abp.Application.Services.ICreateAppService<MetaKing.Admin.ProductCategories.ProductCategoryDto,MetaKing.Admin.ProductCategories.CreateUpdateProductCategoryDto>"
+              "implementFrom": "Volo.Abp.Application.Services.ICreateAppService<MetaKing.Admin.Catalog.ProductCategories.ProductCategoryDto,MetaKing.Admin.Catalog.ProductCategories.CreateUpdateProductCategoryDto>"
             },
             "UpdateAsyncByIdAndInput": {
               "uniqueName": "UpdateAsyncByIdAndInput",
@@ -2157,9 +2234,9 @@
                 },
                 {
                   "name": "input",
-                  "typeAsString": "MetaKing.Admin.ProductCategories.CreateUpdateProductCategoryDto, MetaKing.Admin.Application.Contracts",
-                  "type": "MetaKing.Admin.ProductCategories.CreateUpdateProductCategoryDto",
-                  "typeSimple": "MetaKing.Admin.ProductCategories.CreateUpdateProductCategoryDto",
+                  "typeAsString": "MetaKing.Admin.Catalog.ProductCategories.CreateUpdateProductCategoryDto, MetaKing.Admin.Application.Contracts",
+                  "type": "MetaKing.Admin.Catalog.ProductCategories.CreateUpdateProductCategoryDto",
+                  "typeSimple": "MetaKing.Admin.Catalog.ProductCategories.CreateUpdateProductCategoryDto",
                   "isOptional": false,
                   "defaultValue": null
                 }
@@ -2181,8 +2258,8 @@
                   "nameOnMethod": "input",
                   "name": "input",
                   "jsonName": null,
-                  "type": "MetaKing.Admin.ProductCategories.CreateUpdateProductCategoryDto",
-                  "typeSimple": "MetaKing.Admin.ProductCategories.CreateUpdateProductCategoryDto",
+                  "type": "MetaKing.Admin.Catalog.ProductCategories.CreateUpdateProductCategoryDto",
+                  "typeSimple": "MetaKing.Admin.Catalog.ProductCategories.CreateUpdateProductCategoryDto",
                   "isOptional": false,
                   "defaultValue": null,
                   "constraintTypes": null,
@@ -2191,11 +2268,11 @@
                 }
               ],
               "returnValue": {
-                "type": "MetaKing.Admin.ProductCategories.ProductCategoryDto",
-                "typeSimple": "MetaKing.Admin.ProductCategories.ProductCategoryDto"
+                "type": "MetaKing.Admin.Catalog.ProductCategories.ProductCategoryDto",
+                "typeSimple": "MetaKing.Admin.Catalog.ProductCategories.ProductCategoryDto"
               },
               "allowAnonymous": true,
-              "implementFrom": "Volo.Abp.Application.Services.IUpdateAppService<MetaKing.Admin.ProductCategories.ProductCategoryDto,System.Guid,MetaKing.Admin.ProductCategories.CreateUpdateProductCategoryDto>"
+              "implementFrom": "Volo.Abp.Application.Services.IUpdateAppService<MetaKing.Admin.Catalog.ProductCategories.ProductCategoryDto,System.Guid,MetaKing.Admin.Catalog.ProductCategories.CreateUpdateProductCategoryDto>"
             },
             "DeleteAsyncById": {
               "uniqueName": "DeleteAsyncById",
@@ -2265,11 +2342,11 @@
                 }
               ],
               "returnValue": {
-                "type": "MetaKing.Admin.ProductCategories.ProductCategoryDto",
-                "typeSimple": "MetaKing.Admin.ProductCategories.ProductCategoryDto"
+                "type": "MetaKing.Admin.Catalog.ProductCategories.ProductCategoryDto",
+                "typeSimple": "MetaKing.Admin.Catalog.ProductCategories.ProductCategoryDto"
               },
               "allowAnonymous": true,
-              "implementFrom": "Volo.Abp.Application.Services.IReadOnlyAppService<MetaKing.Admin.ProductCategories.ProductCategoryDto,MetaKing.Admin.ProductCategories.ProductCategoryDto,System.Guid,Volo.Abp.Application.Dtos.PagedResultRequestDto>"
+              "implementFrom": "Volo.Abp.Application.Services.IReadOnlyAppService<MetaKing.Admin.Catalog.ProductCategories.ProductCategoryDto,MetaKing.Admin.Catalog.ProductCategories.ProductCategoryDto,System.Guid,Volo.Abp.Application.Dtos.PagedResultRequestDto>"
             },
             "GetListAsyncByInput": {
               "uniqueName": "GetListAsyncByInput",
@@ -2314,21 +2391,21 @@
                 }
               ],
               "returnValue": {
-                "type": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.ProductCategories.ProductCategoryDto>",
-                "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.ProductCategories.ProductCategoryDto>"
+                "type": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.Catalog.ProductCategories.ProductCategoryDto>",
+                "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.Catalog.ProductCategories.ProductCategoryDto>"
               },
               "allowAnonymous": true,
-              "implementFrom": "Volo.Abp.Application.Services.IReadOnlyAppService<MetaKing.Admin.ProductCategories.ProductCategoryDto,MetaKing.Admin.ProductCategories.ProductCategoryDto,System.Guid,Volo.Abp.Application.Dtos.PagedResultRequestDto>"
+              "implementFrom": "Volo.Abp.Application.Services.IReadOnlyAppService<MetaKing.Admin.Catalog.ProductCategories.ProductCategoryDto,MetaKing.Admin.Catalog.ProductCategories.ProductCategoryDto,System.Guid,Volo.Abp.Application.Dtos.PagedResultRequestDto>"
             }
           }
         },
-        "MetaKing.Admin.Products.ProductsAppService": {
+        "MetaKing.Admin.Catalog.Products.ProductsAppService": {
           "controllerName": "Products",
           "controllerGroupName": "Products",
           "isRemoteService": true,
           "isIntegrationService": false,
           "apiVersion": null,
-          "type": "MetaKing.Admin.Products.ProductsAppService",
+          "type": "MetaKing.Admin.Catalog.Products.ProductsAppService",
           "interfaces": [
             {
               "type": "MetaKing.Admin.Catalog.Products.IProductsAppService",
@@ -3256,16 +3333,16 @@
             }
           }
         },
-        "MetaKing.Admin.Roles.RolesAppService": {
+        "MetaKing.Admin.System.Roles.RolesAppService": {
           "controllerName": "Roles",
           "controllerGroupName": "Roles",
           "isRemoteService": true,
           "isIntegrationService": false,
           "apiVersion": null,
-          "type": "MetaKing.Admin.Roles.RolesAppService",
+          "type": "MetaKing.Admin.System.Roles.RolesAppService",
           "interfaces": [
             {
-              "type": "MetaKing.Admin.Roles.IRolesAppService",
+              "type": "MetaKing.Admin.System.Roles.IRolesAppService",
               "name": "IRolesAppService",
               "methods": [
                 {
@@ -3281,16 +3358,16 @@
                     }
                   ],
                   "returnValue": {
-                    "type": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.Roles.RoleInListDto>",
-                    "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.Roles.RoleInListDto>"
+                    "type": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.System.Roles.RoleInListDto>",
+                    "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.System.Roles.RoleInListDto>"
                   }
                 },
                 {
                   "name": "GetListAllAsync",
                   "parametersOnMethod": [],
                   "returnValue": {
-                    "type": "System.Collections.Generic.List<MetaKing.Admin.Roles.RoleInListDto>",
-                    "typeSimple": "[MetaKing.Admin.Roles.RoleInListDto]"
+                    "type": "System.Collections.Generic.List<MetaKing.Admin.System.Roles.RoleInListDto>",
+                    "typeSimple": "[MetaKing.Admin.System.Roles.RoleInListDto]"
                   }
                 },
                 {
@@ -3381,8 +3458,8 @@
                     }
                   ],
                   "returnValue": {
-                    "type": "MetaKing.Admin.Roles.RoleDto",
-                    "typeSimple": "MetaKing.Admin.Roles.RoleDto"
+                    "type": "MetaKing.Admin.System.Roles.RoleDto",
+                    "typeSimple": "MetaKing.Admin.System.Roles.RoleDto"
                   }
                 },
                 {
@@ -3398,8 +3475,8 @@
                     }
                   ],
                   "returnValue": {
-                    "type": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.Roles.RoleDto>",
-                    "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.Roles.RoleDto>"
+                    "type": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.System.Roles.RoleDto>",
+                    "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.System.Roles.RoleDto>"
                   }
                 },
                 {
@@ -3407,16 +3484,16 @@
                   "parametersOnMethod": [
                     {
                       "name": "input",
-                      "typeAsString": "MetaKing.Admin.Roles.CreateUpdateRoleDto, MetaKing.Admin.Application.Contracts",
-                      "type": "MetaKing.Admin.Roles.CreateUpdateRoleDto",
-                      "typeSimple": "MetaKing.Admin.Roles.CreateUpdateRoleDto",
+                      "typeAsString": "MetaKing.Admin.System.Roles.CreateUpdateRoleDto, MetaKing.Admin.Application.Contracts",
+                      "type": "MetaKing.Admin.System.Roles.CreateUpdateRoleDto",
+                      "typeSimple": "MetaKing.Admin.System.Roles.CreateUpdateRoleDto",
                       "isOptional": false,
                       "defaultValue": null
                     }
                   ],
                   "returnValue": {
-                    "type": "MetaKing.Admin.Roles.RoleDto",
-                    "typeSimple": "MetaKing.Admin.Roles.RoleDto"
+                    "type": "MetaKing.Admin.System.Roles.RoleDto",
+                    "typeSimple": "MetaKing.Admin.System.Roles.RoleDto"
                   }
                 },
                 {
@@ -3432,16 +3509,16 @@
                     },
                     {
                       "name": "input",
-                      "typeAsString": "MetaKing.Admin.Roles.CreateUpdateRoleDto, MetaKing.Admin.Application.Contracts",
-                      "type": "MetaKing.Admin.Roles.CreateUpdateRoleDto",
-                      "typeSimple": "MetaKing.Admin.Roles.CreateUpdateRoleDto",
+                      "typeAsString": "MetaKing.Admin.System.Roles.CreateUpdateRoleDto, MetaKing.Admin.Application.Contracts",
+                      "type": "MetaKing.Admin.System.Roles.CreateUpdateRoleDto",
+                      "typeSimple": "MetaKing.Admin.System.Roles.CreateUpdateRoleDto",
                       "isOptional": false,
                       "defaultValue": null
                     }
                   ],
                   "returnValue": {
-                    "type": "MetaKing.Admin.Roles.RoleDto",
-                    "typeSimple": "MetaKing.Admin.Roles.RoleDto"
+                    "type": "MetaKing.Admin.System.Roles.RoleDto",
+                    "typeSimple": "MetaKing.Admin.System.Roles.RoleDto"
                   }
                 },
                 {
@@ -3500,7 +3577,7 @@
                 "typeSimple": "System.Void"
               },
               "allowAnonymous": true,
-              "implementFrom": "MetaKing.Admin.Roles.IRolesAppService"
+              "implementFrom": "MetaKing.Admin.System.Roles.IRolesAppService"
             },
             "GetListAllAsync": {
               "uniqueName": "GetListAllAsync",
@@ -3511,11 +3588,11 @@
               "parametersOnMethod": [],
               "parameters": [],
               "returnValue": {
-                "type": "System.Collections.Generic.List<MetaKing.Admin.Roles.RoleInListDto>",
-                "typeSimple": "[MetaKing.Admin.Roles.RoleInListDto]"
+                "type": "System.Collections.Generic.List<MetaKing.Admin.System.Roles.RoleInListDto>",
+                "typeSimple": "[MetaKing.Admin.System.Roles.RoleInListDto]"
               },
               "allowAnonymous": true,
-              "implementFrom": "MetaKing.Admin.Roles.IRolesAppService"
+              "implementFrom": "MetaKing.Admin.System.Roles.IRolesAppService"
             },
             "GetListFilterAsyncByInput": {
               "uniqueName": "GetListFilterAsyncByInput",
@@ -3572,11 +3649,11 @@
                 }
               ],
               "returnValue": {
-                "type": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.Roles.RoleInListDto>",
-                "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.Roles.RoleInListDto>"
+                "type": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.System.Roles.RoleInListDto>",
+                "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.System.Roles.RoleInListDto>"
               },
               "allowAnonymous": true,
-              "implementFrom": "MetaKing.Admin.Roles.IRolesAppService"
+              "implementFrom": "MetaKing.Admin.System.Roles.IRolesAppService"
             },
             "CreateAsyncByInput": {
               "uniqueName": "CreateAsyncByInput",
@@ -3587,9 +3664,9 @@
               "parametersOnMethod": [
                 {
                   "name": "input",
-                  "typeAsString": "MetaKing.Admin.Roles.CreateUpdateRoleDto, MetaKing.Admin.Application.Contracts",
-                  "type": "MetaKing.Admin.Roles.CreateUpdateRoleDto",
-                  "typeSimple": "MetaKing.Admin.Roles.CreateUpdateRoleDto",
+                  "typeAsString": "MetaKing.Admin.System.Roles.CreateUpdateRoleDto, MetaKing.Admin.Application.Contracts",
+                  "type": "MetaKing.Admin.System.Roles.CreateUpdateRoleDto",
+                  "typeSimple": "MetaKing.Admin.System.Roles.CreateUpdateRoleDto",
                   "isOptional": false,
                   "defaultValue": null
                 }
@@ -3599,8 +3676,8 @@
                   "nameOnMethod": "input",
                   "name": "input",
                   "jsonName": null,
-                  "type": "MetaKing.Admin.Roles.CreateUpdateRoleDto",
-                  "typeSimple": "MetaKing.Admin.Roles.CreateUpdateRoleDto",
+                  "type": "MetaKing.Admin.System.Roles.CreateUpdateRoleDto",
+                  "typeSimple": "MetaKing.Admin.System.Roles.CreateUpdateRoleDto",
                   "isOptional": false,
                   "defaultValue": null,
                   "constraintTypes": null,
@@ -3609,11 +3686,11 @@
                 }
               ],
               "returnValue": {
-                "type": "MetaKing.Admin.Roles.RoleDto",
-                "typeSimple": "MetaKing.Admin.Roles.RoleDto"
+                "type": "MetaKing.Admin.System.Roles.RoleDto",
+                "typeSimple": "MetaKing.Admin.System.Roles.RoleDto"
               },
               "allowAnonymous": true,
-              "implementFrom": "Volo.Abp.Application.Services.ICreateAppService<MetaKing.Admin.Roles.RoleDto,MetaKing.Admin.Roles.CreateUpdateRoleDto>"
+              "implementFrom": "Volo.Abp.Application.Services.ICreateAppService<MetaKing.Admin.System.Roles.RoleDto,MetaKing.Admin.System.Roles.CreateUpdateRoleDto>"
             },
             "UpdateAsyncByIdAndInput": {
               "uniqueName": "UpdateAsyncByIdAndInput",
@@ -3632,9 +3709,9 @@
                 },
                 {
                   "name": "input",
-                  "typeAsString": "MetaKing.Admin.Roles.CreateUpdateRoleDto, MetaKing.Admin.Application.Contracts",
-                  "type": "MetaKing.Admin.Roles.CreateUpdateRoleDto",
-                  "typeSimple": "MetaKing.Admin.Roles.CreateUpdateRoleDto",
+                  "typeAsString": "MetaKing.Admin.System.Roles.CreateUpdateRoleDto, MetaKing.Admin.Application.Contracts",
+                  "type": "MetaKing.Admin.System.Roles.CreateUpdateRoleDto",
+                  "typeSimple": "MetaKing.Admin.System.Roles.CreateUpdateRoleDto",
                   "isOptional": false,
                   "defaultValue": null
                 }
@@ -3656,8 +3733,8 @@
                   "nameOnMethod": "input",
                   "name": "input",
                   "jsonName": null,
-                  "type": "MetaKing.Admin.Roles.CreateUpdateRoleDto",
-                  "typeSimple": "MetaKing.Admin.Roles.CreateUpdateRoleDto",
+                  "type": "MetaKing.Admin.System.Roles.CreateUpdateRoleDto",
+                  "typeSimple": "MetaKing.Admin.System.Roles.CreateUpdateRoleDto",
                   "isOptional": false,
                   "defaultValue": null,
                   "constraintTypes": null,
@@ -3666,11 +3743,11 @@
                 }
               ],
               "returnValue": {
-                "type": "MetaKing.Admin.Roles.RoleDto",
-                "typeSimple": "MetaKing.Admin.Roles.RoleDto"
+                "type": "MetaKing.Admin.System.Roles.RoleDto",
+                "typeSimple": "MetaKing.Admin.System.Roles.RoleDto"
               },
               "allowAnonymous": true,
-              "implementFrom": "Volo.Abp.Application.Services.IUpdateAppService<MetaKing.Admin.Roles.RoleDto,System.Guid,MetaKing.Admin.Roles.CreateUpdateRoleDto>"
+              "implementFrom": "Volo.Abp.Application.Services.IUpdateAppService<MetaKing.Admin.System.Roles.RoleDto,System.Guid,MetaKing.Admin.System.Roles.CreateUpdateRoleDto>"
             },
             "GetPermissionsAsyncByProviderNameAndProviderKey": {
               "uniqueName": "GetPermissionsAsyncByProviderNameAndProviderKey",
@@ -3727,7 +3804,7 @@
                 "typeSimple": "Volo.Abp.PermissionManagement.GetPermissionListResultDto"
               },
               "allowAnonymous": true,
-              "implementFrom": "MetaKing.Admin.Roles.IRolesAppService"
+              "implementFrom": "MetaKing.Admin.System.Roles.IRolesAppService"
             },
             "UpdatePermissionsAsyncByProviderNameAndProviderKeyAndInput": {
               "uniqueName": "UpdatePermissionsAsyncByProviderNameAndProviderKeyAndInput",
@@ -3804,7 +3881,7 @@
                 "typeSimple": "System.Void"
               },
               "allowAnonymous": true,
-              "implementFrom": "MetaKing.Admin.Roles.IRolesAppService"
+              "implementFrom": "MetaKing.Admin.System.Roles.IRolesAppService"
             },
             "DeleteAsyncById": {
               "uniqueName": "DeleteAsyncById",
@@ -3874,11 +3951,11 @@
                 }
               ],
               "returnValue": {
-                "type": "MetaKing.Admin.Roles.RoleDto",
-                "typeSimple": "MetaKing.Admin.Roles.RoleDto"
+                "type": "MetaKing.Admin.System.Roles.RoleDto",
+                "typeSimple": "MetaKing.Admin.System.Roles.RoleDto"
               },
               "allowAnonymous": true,
-              "implementFrom": "Volo.Abp.Application.Services.IReadOnlyAppService<MetaKing.Admin.Roles.RoleDto,MetaKing.Admin.Roles.RoleDto,System.Guid,Volo.Abp.Application.Dtos.PagedResultRequestDto>"
+              "implementFrom": "Volo.Abp.Application.Services.IReadOnlyAppService<MetaKing.Admin.System.Roles.RoleDto,MetaKing.Admin.System.Roles.RoleDto,System.Guid,Volo.Abp.Application.Dtos.PagedResultRequestDto>"
             },
             "GetListAsyncByInput": {
               "uniqueName": "GetListAsyncByInput",
@@ -3923,21 +4000,21 @@
                 }
               ],
               "returnValue": {
-                "type": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.Roles.RoleDto>",
-                "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.Roles.RoleDto>"
+                "type": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.System.Roles.RoleDto>",
+                "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<MetaKing.Admin.System.Roles.RoleDto>"
               },
               "allowAnonymous": true,
-              "implementFrom": "Volo.Abp.Application.Services.IReadOnlyAppService<MetaKing.Admin.Roles.RoleDto,MetaKing.Admin.Roles.RoleDto,System.Guid,Volo.Abp.Application.Dtos.PagedResultRequestDto>"
+              "implementFrom": "Volo.Abp.Application.Services.IReadOnlyAppService<MetaKing.Admin.System.Roles.RoleDto,MetaKing.Admin.System.Roles.RoleDto,System.Guid,Volo.Abp.Application.Dtos.PagedResultRequestDto>"
             }
           }
         },
-        "MetaKing.Admin.Users.UsersAppService": {
+        "MetaKing.Admin.System.Users.UsersAppService": {
           "controllerName": "Users",
           "controllerGroupName": "Users",
           "isRemoteService": true,
           "isIntegrationService": false,
           "apiVersion": null,
-          "type": "MetaKing.Admin.Users.UsersAppService",
+          "type": "MetaKing.Admin.System.Users.UsersAppService",
           "interfaces": [
             {
               "type": "MetaKing.Admin.System.Users.IUsersAppService",
@@ -7385,6 +7462,999 @@
         }
       ]
     },
+    "MetaKing.Admin.Catalog.Manufacturers.CreateUpdateManufacturerDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "Name",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Code",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Slug",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CoverPicture",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Visibility",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "IsActive",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Country",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "MetaKing.Admin.Catalog.Manufacturers.ManufacturerDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "Name",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Code",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Slug",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CoverPicture",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Visibility",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "IsActive",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Country",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Id",
+          "jsonName": null,
+          "type": "System.Guid",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "MetaKing.Admin.Catalog.Manufacturers.ManufacturerInListDto": {
+      "baseType": "Volo.Abp.Application.Dtos.EntityDto<System.Guid>",
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "Name",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Code",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Slug",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CoverPicture",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Visibility",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "IsActive",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Country",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "MetaKing.Admin.Catalog.ProductAttributes.CreateUpdateProductAttributeDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "Code",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "DataType",
+          "jsonName": null,
+          "type": "MetaKing.ProductAttributes.AttributeType",
+          "typeSimple": "enum",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Label",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "SortOrder",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Visibility",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "IsActive",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "IsRequired",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "IsUnique",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Note",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "MetaKing.Admin.Catalog.ProductAttributes.ProductAttributeDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "Code",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "DataType",
+          "jsonName": null,
+          "type": "MetaKing.ProductAttributes.AttributeType",
+          "typeSimple": "enum",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Label",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "SortOrder",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Visibility",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "IsActive",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "IsRequired",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "IsUnique",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Note",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Id",
+          "jsonName": null,
+          "type": "System.Guid",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "MetaKing.Admin.Catalog.ProductAttributes.ProductAttributeInListDto": {
+      "baseType": "Volo.Abp.Application.Dtos.EntityDto<System.Guid>",
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "Code",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "DataType",
+          "jsonName": null,
+          "type": "MetaKing.ProductAttributes.AttributeType",
+          "typeSimple": "enum",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Label",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "SortOrder",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Visibility",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "IsActive",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "IsRequired",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "IsUnique",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Id",
+          "jsonName": null,
+          "type": "System.Guid",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "MetaKing.Admin.Catalog.ProductCategories.CreateUpdateProductCategoryDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "Name",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Code",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Slug",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "SortOrder",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CoverPicture",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Visibility",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "IsActive",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ParentId",
+          "jsonName": null,
+          "type": "System.Guid?",
+          "typeSimple": "string?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "SeoMetaDescription",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "MetaKing.Admin.Catalog.ProductCategories.ProductCategoryDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "Name",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Code",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Slug",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "SortOrder",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CoverPicture",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Visibility",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "IsActive",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ParentId",
+          "jsonName": null,
+          "type": "System.Guid?",
+          "typeSimple": "string?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "SeoMetaDescription",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Id",
+          "jsonName": null,
+          "type": "System.Guid",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "MetaKing.Admin.Catalog.ProductCategories.ProductCategoryInListDto": {
+      "baseType": "Volo.Abp.Application.Dtos.EntityDto<System.Guid>",
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "Name",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Code",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "SortOrder",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CoverPicture",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Visibility",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "IsActive",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ParentId",
+          "jsonName": null,
+          "type": "System.Guid?",
+          "typeSimple": "string?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
     "MetaKing.Admin.Catalog.Products.Attributes.AddUpdateProductAttributeDto": {
       "baseType": null,
       "isEnum": false,
@@ -8288,988 +9358,7 @@
         }
       ]
     },
-    "MetaKing.Admin.Manufacturers.CreateUpdateManufacturerDto": {
-      "baseType": null,
-      "isEnum": false,
-      "enumNames": null,
-      "enumValues": null,
-      "genericArguments": null,
-      "properties": [
-        {
-          "name": "Name",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Code",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Slug",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "CoverPicture",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Visibility",
-          "jsonName": null,
-          "type": "System.Boolean",
-          "typeSimple": "boolean",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "IsActive",
-          "jsonName": null,
-          "type": "System.Boolean",
-          "typeSimple": "boolean",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Country",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        }
-      ]
-    },
-    "MetaKing.Admin.Manufacturers.ManufacturerDto": {
-      "baseType": null,
-      "isEnum": false,
-      "enumNames": null,
-      "enumValues": null,
-      "genericArguments": null,
-      "properties": [
-        {
-          "name": "Name",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Code",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Slug",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "CoverPicture",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Visibility",
-          "jsonName": null,
-          "type": "System.Boolean",
-          "typeSimple": "boolean",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "IsActive",
-          "jsonName": null,
-          "type": "System.Boolean",
-          "typeSimple": "boolean",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Country",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Id",
-          "jsonName": null,
-          "type": "System.Guid",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        }
-      ]
-    },
-    "MetaKing.Admin.Manufacturers.ManufacturerInListDto": {
-      "baseType": "Volo.Abp.Application.Dtos.EntityDto<System.Guid>",
-      "isEnum": false,
-      "enumNames": null,
-      "enumValues": null,
-      "genericArguments": null,
-      "properties": [
-        {
-          "name": "Name",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Code",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Slug",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "CoverPicture",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Visibility",
-          "jsonName": null,
-          "type": "System.Boolean",
-          "typeSimple": "boolean",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "IsActive",
-          "jsonName": null,
-          "type": "System.Boolean",
-          "typeSimple": "boolean",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Country",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        }
-      ]
-    },
-    "MetaKing.Admin.ProductAttributes.CreateUpdateProductAttributeDto": {
-      "baseType": null,
-      "isEnum": false,
-      "enumNames": null,
-      "enumValues": null,
-      "genericArguments": null,
-      "properties": [
-        {
-          "name": "Code",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "DataType",
-          "jsonName": null,
-          "type": "MetaKing.ProductAttributes.AttributeType",
-          "typeSimple": "enum",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Label",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "SortOrder",
-          "jsonName": null,
-          "type": "System.Int32",
-          "typeSimple": "number",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Visibility",
-          "jsonName": null,
-          "type": "System.Boolean",
-          "typeSimple": "boolean",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "IsActive",
-          "jsonName": null,
-          "type": "System.Boolean",
-          "typeSimple": "boolean",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "IsRequired",
-          "jsonName": null,
-          "type": "System.Boolean",
-          "typeSimple": "boolean",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "IsUnique",
-          "jsonName": null,
-          "type": "System.Boolean",
-          "typeSimple": "boolean",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Note",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        }
-      ]
-    },
-    "MetaKing.Admin.ProductAttributes.ProductAttributeDto": {
-      "baseType": null,
-      "isEnum": false,
-      "enumNames": null,
-      "enumValues": null,
-      "genericArguments": null,
-      "properties": [
-        {
-          "name": "Code",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "DataType",
-          "jsonName": null,
-          "type": "MetaKing.ProductAttributes.AttributeType",
-          "typeSimple": "enum",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Label",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "SortOrder",
-          "jsonName": null,
-          "type": "System.Int32",
-          "typeSimple": "number",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Visibility",
-          "jsonName": null,
-          "type": "System.Boolean",
-          "typeSimple": "boolean",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "IsActive",
-          "jsonName": null,
-          "type": "System.Boolean",
-          "typeSimple": "boolean",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "IsRequired",
-          "jsonName": null,
-          "type": "System.Boolean",
-          "typeSimple": "boolean",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "IsUnique",
-          "jsonName": null,
-          "type": "System.Boolean",
-          "typeSimple": "boolean",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Note",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Id",
-          "jsonName": null,
-          "type": "System.Guid",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        }
-      ]
-    },
-    "MetaKing.Admin.ProductAttributes.ProductAttributeInListDto": {
-      "baseType": "Volo.Abp.Application.Dtos.EntityDto<System.Guid>",
-      "isEnum": false,
-      "enumNames": null,
-      "enumValues": null,
-      "genericArguments": null,
-      "properties": [
-        {
-          "name": "Code",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "DataType",
-          "jsonName": null,
-          "type": "MetaKing.ProductAttributes.AttributeType",
-          "typeSimple": "enum",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Label",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "SortOrder",
-          "jsonName": null,
-          "type": "System.Int32",
-          "typeSimple": "number",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Visibility",
-          "jsonName": null,
-          "type": "System.Boolean",
-          "typeSimple": "boolean",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "IsActive",
-          "jsonName": null,
-          "type": "System.Boolean",
-          "typeSimple": "boolean",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "IsRequired",
-          "jsonName": null,
-          "type": "System.Boolean",
-          "typeSimple": "boolean",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "IsUnique",
-          "jsonName": null,
-          "type": "System.Boolean",
-          "typeSimple": "boolean",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Id",
-          "jsonName": null,
-          "type": "System.Guid",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        }
-      ]
-    },
-    "MetaKing.Admin.ProductCategories.CreateUpdateProductCategoryDto": {
-      "baseType": null,
-      "isEnum": false,
-      "enumNames": null,
-      "enumValues": null,
-      "genericArguments": null,
-      "properties": [
-        {
-          "name": "Name",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Code",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Slug",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "SortOrder",
-          "jsonName": null,
-          "type": "System.Int32",
-          "typeSimple": "number",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "CoverPicture",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Visibility",
-          "jsonName": null,
-          "type": "System.Boolean",
-          "typeSimple": "boolean",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "IsActive",
-          "jsonName": null,
-          "type": "System.Boolean",
-          "typeSimple": "boolean",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "ParentId",
-          "jsonName": null,
-          "type": "System.Guid?",
-          "typeSimple": "string?",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "SeoMetaDescription",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        }
-      ]
-    },
-    "MetaKing.Admin.ProductCategories.ProductCategoryDto": {
-      "baseType": null,
-      "isEnum": false,
-      "enumNames": null,
-      "enumValues": null,
-      "genericArguments": null,
-      "properties": [
-        {
-          "name": "Name",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Code",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Slug",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "SortOrder",
-          "jsonName": null,
-          "type": "System.Int32",
-          "typeSimple": "number",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "CoverPicture",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Visibility",
-          "jsonName": null,
-          "type": "System.Boolean",
-          "typeSimple": "boolean",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "IsActive",
-          "jsonName": null,
-          "type": "System.Boolean",
-          "typeSimple": "boolean",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "ParentId",
-          "jsonName": null,
-          "type": "System.Guid?",
-          "typeSimple": "string?",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "SeoMetaDescription",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Id",
-          "jsonName": null,
-          "type": "System.Guid",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        }
-      ]
-    },
-    "MetaKing.Admin.ProductCategories.ProductCategoryInListDto": {
-      "baseType": "Volo.Abp.Application.Dtos.EntityDto<System.Guid>",
-      "isEnum": false,
-      "enumNames": null,
-      "enumValues": null,
-      "genericArguments": null,
-      "properties": [
-        {
-          "name": "Name",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Code",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "SortOrder",
-          "jsonName": null,
-          "type": "System.Int32",
-          "typeSimple": "number",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "CoverPicture",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Visibility",
-          "jsonName": null,
-          "type": "System.Boolean",
-          "typeSimple": "boolean",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "IsActive",
-          "jsonName": null,
-          "type": "System.Boolean",
-          "typeSimple": "boolean",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        }
-      ]
-    },
-    "MetaKing.Admin.Roles.CreateUpdateRoleDto": {
+    "MetaKing.Admin.System.Roles.CreateUpdateRoleDto": {
       "baseType": null,
       "isEnum": false,
       "enumNames": null,
@@ -9302,7 +9391,7 @@
         }
       ]
     },
-    "MetaKing.Admin.Roles.RoleDto": {
+    "MetaKing.Admin.System.Roles.RoleDto": {
       "baseType": "Volo.Abp.Application.Dtos.EntityDto<System.Guid>",
       "isEnum": false,
       "enumNames": null,
@@ -9335,7 +9424,7 @@
         }
       ]
     },
-    "MetaKing.Admin.Roles.RoleInListDto": {
+    "MetaKing.Admin.System.Roles.RoleInListDto": {
       "baseType": "Volo.Abp.Application.Dtos.EntityDto<System.Guid>",
       "isEnum": false,
       "enumNames": null,

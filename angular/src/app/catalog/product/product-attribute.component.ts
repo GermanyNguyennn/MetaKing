@@ -1,8 +1,8 @@
 import { ConfirmationService } from 'primeng/api';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ProductAttributeInListDto, ProductAttributesService } from '@proxy/product-attributes';
-import { ProductsService } from '@proxy/products';
+import { ProductAttributeInListDto, ProductAttributesService } from '@proxy/catalog/product-attributes';
+import { ProductsService } from '@proxy/catalog/products';
 import { ProductDto } from '@proxy/catalog/products';
 import { ProductAttributeValueDto } from '@proxy/catalog/products/attributes'; 
 import { AttributeType } from '@proxy/meta-king/product-attributes'; 

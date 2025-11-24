@@ -1,4 +1,4 @@
-import type { AttributeType } from '../meta-king/product-attributes/attribute-type.enum';
+import type { AttributeType } from '../../meta-king/product-attributes/attribute-type.enum';
 import type { EntityDto } from '@abp/ng.core';
 
 export interface CreateUpdateProductAttributeDto {

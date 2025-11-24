@@ -59,6 +59,24 @@ namespace MetaKing.Admin.Catalog.ProductCategories
         }
 
         //[Authorize(MetaKingPermissions.ProductCategory.Default)]
+        public async Task<List<ProductCategoryInListDto>> GetListParentAsync()
+        {
+            var query = await Repository.GetQueryableAsync();
+            query = query.Where(x => x.ParentId == null && x.IsActive == true);
+            var data = await AsyncExecuter.ToListAsync(query);
+            return ObjectMapper.Map<List<ProductCategory>, List<ProductCategoryInListDto>>(data);
+        }
+
+        //[Authorize(MetaKingPermissions.ProductCategory.Default)]
+        public async Task<List<ProductCategoryInListDto>> GetListChildAsync(Guid parentId)
+        {
+            var query = await Repository.GetQueryableAsync();
+            query = query.Where(x => x.ParentId == parentId && x.IsActive == true);
+            var data = await AsyncExecuter.ToListAsync(query);
+            return ObjectMapper.Map<List<ProductCategory>, List<ProductCategoryInListDto>>(data);
+        }
+
+        //[Authorize(MetaKingPermissions.ProductCategory.Default)]
         public async Task<PagedResultDto<ProductCategoryInListDto>> GetListFilterAsync(BaseListFilterDto input)
         {
             var query = await Repository.GetQueryableAsync();

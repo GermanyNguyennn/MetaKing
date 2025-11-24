@@ -1,10 +1,10 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ManufacturerInListDto, ManufacturersService } from '@proxy/manufacturers';
-import { ProductCategoriesService, ProductCategoryInListDto } from '@proxy/product-categories';
+import { ManufacturerInListDto, ManufacturersService } from '@proxy/catalog/manufacturers';
+import { ProductCategoriesService, ProductCategoryInListDto } from '@proxy/catalog/product-categories';
 import { ProductDto } from '@proxy/catalog/products';
-import { ProductsService } from '@proxy/products';
+import { ProductsService } from '@proxy/catalog/products';
 import { productTypeOptions } from '@proxy/meta-king/products';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { forkJoin, Subject, takeUntil } from 'rxjs';
@@ -24,8 +24,12 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
   //Dropdown
   productCategories: any[] = [];
+  productCategoriesAll: ProductCategoryInListDto[] = [];
+  parentCategories: any[] = [];
+  childCategories: any[] = [];
   manufacturers: any[] = [];
   productTypes: any[] = [];
+  selectedParentId: string | null = null;
   selectedEntity = {} as ProductDto;
 
   constructor(
@@ -104,12 +108,16 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
           //Push data to dropdown
           var productCategories = response.productCategories as ProductCategoryInListDto[];
           var manufacturers = response.manufacturers as ManufacturerInListDto[];
-          productCategories.forEach(element => {
-            this.productCategories.push({
-              value: element.id,
-              label: element.name,
-            });
-          });
+          // Keep raw list for building parent/child relationships
+          this.productCategoriesAll = productCategories;
+
+          // Build parent categories (ParentId == null)
+          this.parentCategories = productCategories
+            .filter(x => (x as any).parentId == null || (x as any).parentId === undefined)
+            .map(x => ({ value: x.id, label: x.name }));
+
+          // Default childCategories empty; will populate when parent selected
+          this.childCategories = [];
 
           manufacturers.forEach(element => {
             this.manufacturers.push({
@@ -129,6 +137,22 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
           this.toggleBlockUI(false);
         },
       });
+  }
+
+  onParentChange(parentId: string) {
+    this.selectedParentId = parentId;
+    // find children whose parentId == parentId
+    const children = this.productCategoriesAll.filter(x => (x as any).parentId === parentId);
+    this.childCategories = children.map(x => ({ value: x.id, label: x.name }));
+    // If no children, allow selecting the parent itself
+    if (this.childCategories.length === 0 && parentId) {
+      const parent = this.productCategoriesAll.find(x => x.id === parentId);
+      if (parent) {
+        this.childCategories = [{ value: parent.id, label: parent.name }];
+      }
+    }
+    // reset categoryId when parent changes
+    this.form.patchValue({ categoryId: null });
   }
 
   getNewSuggestionCode() {
@@ -153,7 +177,26 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         next: (response: ProductDto) => {
           this.selectedEntity = response;
           this.loadThumbnail(this.selectedEntity.thumbnailPicture);
+          // If editing, ensure dropdowns reflect current category's parent
+          // find category in all list (if already loaded)
+          const cat = this.productCategoriesAll.find(x => x.id === this.selectedEntity.categoryId);
+          if (cat) {
+            const parentId = (cat as any).parentId as string | undefined;
+            if (parentId) {
+              this.selectedParentId = parentId;
+              this.childCategories = this.productCategoriesAll
+                .filter(x => (x as any).parentId === parentId)
+                .map(x => ({ value: x.id, label: x.name }));
+            } else {
+              // category is a root category
+              this.selectedParentId = null;
+              this.childCategories = [];
+            }
+          }
+
           this.buildForm();
+          // ensure form knows selected parent and category
+          this.form.patchValue({ parentCategoryId: this.selectedParentId || null, categoryId: this.selectedEntity.categoryId || null });
           this.toggleBlockUI(false);
         },
         error: () => {
@@ -219,6 +262,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         Validators.required
       ),
       categoryId: new FormControl(this.selectedEntity.categoryId || null, Validators.required),
+      parentCategoryId: new FormControl(this.selectedEntity['parentCategoryId'] || null),
       productType: new FormControl(this.selectedEntity.productType || null, Validators.required),
       sortOrder: new FormControl(this.selectedEntity.sortOrder || null, Validators.required),
       sellPrice: new FormControl(this.selectedEntity.sellPrice || null, Validators.required),

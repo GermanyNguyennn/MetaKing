@@ -32,4 +32,5 @@ export interface ProductCategoryInListDto extends EntityDto<string> {
   coverPicture?: string;
   visibility: boolean;
   isActive: boolean;
+  parentId?: string;
 }

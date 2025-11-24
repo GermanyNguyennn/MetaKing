@@ -1,8 +1,8 @@
+import type { AddUpdateProductAttributeDto, ProductAttributeListFilterDto, ProductAttributeValueDto } from './attributes/models';
+import type { CreateUpdateProductDto, ProductDto, ProductInListDto, ProductListFilterDto } from './models';
 import { RestService } from '@abp/ng.core';
 import type { PagedResultDto, PagedResultRequestDto } from '@abp/ng.core';
 import { Injectable } from '@angular/core';
-import type { AddUpdateProductAttributeDto, ProductAttributeListFilterDto, ProductAttributeValueDto } from '../catalog/products/attributes/models';
-import type { CreateUpdateProductDto, ProductDto, ProductInListDto, ProductListFilterDto } from '../catalog/products/models';
 
 @Injectable({
   providedIn: 'root',

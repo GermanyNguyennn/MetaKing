@@ -1,8 +1,8 @@
+import type { CreateUserDto, SetPasswordDto, UpdateUserDto, UserDto, UserInListDto } from './models';
 import { RestService } from '@abp/ng.core';
 import type { PagedResultDto, PagedResultRequestDto } from '@abp/ng.core';
 import { Injectable } from '@angular/core';
-import type { BaseListFilterDto } from '../models';
-import type { CreateUserDto, SetPasswordDto, UpdateUserDto, UserDto, UserInListDto } from '../system/users/models';
+import type { BaseListFilterDto } from '../../models';
 
 @Injectable({
   providedIn: 'root',

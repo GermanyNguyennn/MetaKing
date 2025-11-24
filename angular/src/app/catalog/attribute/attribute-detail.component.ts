@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ProductAttributeDto, ProductAttributesService } from '@proxy/product-attributes';
+import { ProductAttributeDto, ProductAttributesService } from '@proxy/catalog/product-attributes';
 import { attributeTypeOptions } from '@proxy/meta-king/product-attributes';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Subject, takeUntil } from 'rxjs';

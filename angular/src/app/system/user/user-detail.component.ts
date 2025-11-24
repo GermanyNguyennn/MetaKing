@@ -5,8 +5,8 @@ import { forkJoin, Subject, takeUntil } from 'rxjs';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { UserDto } from '@proxy/system/users';
-import { UsersService } from '@proxy/users';
-import { RoleDto, RolesService } from '@proxy/roles';
+import { UsersService } from '@proxy/system/users';
+import { RoleDto, RolesService } from '@proxy/system/roles';
 
 @Component({
   templateUrl: 'user-detail.component.html',

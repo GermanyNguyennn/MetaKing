@@ -13,5 +13,7 @@ namespace MetaKing.Admin.Catalog.ProductCategories
         public string CoverPicture { get; set; }
         public bool Visibility { get; set; }
         public bool IsActive { get; set; }
+        public Guid? ParentId { get; set; }
+
     }
 }
