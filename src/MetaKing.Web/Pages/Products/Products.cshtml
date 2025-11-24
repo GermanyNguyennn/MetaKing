@@ -164,7 +164,7 @@
                     <div class="col-lg-4 col-md-6 col-sm-12 pb-1">
                         <div class="card product-item border-0 mb-4">
                             <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                                <img class="img-fluid w-100" src="@item.ThumbnailPicture" alt="@item.Name">
+                                <img class="img-fluid w-100" src="~/images/logo/@item.ThumbnailPicture" alt="@item.Name">
                             </div>
                             <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                                 <h6 class="text-truncate mb-3">@item.Name</h6>
@@ -201,7 +201,7 @@
             // Đây là cách nhanh: chỉ hiển thị thông báo
             Swal.fire({
                 icon: 'success',
-                title: 'Thành công',
+                title: 'Success',
                 text: 'Product has been added to cart!',
                 confirmButtonText: 'OK'
             });

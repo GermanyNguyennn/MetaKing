@@ -1,23 +1,29 @@
-using MetaKing.EntityFrameworkCore;
+﻿using MetaKing.EntityFrameworkCore;
 using MetaKing.HealthChecks;
 using MetaKing.MultiTenancy;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.OpenApi.Models;
 using OpenIddict.Server.AspNetCore;
 using OpenIddict.Validation.AspNetCore;
 using System;
+using System.Security.Claims;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Account;
 using Volo.Abp.Account.Web;
@@ -144,19 +150,26 @@ public class MetaKingWebModule : AbpModule
     private void ConfigureAuthentication(ServiceConfigurationContext context, IConfiguration configuration)
     {
         //context.Services.ForwardIdentityAuthenticationForBearer(OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme);
-        //context.Services.Configure<AbpClaimsPrincipalFactoryOptions>(options =>
-        //{
-        //    options.IsDynamicClaimsEnabled = true;
-        //});
+        context.Services.Configure<AbpClaimsPrincipalFactoryOptions>(options =>
+        {
+            options.IsDynamicClaimsEnabled = true;
+        });
 
         context.Services.AddAuthentication(options =>
         {
             options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
             options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
         })
-        .AddCookie(options =>
+        .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
         {
-            options.ExpireTimeSpan = TimeSpan.FromDays(365);
+            options.ExpireTimeSpan = TimeSpan.FromDays(30);
+            options.SlidingExpiration = true;
+
+            options.Cookie.SameSite = SameSiteMode.None;
+            options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+
+            options.Cookie.HttpOnly = true;
+            options.Cookie.IsEssential = true;
         })
         .AddAbpOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, options =>
         {
@@ -170,15 +183,81 @@ public class MetaKingWebModule : AbpModule
 
             options.UsePkce = true;
             options.SaveTokens = true;
+            options.Scope.Add("profile");
             options.Scope.Add("roles");
             options.Scope.Add("email");
             options.Scope.Add("phone");
+            options.Scope.Add("address");
+
             options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+
+                // Ensure standard claim types are present so ABP's CurrentUser can read Id/Name/Email/Role
+                try
+                {
+                    // Standard mappings
+                    options.ClaimActions.MapJsonKey(ClaimTypes.NameIdentifier, "sub");
+                    options.ClaimActions.MapJsonKey(ClaimTypes.Name, "name");
+                    options.ClaimActions.MapJsonKey(ClaimTypes.Email, "email");
+                    options.ClaimActions.MapJsonKey("role", "role");
+
+                    // ABP-specific mappings (so ICurrentUser/CurrentUser can read them)
+                    options.ClaimActions.MapJsonKey(AbpClaimTypes.UserId, "sub");
+                    options.ClaimActions.MapJsonKey(AbpClaimTypes.UserName, "name");
+                    options.ClaimActions.MapJsonKey(AbpClaimTypes.Email, "email");
+                }
+                catch
+                {
+                    // ignore any mapping errors
+                }
 
             options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
             {
                 ValidateAudience = false,
                 ValidateIssuer = false,
+                NameClaimType = "name",
+                RoleClaimType = "role",
+            };
+            options.Events = new OpenIdConnectEvents
+            {
+                OnTokenValidated = context =>
+                {
+                    var logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<MetaKingWebModule>>();
+                    var name = context.Principal?.Identity?.Name ?? context.Principal?.FindFirst("sub")?.Value ?? "(no-name)";
+                    logger.LogInformation("OIDC OnTokenValidated for {Name}", name);
+                    if (context.Principal != null)
+                    {
+                        foreach (var claim in context.Principal.Claims)
+                        {
+                            try
+                            {
+                                logger.LogInformation("OIDC Claim: {Type} = {Value}", claim.Type, claim.Value);
+                            }
+                            catch
+                            {
+                                // swallow any logging error to avoid breaking authentication flow
+                            }
+                        }
+                    }
+                    return Task.CompletedTask;
+                },
+                OnTicketReceived = context =>
+                {
+                    var logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<MetaKingWebModule>>();
+                    logger.LogInformation("OIDC OnTicketReceived, authentication succeeded for {Name}", context.Principal?.Identity?.Name ?? "(no-name)");
+                    return Task.CompletedTask;
+                },
+                OnRemoteFailure = context =>
+                {
+                    var logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<MetaKingWebModule>>();
+                    logger.LogError(context.Failure, "OIDC remote failure: {Message}", context.Failure?.Message);
+                    context.HandleResponse();
+                    try
+                    {
+                        context.Response.Redirect($"/Auth/Login?error={Uri.EscapeDataString(context.Failure?.Message ?? "RemoteFailure")}");
+                    }
+                    catch { }
+                    return Task.CompletedTask;
+                }
             };
         });
     }
@@ -303,13 +382,47 @@ public class MetaKingWebModule : AbpModule
         }
 
         app.UseStaticFiles();
-        app.UseSession();
         app.UseRouting();
         app.MapAbpStaticAssets();
         app.UseAbpStudioLink();
         app.UseAbpSecurityHeaders();
         app.UseCors();
+        app.UseCookiePolicy();
         app.UseAuthentication();
+
+        // Log authentication state after authentication middleware for debugging
+        app.Use(async (context, next) =>
+        {
+            try
+            {
+                var logger = context.RequestServices.GetRequiredService<ILogger<MetaKingWebModule>>();
+                var isAuth = context.User?.Identity?.IsAuthenticated ?? false;
+                var name = context.User?.Identity?.Name ?? context.User?.FindFirst("sub")?.Value ?? "(no-name)";
+                logger.LogInformation("Request auth state: IsAuthenticated={IsAuthenticated}, Name={Name}, Path={Path}", isAuth, name, context.Request.Path);
+
+                // Also try to authenticate the cookie scheme explicitly and log the result
+                try
+                {
+                    var authResult = await context.AuthenticateAsync(Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme);
+                    logger.LogInformation("AuthenticateAsync succeeded={Succeeded}, PrincipalName={Name}", authResult?.Succeeded ?? false, authResult?.Principal?.Identity?.Name ?? "(no-name)");
+                    if (authResult?.Failure != null)
+                    {
+                        logger.LogWarning(authResult.Failure, "AuthenticateAsync failure: {Message}", authResult.Failure?.Message);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    var logger2 = context.RequestServices.GetRequiredService<ILogger<MetaKingWebModule>>();
+                    logger2.LogError(ex, "AuthenticateAsync threw an exception");
+                }
+            }
+            catch
+            {
+                // swallow
+            }
+            await next();
+        });
+
         app.UseAbpOpenIddictValidation();
 
         if (MultiTenancyConsts.IsEnabled)
@@ -320,6 +433,9 @@ public class MetaKingWebModule : AbpModule
         app.UseUnitOfWork();
         app.UseDynamicClaims();
         app.UseAuthorization();
+        app.UseSession();
+        app.UseAbpStudioLink();
+
 
         app.UseSwagger();
         app.UseAbpSwaggerUI(options =>

@@ -13,5 +13,6 @@ namespace MetaKing.Orders
         PagedResultRequestDto, CreateOrderDto,CreateOrderDto>
     {
         Task<OrderDto> CreateAsync(CreateOrderDto input);
+        Task<List<OrderHistoryDto>> GetOrderHistoryAsync(Guid customerUserId);
     }
 }

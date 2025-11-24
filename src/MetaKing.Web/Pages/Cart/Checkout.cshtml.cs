@@ -2,6 +2,7 @@
 using MetaKing.Models;
 using MetaKing.Orders;
 using MetaKing.Orders.Events;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ using Volo.Abp.EventBus.Local;
 
 namespace MetaKing.Pages.Cart
 {
+    [Authorize]
     public class CheckoutModel : PageModel
     {
         private readonly IOrdersAppService _ordersAppService;

@@ -26,7 +26,6 @@ import { ProductAttributeComponent } from './product/product-attribute.component
 import { AttributeDetailComponent } from './attribute/attribute-detail.component';
 import { AttributeComponent } from './attribute/attribute.component';
 
-
 @NgModule({
   declarations: [ProductComponent, ProductDetailComponent, ProductAttributeComponent, AttributeComponent, AttributeDetailComponent],
   imports: [SharedModule, CatalogRoutingModule, PanelModule, TableModule, PaginatorModule, BlockUIModule, ProgressSpinnerModule, ButtonModule, DropdownModule, CheckboxModule, InputTextModule, InputTextareaModule,

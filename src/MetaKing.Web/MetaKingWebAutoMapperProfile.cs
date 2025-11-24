@@ -3,6 +3,8 @@ using MetaKing.Catalog.Manufacturers;
 using MetaKing.Catalog.ProductCategories;
 using MetaKing.Catalog.Products;
 using MetaKing.Orders;
+using MetaKing.System.Users;
+using Microsoft.AspNetCore.Identity;
 
 namespace MetaKing
 {
@@ -25,6 +27,8 @@ namespace MetaKing
             CreateMap<CreateOrderDto, Order>();
             CreateMap<OrderItemDto, OrderItem>();
             CreateMap<OrderItem, OrderItemDto>();
+
+            CreateMap<IdentityUser, UserDto>();
 
         }
     }

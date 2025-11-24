@@ -1,3 +1,44 @@
 ﻿@page "/profile"
 @model MetaKing.Pages.Users.ProfileModel
 
+<div class="container mt-4">
+    @if (Model.UserInfo != null)
+    {
+        <div class="card shadow-sm p-4">
+
+            <div class="row mb-3">
+                <div class="col-sm-3 font-weight-bold">Tên Đăng Nhập:</div>
+                <div class="col-sm-9">@Model.UserInfo.UserName</div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-sm-3 font-weight-bold">Họ Và Tên:</div>
+                <div class="col-sm-9">@Model.UserInfo.Surname @Model.UserInfo.Name</div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-sm-3 font-weight-bold">Email:</div>
+                <div class="col-sm-9">@Model.UserInfo.Email</div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-sm-3 font-weight-bold">Số Điện Thoại:</div>
+                <div class="col-sm-9">@Model.UserInfo.PhoneNumber</div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-sm-3 font-weight-bold">Trạng Thái:</div>
+                <div class="col-sm-9">
+                    @if (Model.UserInfo.IsActive)
+                    {
+                        <span class="badge badge-success">Active</span>
+                    }
+                    else
+                    {
+                        <span class="badge badge-danger">Inactive</span>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>

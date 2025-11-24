@@ -127,7 +127,7 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
         var adminClientId = configurationSection["MetaKing_Admin:ClientId"];
         if (!adminClientId.IsNullOrWhiteSpace())
         {
-            var adminClientRootUrl = configurationSection["MetaKing_Admin:RootUrl"]?.TrimEnd('/');
+            var adminClientRootUrl = configurationSection["MetaKing_Admin:RootUrl"]?.EnsureEndsWith('/');
 
             await CreateApplicationAsync(
                 applicationType: OpenIddictConstants.ApplicationTypes.Web,
@@ -154,7 +154,7 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
         var adminSwaggerClientId = configurationSection["MetaKing_Admin_Swagger:ClientId"];
         if (!adminSwaggerClientId.IsNullOrWhiteSpace())
         {
-            var adminSwaggerClientRootUrl = configurationSection["MetaKing_Admin_Swagger:RootUrl"]?.TrimEnd('/');
+            var adminSwaggerClientRootUrl = configurationSection["MetaKing_Admin_Swagger:RootUrl"]?.EnsureEndsWith('/');
 
             await CreateApplicationAsync(
                 applicationType: OpenIddictConstants.ApplicationTypes.Web,
@@ -168,7 +168,7 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
                     OpenIddictConstants.GrantTypes.AuthorizationCode,
                 },
                 scopes: adminScopes,
-                redirectUris: new List<string> { $"{adminSwaggerClientRootUrl}/swagger/oauth2-redirect.html" },
+                redirectUris: new List<string> { $"{adminSwaggerClientRootUrl}swagger/oauth2-redirect.html" },
                 clientUri: adminSwaggerClientRootUrl,
                 logoUri: "/images/clients/swagger.svg"
             );

@@ -83,7 +83,7 @@
                     {
                         <div class="navbar-nav ml-auto py-0">
                             <div class="nav-item dropdown">
-                                <a class="nav-item nav-link dropdown-toggle" data-toggle="dropdown">Hello, @User.Identity.Name</a>
+                                <a class="nav-item nav-link dropdown-toggle" data-toggle="dropdown">Xin Chào, @User.FindFirst("preferred_username")?.Value</a>
                                 <div class="dropdown-menu rounded-0 m-0">
                                     <a href="/profile" class="dropdown-item">Profile</a>
                                     <a href="/history" class="dropdown-item">History</a>
@@ -91,12 +91,13 @@
                                 </div>
                             </div>                                                     
                         </div>
+
                     }
                     else
                     {
                         <div class="navbar-nav ml-auto py-0">
                             <a href="/login" class="nav-item nav-link">Login</a>
-                            <a href="/register" class="nav-item nav-link">Register</a>
+                            @* <a href="/register" class="nav-item nav-link">Register</a> *@
                         </div>
                     }
                 </div>

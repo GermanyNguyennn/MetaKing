@@ -13,7 +13,7 @@ using Volo.Abp.EntityFrameworkCore;
 namespace MetaKing.Migrations
 {
     [DbContext(typeof(MetaKingDbContext))]
-    [Migration("20251116034416_Initial")]
+    [Migration("20251122025616_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -265,6 +265,10 @@ namespace MetaKing.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(50)");
 
+                    b.Property<string>("Commune")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .IsRequired()
@@ -333,6 +337,10 @@ namespace MetaKing.Migrations
 
                     b.Property<int>("PaymentMethod")
                         .HasColumnType("int");
+
+                    b.Property<string>("Province")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("ShippingFee")
                         .HasColumnType("float");

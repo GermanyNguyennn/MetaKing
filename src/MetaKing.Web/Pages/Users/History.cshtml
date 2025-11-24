@@ -1,4 +1,102 @@
 ﻿@page "/history"
+@using MetaKing.Orders
 @model MetaKing.Pages.Users.HistoryModel
-@{
+
+<style>
+    /* Chrome, Edge, Safari */
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Firefox */
+    input[type="number"] {
+        -moz-appearance: textfield;
+    }
+</style>
+
+@if (Model.Orders == null || !Model.Orders.Any())
+{
+    <div class="text-xl-center">
+        You Have No Orders Yet
+    </div>
+}
+else
+{
+    @foreach (var order in Model.Orders)
+    {
+
+        <div class="container-fluid pt-5">
+            <div class="d-flex justify-content-between px-xl-5">
+                <div>
+                    <strong>Mã Đơn Hàng: </strong>@order.Code
+                </div>
+
+                <div>
+                    <strong>Ngày Mua Hàng: </strong>@order.CreationTime.ToString("dd/MM/yyyy HH:mm")
+                </div>
+
+                <div>
+                    <strong>Tổng: </strong>@order.Total.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))
+                </div>
+            </div>
+            <br />
+            <div class="row px-xl-5">
+                <table class="table table-bordered text-center mb-0">
+                    <thead class="bg-secondary text-dark">
+                        <tr>
+                            <th>Products</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody class="align-middle">
+                        @foreach (var item in order.Items)
+                        {
+                            <tr>
+                                <td class="align-middle">
+                                    @item.SKU
+                                </td>
+
+                                <td class="align-middle" data-price="@item.Price">
+                                    @item.Price.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))
+                                </td>
+
+                                <td class="align-middle">
+                                    <div class="input-group quantity mx-auto" style="width: 100px;">
+                                        <input type="number"
+                                               value="@item.Quantity"
+                                               class="form-control form-control-sm bg-secondary text-center"
+                                               readonly />
+                                    </div>
+                                </td>
+
+                                <td class="align-middle">
+                                    @((item.Price * item.Quantity).ToString("N0", new System.Globalization.CultureInfo("vi-VN")))
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+}
+
+
+
+@functions {
+    private string GetStatusBadge(OrderStatus status)
+    {
+        return status switch
+        {
+            OrderStatus.New => "bg-primary text-white",
+            OrderStatus.Processing => "bg-info text-dark",
+            OrderStatus.Finished => "bg-success text-white",
+            OrderStatus.Canceled => "bg-danger text-white",
+            _ => "bg-secondary text-white"
+        };
+    }
 }

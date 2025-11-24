@@ -1,6 +1,7 @@
 ﻿using MetaKing.Catalog.Products;
 using MetaKing.Extensions;
 using MetaKing.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace MetaKing.Pages.Cart
 {
+    [Authorize]
     public class CartModel : PageModel
     {
         private readonly IProductsAppService _productsAppService;

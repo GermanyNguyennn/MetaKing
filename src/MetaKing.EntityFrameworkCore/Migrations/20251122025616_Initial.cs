@@ -558,6 +558,8 @@ namespace MetaKing.Migrations
                     CustomerName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     CustomerPhoneNumber = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     CustomerAddress = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Commune = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Province = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CustomerUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     ExtraProperties = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ConcurrencyStamp = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),

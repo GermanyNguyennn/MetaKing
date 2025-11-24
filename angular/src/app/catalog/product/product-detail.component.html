@@ -111,7 +111,7 @@
         ></app-validation-message>
       </div>
       <div class="field col-12 md:col-6">
-        <label for="thumbnailImage" class="block">Hình Ảnh</label>
+        <label for="thumbnailImage" class="block">Hình Ảnh <span class="required">*</span></label>
         <input id="thumbnailImage" type="file" (change)="onFileChanged($event)" class="w-full">
       </div>
       <div class="field col-12 md:col-6">
@@ -132,7 +132,7 @@
       </div>
 
       <div class="field col-12">
-        <label for="seoMetaDescription" class="block">Mô Tả SEO</label>
+        <label for="seoMetaDescription" class="block">Mô Tả SEO <span class="required">*</span></label>
         <textarea
           id="seoMetaDescription"
           pInputTextarea
@@ -141,7 +141,7 @@
         ></textarea>
       </div>
       <div class="field col-12">
-        <label for="description" class="block">Mô Tả</label>
+        <label for="description" class="block">Mô Tả <span class="required">*</span></label>
         <p-editor formControlName="description" [style]="{ height: '320px' }"></p-editor>
       </div>
     </div>

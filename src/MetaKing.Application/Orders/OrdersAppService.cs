@@ -74,5 +74,51 @@ namespace MetaKing.Orders
 
             return ObjectMapper.Map<Order, OrderDto>(order);
         }
+
+        public async Task<List<OrderHistoryDto>> GetOrderHistoryAsync(Guid customerUserId)
+        {
+            // Lấy toàn bộ đơn của user
+            var orders = await Repository.GetListAsync(x => x.CustomerUserId == customerUserId);
+
+            // Sắp xếp theo thời gian
+            orders = orders.OrderByDescending(x => x.CreationTime).ToList();
+
+            // Lấy danh sách Id đơn hàng
+            var orderIds = orders.Select(x => x.Id).ToList();
+
+            // Lấy tất cả OrderItem
+            var items = await _orderItemRepository.GetListAsync(x => orderIds.Contains(x.OrderId));
+
+            // Ghép dữ liệu
+            var result = new List<OrderHistoryDto>();
+            foreach (var order in orders)
+            {
+                var orderItems = items
+                    .Where(i => i.OrderId == order.Id)
+                    .Select(i => new OrderItemDto
+                    {
+                        ProductId = i.ProductId,
+                        SKU = i.SKU,
+                        Quantity = i.Quantity,
+                        Price = i.Price
+                    }).ToList();
+
+                result.Add(new OrderHistoryDto
+                {
+                    OrderId = order.Id,
+                    Code = order.Code,
+                    CreationTime = order.CreationTime,
+                    Total = order.Total,
+                    Status = order.Status,
+                    PaymentMethod = order.PaymentMethod,
+                    CustomerName = order.CustomerName,
+                    CustomerAddress = order.CustomerAddress,
+                    CustomerPhoneNumber = order.CustomerPhoneNumber,
+                    Items = orderItems
+                });
+            }
+
+            return result;
+        }
     }
 }

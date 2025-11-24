@@ -1,5 +1,7 @@
 using AutoMapper;
 using MetaKing.Orders;
+using Volo.Abp.Identity;
+using MetaKing.System.Users;
 using MetaKing.ProductAttributes;
 using MetaKing.Manufacturers;
 using MetaKing.ProductCategories;
@@ -32,5 +34,9 @@ public class MetaKingPublicApplicationAutoMapperProfile : Profile
 
         //Order
         CreateMap<Order, OrderDto>();
+
+            // Identity user mapping for CurrentUser
+            CreateMap<IdentityUser, UserDto>();
     }
+        
 }
