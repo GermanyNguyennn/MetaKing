@@ -1,18 +1,17 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ProductAttributeDto, ProductAttributesService } from '@proxy/catalog/product-attributes';
-import { attributeTypeOptions } from '@proxy/meta-king/product-attributes';
+import { ProductCategoryDto, ProductCategoriesService } from '@proxy/catalog/product-categories';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Subject, takeUntil } from 'rxjs';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 import { UtilityService } from 'src/app/shared/services/utility.service'; 
 
 @Component({
-  selector: 'app-attribute-detail',
-  templateUrl: './attribute-detail.component.html',
+  selector: 'app-category-detail',
+  templateUrl: './category-detail.component.html',
 })
-export class AttributeDetailComponent implements OnInit, OnDestroy {
+export class CategoryDetailComponent implements OnInit, OnDestroy {
   private ngUnsubscribe = new Subject<void>();
   blockedPanel: boolean = false;
   btnDisabled = false;
@@ -20,10 +19,10 @@ export class AttributeDetailComponent implements OnInit, OnDestroy {
 
   //Dropdown
   dataTypes: any[] = [];
-  selectedEntity = {} as ProductAttributeDto;
+  selectedEntity = {} as ProductCategoryDto;
 
   constructor(
-    private attributeService: ProductAttributesService,
+    private categoryService: ProductCategoriesService,
     private fb: FormBuilder,
     private config: DynamicDialogConfig,
     private ref: DynamicDialogRef,
@@ -58,8 +57,11 @@ export class AttributeDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.buildForm();
-    this.loadAttributeTypes();
     this.initFormData();
+  }
+
+  generateSlug() {
+    this.form.controls['slug'].setValue(this.utilService.MakeSeoTitle(this.form.get('name').value));
   }
 
   initFormData() {
@@ -73,11 +75,11 @@ export class AttributeDetailComponent implements OnInit, OnDestroy {
 
   loadFormDetails(id: string) {
     this.toggleBlockUI(true);
-    this.attributeService
+    this.categoryService
       .get(id)
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe({
-        next: (response: ProductAttributeDto) => {
+        next: (response: ProductCategoryDto) => {
           this.selectedEntity = response;
           this.buildForm();
           this.toggleBlockUI(false);
@@ -92,7 +94,7 @@ export class AttributeDetailComponent implements OnInit, OnDestroy {
     this.toggleBlockUI(true);
 
     if (this.utilService.isEmpty(this.config.data?.id) == true) {
-      this.attributeService
+      this.categoryService
         .create(this.form.value)
         .pipe(takeUntil(this.ngUnsubscribe))
         .subscribe({
@@ -106,7 +108,7 @@ export class AttributeDetailComponent implements OnInit, OnDestroy {
           },
         });
     } else {
-      this.attributeService
+      this.categoryService
         .update(this.config.data?.id, this.form.value)
         .pipe(takeUntil(this.ngUnsubscribe))
         .subscribe({
@@ -122,29 +124,19 @@ export class AttributeDetailComponent implements OnInit, OnDestroy {
     }
   }
 
-  loadAttributeTypes() {
-    attributeTypeOptions.forEach(element => {
-      this.dataTypes.push({
-        value: element.value,
-        label: element.key,
-      });
-    });
-  }
-
   private buildForm() {
     this.form = this.fb.group({
-      label: new FormControl(
-        this.selectedEntity.label || null,
+      name: new FormControl(
+        this.selectedEntity.name || null,
         Validators.compose([Validators.required, Validators.maxLength(250)])
       ),
       code: new FormControl(this.selectedEntity.code || null, Validators.required),
-      dataType: new FormControl(this.selectedEntity.dataType || null, Validators.required),
+      slug: new FormControl(this.selectedEntity.slug || null, Validators.required),
       sortOrder: new FormControl(this.selectedEntity.sortOrder || null, Validators.required),
       visibility: new FormControl(this.selectedEntity.visibility || true),
       isActive: new FormControl(this.selectedEntity.isActive || true),
-      isRequired: new FormControl(this.selectedEntity.isRequired || true),
-      isUnique: new FormControl(this.selectedEntity.isUnique || false),
-      note: new FormControl(this.selectedEntity.note || null),
+      seoMetaDescription: new FormControl(this.selectedEntity.seoMetaDescription || null),
+      parentId: new FormControl(this.selectedEntity.parentId || null),
     });
   }
 

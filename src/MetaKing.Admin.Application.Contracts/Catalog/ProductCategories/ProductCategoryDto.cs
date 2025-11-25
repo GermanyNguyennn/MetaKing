@@ -15,6 +15,7 @@ namespace MetaKing.Admin.Catalog.ProductCategories
         public bool Visibility { get; set; }
         public bool IsActive { get; set; }
         public Guid? ParentId { get; set; }
+        public string ParentName { get; set; }
         public string SeoMetaDescription { get; set; }
         public Guid Id { get; set; }
     }

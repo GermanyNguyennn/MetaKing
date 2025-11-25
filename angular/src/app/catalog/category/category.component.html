@@ -1,4 +1,4 @@
-<p-panel header="Danh Sách Thuộc Tính">
+<p-panel header="Danh Sách Danh Mục">
   <div class="grid">
     <div class="col-4">
       <button
@@ -55,34 +55,26 @@
         <th style="width: 10px">
           <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
         </th>
-        <th>Mã</th>
-        <th>Kiểu Dữ liệu</th>
-        <th>Nhãn</th>
-        <th>Thứ Tự</th>
-        <th>Bắt Buộc Nhập</th>
-        <th>Duy Nhất</th>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Code</th>
+        <th>ParentId</th>
+        <th>Sort Order</th>
         <th>Hiển Thị</th>
         <th>Kích Hoạt</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-row>
-      <tr [pSelectableRow]="row">
+      <tr [pSelectableRow]="row" [ngStyle]="{'background-color': getRowColor(row)}">
         <td style="width: 10px">
           <span class="ui-column-title"></span>
           <p-tableCheckbox [value]="row"></p-tableCheckbox>
-        </td>
+        </td>     
+        <td>{{ row.id }}</td>  
+        <td>{{ row.name }}</td>
         <td>{{ row.code }}</td>
-        <td>{{ getAttributeTypeName(row.dataType) }}</td>
-        <td>{{ row.label }}</td>
-        <td>{{ row.sortOrder }}</td>       
-        <td>
-          <p-badge *ngIf="row.isRequired == 1" severity="success" value="Có"></p-badge>
-          <p-badge *ngIf="row.isRequired == 0" severity="danger" value="Không"></p-badge>
-        </td>
-        <td>
-          <p-badge *ngIf="row.isUnique == 1" severity="success" value="Có"></p-badge>
-          <p-badge *ngIf="row.isUnique == 0" severity="danger" value="Không"></p-badge>
-        </td>
+        <td>{{ row.parentId }}</td>
+        <td>{{ row.sortOrder }}</td>
         <td>
           <p-badge *ngIf="row.visibility == 1" severity="success" value="Hiển thị"></p-badge>
           <p-badge *ngIf="row.visibility == 0" severity="danger" value="Ẩn"></p-badge>

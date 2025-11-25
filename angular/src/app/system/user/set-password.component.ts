@@ -49,7 +49,7 @@ export class SetPasswordComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.buildForm();
-    this.saveBtnName = 'Cập nhật';
+    this.saveBtnName = 'Cập Nhật';
     this.closeBtnName = 'Hủy';
   }
 
@@ -113,11 +113,10 @@ export class SetPasswordComponent implements OnInit, OnDestroy {
     }
   }
 }
+
 export const passwordMatchingValidatior: ValidatorFn = (
-  control: AbstractControl
-): ValidationErrors | null => {
+  control: AbstractControl ): ValidationErrors | null => {
   const password = control.get('newPassword');
   const confirmPassword = control.get('confirmNewPassword');
-
   return password?.value === confirmPassword?.value ? null : { notmatched: true };
 };

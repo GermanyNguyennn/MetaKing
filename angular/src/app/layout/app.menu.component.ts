@@ -25,6 +25,7 @@ export class AppMenuComponent implements OnInit {
                 items: [
                     { label: 'Danh Sách Sản Phẩm', icon: 'pi pi-fw pi-id-card', routerLink: ['/catalog/product'] },
                     { label: 'Danh Sách Thuộc Tính', icon: 'pi pi-fw pi-id-card', routerLink: ['/catalog/attribute'] },
+                    { label: 'Danh Sách Danh Mục', icon: 'pi pi-fw pi-id-card', routerLink: ['/catalog/category'] },
                 ]
             },
             {

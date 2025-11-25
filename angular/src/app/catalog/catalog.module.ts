@@ -24,14 +24,16 @@ import { MetaKingSharedModule } from 'src/app/shared/modules/metaking-shared.mod
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductAttributeComponent } from './product/product-attribute.component';
 import { AttributeDetailComponent } from './attribute/attribute-detail.component';
+import { CategoryDetailComponent } from './category/category-detail.component';
 import { AttributeComponent } from './attribute/attribute.component';
+import { CategoryComponent } from './category/category.component';
 
 @NgModule({
-  declarations: [ProductComponent, ProductDetailComponent, ProductAttributeComponent, AttributeComponent, AttributeDetailComponent],
+  declarations: [ProductComponent, ProductDetailComponent, ProductAttributeComponent, AttributeComponent, AttributeDetailComponent, CategoryComponent, CategoryDetailComponent],
   imports: [SharedModule, CatalogRoutingModule, PanelModule, TableModule, PaginatorModule, BlockUIModule, ProgressSpinnerModule, ButtonModule, DropdownModule, CheckboxModule, InputTextModule, InputTextareaModule,
     InputNumberModule, DynamicDialogModule, ConfirmDialogModule, CalendarModule, BadgeModule, ImageModule, EditorModule, MetaKingSharedModule, FormsModule, ReactiveFormsModule],
     entryComponents:[
-      ProductDetailComponent, ProductAttributeComponent, AttributeDetailComponent
+      ProductDetailComponent, ProductAttributeComponent, AttributeDetailComponent, CategoryDetailComponent
     ]
 })
 export class CatalogModule {}

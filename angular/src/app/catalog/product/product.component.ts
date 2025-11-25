@@ -1,8 +1,7 @@
 import { PagedResultDto } from '@abp/ng.core';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ProductCategoriesService, ProductCategoryInListDto } from '@proxy/catalog/product-categories';
-import { ProductDto, ProductInListDto } from '@proxy/catalog/products';
-import { ProductsService } from '@proxy/catalog/products';
+import { ProductDto, ProductInListDto, ProductsService } from '@proxy/catalog/products';
 import { ProductType } from '@proxy/meta-king/products';
 import { ConfirmationService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
@@ -90,10 +89,7 @@ export class ProductComponent implements OnInit, OnDestroy {
 
   loadProductCategories() {
     this.productCategoryService.getListAll().subscribe((response: ProductCategoryInListDto[]) => {
-      // keep raw list for parent lookup
       this.productCategoriesAll = response;
-
-      // build dropdown options
       response.forEach(element => {
         this.productCategories.push({
           value: element.id,
@@ -101,13 +97,12 @@ export class ProductComponent implements OnInit, OnDestroy {
         });
       });
 
-      // after categories loaded, load products
       this.loadData();
     });
   }
 
   pageChanged(event: any): void {
-    this.skipCount = (event.page - 1) * this.maxResultCount;
+    this.skipCount = event.page * event.rows; // không trừ 1
     this.maxResultCount = event.rows;
     this.loadData();
   }
@@ -144,8 +139,8 @@ export class ProductComponent implements OnInit, OnDestroy {
     ref.onClose.subscribe((data: ProductDto) => {
       if (data) {
         this.loadData();
-        this.selectedItems = [];
         this.notificationService.showSuccess('Cập Nhật Sản Phẩm Thành Công');
+        this.selectedItems = [];
       }
     });
   }
@@ -162,8 +157,8 @@ export class ProductComponent implements OnInit, OnDestroy {
     ref.onClose.subscribe((data: ProductDto) => {
       if (data) {
         this.loadData();
-        this.selectedItems = [];
         this.notificationService.showSuccess('Cập Nhật Thuộc Tính Sản Phẩm Thành Công');
+        this.selectedItems = [];
       }
     });
   }
@@ -192,8 +187,8 @@ export class ProductComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe({
         next: () => {
-          this.notificationService.showSuccess('Xóa Bản Ghi Thành Công');
           this.loadData();
+          this.notificationService.showSuccess('Xóa Bản Ghi Thành Công');
           this.selectedItems = [];
           this.toggleBlockUI(false);
         },

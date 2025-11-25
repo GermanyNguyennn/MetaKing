@@ -73,24 +73,25 @@ export class RoleComponent implements OnInit, OnDestroy {
 
   showAddModal() {
     const ref = this.dialogService.open(RoleDetailComponent, {
-      header: 'Thêm mới quyền',
+      header: 'Thêm Quyền',
       width: '70%',
     });
 
     ref.onClose.subscribe((data: RoleDto) => {
       if (data) {
+        this.loadData();
         this.notificationService.showSuccess(MessageConstants.CREATED_OK_MSG);
         this.selectedItems = [];
-        this.loadData();
       }
     });
   }
 
   pageChanged(event: any): void {
-    this.skipCount = (event.page - 1) * this.maxResultCount;
+    this.skipCount = event.page * event.rows; // không trừ 1
     this.maxResultCount = event.rows;
     this.loadData();
   }
+
 
   showEditModal() {
     if (this.selectedItems.length == 0) {
@@ -102,7 +103,7 @@ export class RoleComponent implements OnInit, OnDestroy {
       data: {
         id: id,
       },
-      header: 'Cập nhật quyền',
+      header: 'Cập Nhật Quyền',
       width: '70%',
     });
 
@@ -127,9 +128,9 @@ export class RoleComponent implements OnInit, OnDestroy {
 
     ref.onClose.subscribe((data: RoleDto) => {
       if (data) {
+        this.loadData(data.id);
         this.notificationService.showSuccess(MessageConstants.UPDATED_OK_MSG);
         this.selectedItems = [];
-        this.loadData(data.id);
       }
     });
   }
@@ -156,8 +157,8 @@ export class RoleComponent implements OnInit, OnDestroy {
 
     this.roleService.deleteMultiple(ids).subscribe({
       next: () => {
-        this.notificationService.showSuccess(MessageConstants.DELETED_OK_MSG);
         this.loadData();
+        this.notificationService.showSuccess(MessageConstants.DELETED_OK_MSG);
         this.selectedItems = [];
         this.toggleBlockUI(false);
       },
@@ -166,6 +167,7 @@ export class RoleComponent implements OnInit, OnDestroy {
       },
     });
   }
+  
   private toggleBlockUI(enabled: boolean) {
     if (enabled == true) {
       this.blockedPanel = true;

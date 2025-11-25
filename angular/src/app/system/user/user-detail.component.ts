@@ -44,30 +44,31 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
   }
+
   validationMessages = {
-  name: [
-    { type: 'required', message: 'Bạn Phải Nhập Tên' },
-  ],
-  surname: [
-    { type: 'required', message: 'Bạn Phải Nhập URL Duy Nhất' },
-  ],
-  email: [
-    { type: 'required', message: 'Bạn Phải Nhập Email' },
-  ],
-  userName: [
-    { type: 'required', message: 'Bạn Phải Nhập Tài Khoản' },
-  ],
-  password: [
-    { type: 'required', message: 'Bạn Phải Nhập Mật Khẩu' },
-    {
-      type: 'pattern',
-      message: 'Mật Khẩu Ít Nhất 8 Ký Tự, Ít Nhất 1 Số, 1 Ký Tự Đặc Biệt, Và Một Chữ Hoa',
-    },
-  ],
-  phoneNumber: [
-    { type: 'required', message: 'Bạn Phải Nhập Số Điện Thoại' },
-  ],
-};
+    name: [
+      { type: 'required', message: 'Bạn Phải Nhập Tên' },
+    ],
+    surname: [
+      { type: 'required', message: 'Bạn Phải Nhập URL Duy Nhất' },
+    ],
+    email: [
+      { type: 'required', message: 'Bạn Phải Nhập Email' },
+    ],
+    userName: [
+      { type: 'required', message: 'Bạn Phải Nhập Tài Khoản' },
+    ],
+    password: [
+      { type: 'required', message: 'Bạn Phải Nhập Mật Khẩu' },
+      {
+        type: 'pattern',
+        message: 'Mật Khẩu Ít Nhất 8 Ký Tự, Ít Nhất 1 Số, 1 Ký Tự Đặc Biệt, Và Một Chữ Hoa',
+      },
+    ],
+    phoneNumber: [
+      { type: 'required', message: 'Bạn Phải Nhập Số Điện Thoại' },
+    ],
+  };
 
   ngOnInit() {
     this.buildForm();
@@ -108,7 +109,6 @@ export class UserDetailComponent implements OnInit, OnDestroy {
           this.selectedEntity = response;
           this.buildForm();
           this.setMode('update');
-
           this.toggleBlockUI(false);
         },
         error: () => {
@@ -183,6 +183,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
       this.form.controls['password'].enable();
     }
   }
+  
   buildForm() {
     this.form = this.fb.group({
       name: new FormControl(this.selectedEntity.name || null, Validators.required),

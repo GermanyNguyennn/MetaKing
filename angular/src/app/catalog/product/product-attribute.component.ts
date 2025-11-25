@@ -89,7 +89,6 @@ export class ProductAttributeComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (response: ProductAttributeValueDto[]) => {
           this.productAttributes = response;
-          this.notificationSerivce.showSuccess('Thêm Thuộc Tính Thành Công');
           this.buildForm();
           this.toggleBlockUI(false);
         },

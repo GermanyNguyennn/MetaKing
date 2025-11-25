@@ -40,9 +40,8 @@ export class RoleDetailComponent implements OnInit, OnDestroy {
     this.ngUnsubscribe.complete();
   }
 
-  public generateSlug() {
-    var slug = this.utilService.MakeSeoTitle(this.form.get('name').value);
-    this.form.controls['slug'].setValue(slug);
+  generateSlug() {
+    this.form.controls['slug'].setValue(this.utilService.MakeSeoTitle(this.form.get('name').value));
   }
   ngOnInit() {
     this.buildForm();

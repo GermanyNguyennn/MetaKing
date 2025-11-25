@@ -55,7 +55,7 @@ export class RoleAssignComponent implements OnInit, OnDestroy {
           this.toggleBlockUI(false);
         },
       });
-    this.saveBtnName = 'Cập nhật';
+    this.saveBtnName = 'Cập Nhật';
     this.closeBtnName = 'Hủy';
   }
 
@@ -95,7 +95,6 @@ export class RoleAssignComponent implements OnInit, OnDestroy {
   }
   saveChanged() {
     this.toggleBlockUI(true);
-
     this.saveData();
   }
 

@@ -79,15 +79,15 @@ export class UserComponent implements OnInit, OnDestroy {
 
     ref.onClose.subscribe((data: UserDto) => {
       if (data) {
+        this.loadData();
         this.notificationService.showSuccess(MessageConstants.CREATED_OK_MSG);
         this.selectedItems = [];
-        this.loadData();
       }
     });
   }
 
   pageChanged(event: any): void {
-    this.skipCount = (event.page - 1) * this.maxResultCount;
+    this.skipCount = event.page * event.rows; // không trừ 1
     this.maxResultCount = event.rows;
     this.loadData();
   }
@@ -108,9 +108,9 @@ export class UserComponent implements OnInit, OnDestroy {
 
     ref.onClose.subscribe((data: UserDto) => {
       if (data) {
+        this.loadData(data.id);
         this.notificationService.showSuccess(MessageConstants.UPDATED_OK_MSG);
         this.selectedItems = [];
-        this.loadData(data.id);
       }
     });
   }
@@ -136,8 +136,8 @@ export class UserComponent implements OnInit, OnDestroy {
     this.toggleBlockUI(true);
     this.userService.deleteMultiple(ids).subscribe({
       next: () => {
-        this.notificationService.showSuccess(MessageConstants.DELETED_OK_MSG);
         this.loadData();
+        this.notificationService.showSuccess(MessageConstants.DELETED_OK_MSG);
         this.selectedItems = [];
         this.toggleBlockUI(false);
       },

@@ -1,23 +1,24 @@
 import { PagedResultDto } from '@abp/ng.core';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ProductAttributeDto, ProductAttributeInListDto, ProductAttributesService } from '@proxy/catalog/product-attributes';
-import { AttributeType } from '@proxy/meta-king/product-attributes'; 
+import { ProductCategoryDto, ProductCategoryInListDto, ProductCategoriesService } from '@proxy/catalog/product-categories';
 import { ConfirmationService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Subject, take, takeUntil } from 'rxjs';
 import { NotificationService } from 'src/app/shared/services/notification.service';
-import { AttributeDetailComponent } from './attribute-detail.component';
+import { CategoryDetailComponent } from './category-detail.component';
 
 @Component({
-  selector: 'app-attribute',
-  templateUrl: './attribute.component.html',
-  styleUrls: ['./attribute.component.scss'],
+  selector: 'app-category',
+  templateUrl: './category.component.html',
+  styleUrls: ['./category.component.scss'],
 })
-export class AttributeComponent implements OnInit, OnDestroy {
+export class CategoryComponent implements OnInit, OnDestroy {
   private ngUnsubscribe = new Subject<void>();
   blockedPanel: boolean = false;
-  items: ProductAttributeInListDto[] = [];
-  public selectedItems: ProductAttributeInListDto[] = [];
+  items: ProductCategoryInListDto[] = [];
+  public selectedItems: ProductCategoryInListDto[] = [];
+  rowColors: { [key: string]: string } = {};
+
 
   //Paging variables
   public skipCount: number = 0;
@@ -25,12 +26,12 @@ export class AttributeComponent implements OnInit, OnDestroy {
   public totalCount: number;
 
   //Filter
-  AttributeCategories: any[] = [];
+  categoryCategories: any[] = [];
   keyword: string = '';
   categoryId: string = '';
 
   constructor(
-    private attributeService: ProductAttributesService,
+    private categoryService: ProductCategoriesService,
     private dialogService: DialogService,
     private notificationService: NotificationService,
     private confirmationService: ConfirmationService
@@ -45,9 +46,35 @@ export class AttributeComponent implements OnInit, OnDestroy {
     this.loadData();
   }
 
+  // Hàm tạo màu HSL dựa trên số lượng category
+  private generateColors(count: number): string[] {
+    const colors: string[] = [];
+    for (let i = 0; i < count; i++) {
+      const hue = (i * 360) / count;
+      colors.push(`hsl(${hue}, 70%, 85%)`);
+    }
+    return colors;
+  }
+
+  private assignColors() {
+    // Lấy danh sách parentId duy nhất
+    const parentIds = Array.from(new Set(this.items.map(x => x.parentId || x.id)));
+    const colors = this.generateColors(parentIds.length);
+
+    parentIds.forEach((id, index) => {
+      this.rowColors[id] = colors[index];
+    });
+  }
+
+  // Lấy màu cho từng dòng
+  getRowColor(row: ProductCategoryInListDto): string {
+    const parentKey = row.parentId || row.id;
+    return this.rowColors[parentKey] || 'transparent';
+  }
+
   loadData() {
     this.toggleBlockUI(true);
-    this.attributeService
+    this.categoryService
       .getListFilter({
         keyword: this.keyword,
         maxResultCount: this.maxResultCount,
@@ -55,9 +82,10 @@ export class AttributeComponent implements OnInit, OnDestroy {
       })
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe({
-        next: (response: PagedResultDto<ProductAttributeInListDto>) => {
+        next: (response: PagedResultDto<ProductCategoryInListDto>) => {
           this.items = response.items;
           this.totalCount = response.totalCount;
+          this.assignColors();
           this.toggleBlockUI(false);
         },
         error: () => {
@@ -73,15 +101,15 @@ export class AttributeComponent implements OnInit, OnDestroy {
   }
 
   showAddModal() {
-    const ref = this.dialogService.open(AttributeDetailComponent, {
-      header: 'Thêm Thuộc Tính',
+    const ref = this.dialogService.open(CategoryDetailComponent, {
+      header: 'Thêm Danh Mục',
       width: '70%',
     });
 
-    ref.onClose.subscribe((data: ProductAttributeDto) => {
+    ref.onClose.subscribe((data: ProductCategoryDto) => {
       if (data) {
         this.loadData();
-        this.notificationService.showSuccess('Thêm Thuộc Tính Thành Công');
+        this.notificationService.showSuccess('Thêm Danh Mục Thành Công');
         this.selectedItems = [];
       }
     });
@@ -93,19 +121,19 @@ export class AttributeComponent implements OnInit, OnDestroy {
       return;
     }
     const id = this.selectedItems[0].id;
-    const ref = this.dialogService.open(AttributeDetailComponent, {
+    const ref = this.dialogService.open(CategoryDetailComponent, {
       data: {
         id: id,
       },
-      header: 'Cập Nhât Thuộc Tính',
+      header: 'Cập Nhật Danh Mục',
       width: '70%',
     });
 
-    ref.onClose.subscribe((data: ProductAttributeDto) => {
+    ref.onClose.subscribe((data: ProductCategoryDto) => {
       if (data) {
         this.loadData();
-        this.notificationService.showSuccess('Cập Nhật Thuộc Tính Thành Công');
         this.selectedItems = [];
+        this.notificationService.showSuccess('Cập Nhật Danh Mục Thành Công');
       }
     });
   }
@@ -128,10 +156,10 @@ export class AttributeComponent implements OnInit, OnDestroy {
 
   deleteItemsConfirmed(ids: string[]){
     this.toggleBlockUI(true);
-    this.attributeService.deleteMultiple(ids).pipe(takeUntil(this.ngUnsubscribe)).subscribe({
+    this.categoryService.deleteMultiple(ids).pipe(takeUntil(this.ngUnsubscribe)).subscribe({
       next: ()=>{
+        this.notificationService.showSuccess("Xóa Danh Mục Thành Công");
         this.loadData();
-        this.notificationService.showSuccess("Xóa Thuộc Tính Thành Công");
         this.selectedItems = [];
         this.toggleBlockUI(false);
       },
@@ -139,10 +167,6 @@ export class AttributeComponent implements OnInit, OnDestroy {
         this.toggleBlockUI(false);
       }
     })
-  }
-  
-  getAttributeTypeName(value: number){
-    return AttributeType[value];
   }
 
   private toggleBlockUI(enabled: boolean) {

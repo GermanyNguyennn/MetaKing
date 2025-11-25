@@ -139,7 +139,8 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
       });
   }
 
-  onParentChange(parentId: string) {
+  
+  onParentChanged(parentId: string) {
     this.selectedParentId = parentId;
     // find children whose parentId == parentId
     const children = this.productCategoriesAll.filter(x => (x as any).parentId === parentId);
@@ -171,38 +172,34 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   loadFormDetails(id: string) {
     this.toggleBlockUI(true);
     this.productService
-      .get(id)
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe({
-        next: (response: ProductDto) => {
-          this.selectedEntity = response;
-          this.loadThumbnail(this.selectedEntity.thumbnailPicture);
-          // If editing, ensure dropdowns reflect current category's parent
-          // find category in all list (if already loaded)
-          const cat = this.productCategoriesAll.find(x => x.id === this.selectedEntity.categoryId);
-          if (cat) {
-            const parentId = (cat as any).parentId as string | undefined;
-            if (parentId) {
-              this.selectedParentId = parentId;
-              this.childCategories = this.productCategoriesAll
-                .filter(x => (x as any).parentId === parentId)
-                .map(x => ({ value: x.id, label: x.name }));
-            } else {
-              // category is a root category
-              this.selectedParentId = null;
-              this.childCategories = [];
-            }
+    .get(id)
+    .pipe(takeUntil(this.ngUnsubscribe))
+    .subscribe({
+      next: (response: ProductDto) => {
+        this.selectedEntity = response;
+        this.loadThumbnail(this.selectedEntity.thumbnailPicture);
+        const cat = this.productCategoriesAll.find(x => x.id === this.selectedEntity.categoryId);
+        if (cat) {
+          const parentId = (cat as any).parentId as string | undefined;
+          if (parentId) {
+            this.selectedParentId = parentId;
+            this.childCategories = this.productCategoriesAll
+              .filter(x => (x as any).parentId === parentId)
+              .map(x => ({ value: x.id, label: x.name }));
+          } else {
+            this.selectedParentId = null;
+            this.childCategories = [];
           }
+        }
 
-          this.buildForm();
-          // ensure form knows selected parent and category
-          this.form.patchValue({ parentCategoryId: this.selectedParentId || null, categoryId: this.selectedEntity.categoryId || null });
-          this.toggleBlockUI(false);
-        },
-        error: () => {
-          this.toggleBlockUI(false);
-        },
-      });
+        this.buildForm();
+        this.form.patchValue({ parentCategoryId: this.selectedParentId || null, categoryId: this.selectedEntity.categoryId || null });
+        this.toggleBlockUI(false);
+      },
+      error: () => {
+        this.toggleBlockUI(false);
+      },
+    });
   }
 
   saveChanged() {
@@ -303,7 +300,6 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
   onFileChanged(event) {
     const reader = new FileReader();
-
     if (event.target.files && event.target.files.length) {
       const [file] = event.target.files;
       reader.readAsDataURL(file);
@@ -312,7 +308,6 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
           thumbnailPictureName: file.name,
           thumbnailPictureContent: reader.result,
         });
-
         this.cd.markForCheck();
       };
     }

@@ -72,6 +72,7 @@ export class PermissionGrantComponent implements OnInit, OnDestroy {
         },
       });
   }
+  
   saveChanged() {
     this.toggleBlockUI(true);
     this.saveData();
