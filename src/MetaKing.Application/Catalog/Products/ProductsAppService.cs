@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MetaKing.Catalog.ProductCategories;
 using MetaKing.Catalog.Products.Attributes;
 using MetaKing.ProductAttributes;
 using MetaKing.ProductCategories;
@@ -27,19 +28,22 @@ namespace MetaKing.Catalog.Products
         private readonly IRepository<ProductAttributeVarchar> _productAttributeVarcharRepository;
         private readonly IRepository<ProductAttributeText> _productAttributeTextRepository;
         private readonly IRepository<Product, Guid> _productRepository;
+        private readonly IRepository<ProductCategory> _productCategoryRepository;
+        private readonly IProductCategoriesAppService _productCategoriesAppService;
 
         public ProductsAppService(IRepository<Product, Guid> repository,
             IRepository<ProductCategory> productCategoryRepository,
             IBlobContainer<ProductThumbnailPictureContainer> fileContainer,
             IRepository<ProductAttribute> productAttributeRepository,
             IRepository<ProductAttributeDateTime> productAttributeDateTimeRepository,
-              IRepository<ProductAttributeInt> productAttributeIntRepository,
-              IRepository<ProductAttributeDecimal> productAttributeDecimalRepository,
-              IRepository<ProductAttributeVarchar> productAttributeVarcharRepository,
-              IRepository<ProductAttributeText> productAttributeTextRepository,
-              IRepository<Product, Guid> productRepository
-              )
-            : base(repository)
+            IRepository<ProductAttributeInt> productAttributeIntRepository,
+            IRepository<ProductAttributeDecimal> productAttributeDecimalRepository,
+            IRepository<ProductAttributeVarchar> productAttributeVarcharRepository,
+            IRepository<ProductAttributeText> productAttributeTextRepository,
+            IRepository<Product, Guid> productRepository,
+            IProductCategoriesAppService productCategoriesAppService
+            )
+        : base(repository)
         {
             _fileContainer = fileContainer;
             _productAttributeRepository = productAttributeRepository;
@@ -49,6 +53,7 @@ namespace MetaKing.Catalog.Products
             _productAttributeVarcharRepository = productAttributeVarcharRepository;
             _productAttributeTextRepository = productAttributeTextRepository;
             _productRepository = productRepository;
+            _productCategoriesAppService = productCategoriesAppService;
         }
 
         public async Task<List<ProductInListDto>> GetListAllAsync()
@@ -224,24 +229,95 @@ namespace MetaKing.Catalog.Products
             return ObjectMapper.Map<Product, ProductDto>(product);
         }
 
-        public async Task<List<ProductDto>> GetListByCategoryAsync(Guid categoryId)
+        public async Task<List<ProductDto>> GetProductsByParentCategoryAsync(Guid parentCategoryId)
         {
-            var query = await _productRepository.GetQueryableAsync();
-            var products = query
-                .Where(x => x.CategoryId == categoryId)
-                .ToList();
-            return ObjectMapper.Map<List<Product>, List<ProductDto>>(products);
+            var categoryQuery = await _productCategoryRepository.GetQueryableAsync();
+            var allCategories = await AsyncExecuter.ToListAsync(categoryQuery);
 
+            // Lấy tất cả category con (đệ quy)
+            List<Guid> GetAllChildren(Guid parentId)
+            {
+                var children = allCategories
+                    .Where(c => c.ParentId == parentId)
+                    .Select(c => c.Id)
+                    .ToList();
+
+                var allChildIds = new List<Guid>(children);
+
+                foreach (var child in children)
+                {
+                    allChildIds.AddRange(GetAllChildren(child));
+                }
+
+                return allChildIds;
+            }
+
+            var categoryIds = GetAllChildren(parentCategoryId);
+            categoryIds.Add(parentCategoryId); // Thêm chính danh mục cha
+
+            // Lấy sản phẩm theo danh mục cha + danh mục con
+            var productQuery = await _productRepository.GetQueryableAsync();
+            var products = productQuery
+                .Where(p => categoryIds.Contains(p.CategoryId))
+                .ToList();
+
+            return ObjectMapper.Map<List<Product>, List<ProductDto>>(products);
         }
-        public async Task<List<ProductDto>> GetListByCategoryIdsAsync(List<Guid> categoryIds)
+        public async Task<List<ProductDto>> GetProductsByDirectChildrenAsync(Guid parentCategoryId)
         {
-            var query = await _productRepository.GetQueryableAsync();
+            var categoryQuery = await _productCategoryRepository.GetQueryableAsync();
+
+            // Lấy các category con trực tiếp
+            var directChildCategories = await AsyncExecuter.ToListAsync(
+                categoryQuery.Where(c => c.ParentId == parentCategoryId)
+            );
+
+            var childCategoryIds = directChildCategories.Select(c => c.Id).ToList();
+
+            if (!childCategoryIds.Any())
+            {
+                return new List<ProductDto>();
+            }
+
+            // Lấy sản phẩm thuộc các danh mục con trực tiếp
+            var productQuery = await _productRepository.GetQueryableAsync();
+            var products = productQuery
+                .Where(p => childCategoryIds.Contains(p.CategoryId))
+                .ToList();
+
+            return ObjectMapper.Map<List<Product>, List<ProductDto>>(products);
+        }
+
+        public async Task<List<ProductInListDto>> GetListByParentCategoryAsync(Guid parentCategoryId)
+        {
+            var categoryIds = await _productCategoriesAppService.GetAllChildrenIdsAsync(parentCategoryId);
+
+            var query = await Repository.GetQueryableAsync();
+            var products = query.Where(x => categoryIds.Contains(x.CategoryId)).ToList();
+
+            return ObjectMapper.Map<List<Product>, List<ProductInListDto>>(products);
+        }
+
+        public async Task<List<ProductInListDto>> GetListByChildCategoryAsync(Guid parentCategoryId)
+        {
+            var children = await _productCategoriesAppService.GetChildrenAsync(parentCategoryId);
+            var childIds = children.Select(x => x.Id).ToList();
+
+            var query = await Repository.GetQueryableAsync();
+            var products = query.Where(x => childIds.Contains(x.CategoryId)).ToList();
+
+            return ObjectMapper.Map<List<Product>, List<ProductInListDto>>(products);
+        }
+
+        public async Task<List<ProductInListDto>> GetListByCategoryIdsAsync(List<Guid> categoryIds)
+        {
+            var query = await Repository.GetQueryableAsync();
 
             var products = query
                 .Where(x => categoryIds.Contains(x.CategoryId))
                 .ToList();
 
-            return ObjectMapper.Map<List<Product>, List<ProductDto>>(products);
+            return ObjectMapper.Map<List<Product>, List<ProductInListDto>>(products);
         }
     }
 }

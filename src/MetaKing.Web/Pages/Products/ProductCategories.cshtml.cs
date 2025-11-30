@@ -18,11 +18,9 @@ namespace MetaKing.Pages.Products
         private readonly IProductsAppService _productService;
 
         public List<ProductCategoryInListDto> Categories { get; set; } = new();
-        public List<ProductInListDto> Products { get; set; } = new();
         public PagedResult<ProductInListDto> PagedProducts { get; set; }
             = new PagedResult<ProductInListDto>(new List<ProductInListDto>(), 0, 1, 12);
 
-        // Bind từ query string / route
         public string ParentSlug { get; set; } = null!;
         public int CurrentPage { get; set; } = 1;
         public int PageSize { get; set; } = 12;
@@ -42,7 +40,6 @@ namespace MetaKing.Pages.Products
             ParentSlug = parentSlug;
             CurrentPage = currentPage;
 
-            // 1. Lấy cache
             var cacheItem = await _cache.GetOrAddAsync(
                 MetaKingPublicConsts.CacheKeys.HomeData,
                 LoadHomeDataAsync,
@@ -52,10 +49,10 @@ namespace MetaKing.Pages.Products
                 });
 
             Categories = cacheItem.Categories;
-            Products = cacheItem.Products;
 
-            // 2. Tìm danh mục cha theo slug
-            var parentCategory = Categories.FirstOrDefault(c => c.Slug == ParentSlug);
+            // 1. tìm danh mục theo slug
+            var parentCategory = FindCategoryBySlug(ParentSlug, Categories);
+
             if (parentCategory == null)
             {
                 PagedProducts = new PagedResult<ProductInListDto>(
@@ -63,86 +60,56 @@ namespace MetaKing.Pages.Products
                 return;
             }
 
-            // 3. Lấy tất cả categoryId con (bao gồm cả cha)
-            var categoryIds = GetAllCategoryIds(parentCategory.Id, Categories);
+            // 2. lấy toàn bộ categoryId cha + con
+            var categoryIds = await _categoryService.GetAllChildrenIdsAsync(parentCategory.Id);
 
-            // 4. Lấy danh sách ProductDto theo categoryIds
-            var productsDto = await _productService.GetListByCategoryIdsAsync(categoryIds);
+            // 3. lấy sản phẩm thuộc toàn bộ category đó
+            var productList = await _productService.GetListByCategoryIdsAsync(categoryIds);
 
-            // 5. Map ProductDto -> ProductInListDto
-            var productsInList = productsDto.Select(p => new ProductInListDto
-            {
-                Id = p.Id,
-                Name = p.Name,
-                SellPrice = p.SellPrice,
-                CategoryId = p.CategoryId,
-                CategoryName = p.CategoryName,
-                CategorySlug = p.CategorySlug
-                // map thêm thuộc tính khác nếu cần
-            }).ToList();
+            // 4. phân trang
+            var total = productList.Count;
 
-            // 6. Phân trang
-            var total = productsInList.Count;
-            var pagedItems = productsInList
+            var pageItems = productList
                 .Skip((CurrentPage - 1) * PageSize)
                 .Take(PageSize)
                 .ToList();
 
             PagedProducts = new PagedResult<ProductInListDto>(
-                pagedItems, total, CurrentPage, PageSize);
+                pageItems, total, CurrentPage, PageSize);
+        }
+
+        private ProductCategoryInListDto? FindCategoryBySlug(string slug, List<ProductCategoryInListDto> nodes)
+        {
+            foreach (var cat in nodes)
+            {
+                if (cat.Slug == slug)
+                    return cat;
+
+                if (cat.ProductCategory != null)
+                {
+                    var found = FindCategoryBySlug(slug, cat.ProductCategory);
+                    if (found != null)
+                        return found;
+                }
+            }
+            return null;
         }
 
         private async Task<HomeCacheItem> LoadHomeDataAsync()
         {
-            var allCategories = await _categoryService.GetListAllAsync();
-            var lookup = allCategories.ToLookup(c => c.ParentId);
+            var categories = await _categoryService.GetListAllAsync();
 
-            foreach (var cat in allCategories)
-                cat.ProductCategory = lookup[cat.Id].ToList();
+            var lookup = categories.ToLookup(c => c.ParentId);
+            foreach (var c in categories)
+                c.ProductCategory = lookup[c.Id].ToList();
 
-            var rootCategories = lookup[null].ToList();
-
-            var products = await _productService.GetListAllAsync();
-
-            var categoryDict = allCategories.ToDictionary(c => c.Id, c => c);
-            foreach (var product in products)
-            {
-                if (categoryDict.TryGetValue(product.CategoryId, out var cat))
-                {
-                    product.CategoryName = cat.Name;
-                    product.CategorySlug = cat.Slug;
-                }
-            }
+            var root = lookup[null].ToList();
 
             return new HomeCacheItem
             {
-                Categories = rootCategories,
-                Products = products
+                Categories = root,
+                Products = new List<ProductInListDto>() // không cần sản phẩm ở cache
             };
-        }
-
-        // Lấy tất cả categoryId cha + con
-        private List<Guid> GetAllCategoryIds(Guid parentId, List<ProductCategoryInListDto> tree)
-        {
-            var result = new List<Guid>();
-
-            void Recurse(List<ProductCategoryInListDto> nodes)
-            {
-                foreach (var node in nodes)
-                {
-                    if (node.Id == parentId || result.Contains(node.Id))
-                    {
-                        result.Add(node.Id);
-                        if (node.ProductCategory != null)
-                            Recurse(node.ProductCategory);
-                    }
-                    else if (node.ProductCategory != null)
-                        Recurse(node.ProductCategory);
-                }
-            }
-
-            Recurse(tree);
-            return result;
         }
     }
 }

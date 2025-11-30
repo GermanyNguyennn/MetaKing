@@ -63,5 +63,28 @@ namespace MetaKing.Catalog.ProductCategories
                 input.PageSize
             );
         }
+
+        public async Task<List<ProductCategoryInListDto>> GetChildrenAsync(Guid parentId)
+        {
+            var children = await _productCategoryRepository.GetListAsync(x => x.ParentId == parentId);
+            return ObjectMapper.Map<List<ProductCategory>, List<ProductCategoryInListDto>>(children);
+        }
+
+        public async Task<List<Guid>> GetAllChildrenIdsAsync(Guid parentId)
+        {
+            var result = new List<Guid>() { parentId };
+
+            var children = await _productCategoryRepository.GetListAsync(x => x.ParentId == parentId);
+
+            foreach (var child in children)
+            {
+                result.Add(child.Id);
+                var subChildren = await GetAllChildrenIdsAsync(child.Id);
+                result.AddRange(subChildren);
+            }
+
+            return result.Distinct().ToList();
+        }
+
     }
 }
