@@ -20,7 +20,7 @@ namespace MetaKing.Catalog.Products
         Guid,
         PagedResultRequestDto>, IProductsAppService
     {
-        private readonly IBlobContainer<ProductThumbnailPictureContainer> _fileContainer;
+        private readonly IBlobContainer<ProductCategoryCoverPictureContainer> _fileContainer;
         private readonly IRepository<ProductAttribute> _productAttributeRepository;
         private readonly IRepository<ProductAttributeDateTime> _productAttributeDateTimeRepository;
         private readonly IRepository<ProductAttributeInt> _productAttributeIntRepository;
@@ -33,7 +33,7 @@ namespace MetaKing.Catalog.Products
 
         public ProductsAppService(IRepository<Product, Guid> repository,
             IRepository<ProductCategory> productCategoryRepository,
-            IBlobContainer<ProductThumbnailPictureContainer> fileContainer,
+            IBlobContainer<ProductCategoryCoverPictureContainer> fileContainer,
             IRepository<ProductAttribute> productAttributeRepository,
             IRepository<ProductAttributeDateTime> productAttributeDateTimeRepository,
             IRepository<ProductAttributeInt> productAttributeIntRepository,
@@ -59,7 +59,7 @@ namespace MetaKing.Catalog.Products
         public async Task<List<ProductInListDto>> GetListAllAsync()
         {
             var query = await Repository.GetQueryableAsync();
-            query = query.Where(x => x.IsActive == true);
+            query = query.Where(x => x.IsActive == true && x.Visibility == true);
             var data = await AsyncExecuter.ToListAsync(query);
 
             return ObjectMapper.Map<List<Product>, List<ProductInListDto>>(data);
@@ -69,8 +69,10 @@ namespace MetaKing.Catalog.Products
         public async Task<PagedResult<ProductInListDto>> GetListFilterAsync(ProductListFilterDto input)
         {
             var query = await Repository.GetQueryableAsync();
-            query = query.WhereIf(!string.IsNullOrWhiteSpace(input.Keyword), x => x.Name.Contains(input.Keyword));
-            query = query.WhereIf(input.CategoryId.HasValue, x => x.CategoryId == input.CategoryId);
+            query = query
+                .WhereIf(!string.IsNullOrWhiteSpace(input.Keyword), x => x.Name.Contains(input.Keyword))
+                .WhereIf(input.CategoryId.HasValue, x => x.CategoryId == input.CategoryId)
+                .Where(x => x.IsActive == true && x.Visibility == true);
 
             var totalCount = await AsyncExecuter.LongCountAsync(query);
             var data = await AsyncExecuter
@@ -229,71 +231,12 @@ namespace MetaKing.Catalog.Products
             return ObjectMapper.Map<Product, ProductDto>(product);
         }
 
-        public async Task<List<ProductDto>> GetProductsByParentCategoryAsync(Guid parentCategoryId)
-        {
-            var categoryQuery = await _productCategoryRepository.GetQueryableAsync();
-            var allCategories = await AsyncExecuter.ToListAsync(categoryQuery);
-
-            // Lấy tất cả category con (đệ quy)
-            List<Guid> GetAllChildren(Guid parentId)
-            {
-                var children = allCategories
-                    .Where(c => c.ParentId == parentId)
-                    .Select(c => c.Id)
-                    .ToList();
-
-                var allChildIds = new List<Guid>(children);
-
-                foreach (var child in children)
-                {
-                    allChildIds.AddRange(GetAllChildren(child));
-                }
-
-                return allChildIds;
-            }
-
-            var categoryIds = GetAllChildren(parentCategoryId);
-            categoryIds.Add(parentCategoryId); // Thêm chính danh mục cha
-
-            // Lấy sản phẩm theo danh mục cha + danh mục con
-            var productQuery = await _productRepository.GetQueryableAsync();
-            var products = productQuery
-                .Where(p => categoryIds.Contains(p.CategoryId))
-                .ToList();
-
-            return ObjectMapper.Map<List<Product>, List<ProductDto>>(products);
-        }
-        public async Task<List<ProductDto>> GetProductsByDirectChildrenAsync(Guid parentCategoryId)
-        {
-            var categoryQuery = await _productCategoryRepository.GetQueryableAsync();
-
-            // Lấy các category con trực tiếp
-            var directChildCategories = await AsyncExecuter.ToListAsync(
-                categoryQuery.Where(c => c.ParentId == parentCategoryId)
-            );
-
-            var childCategoryIds = directChildCategories.Select(c => c.Id).ToList();
-
-            if (!childCategoryIds.Any())
-            {
-                return new List<ProductDto>();
-            }
-
-            // Lấy sản phẩm thuộc các danh mục con trực tiếp
-            var productQuery = await _productRepository.GetQueryableAsync();
-            var products = productQuery
-                .Where(p => childCategoryIds.Contains(p.CategoryId))
-                .ToList();
-
-            return ObjectMapper.Map<List<Product>, List<ProductDto>>(products);
-        }
-
         public async Task<List<ProductInListDto>> GetListByParentCategoryAsync(Guid parentCategoryId)
         {
             var categoryIds = await _productCategoriesAppService.GetAllChildrenIdsAsync(parentCategoryId);
 
             var query = await Repository.GetQueryableAsync();
-            var products = query.Where(x => categoryIds.Contains(x.CategoryId)).ToList();
+            var products = query.Where(x => categoryIds.Contains(x.CategoryId)).Where(x => x.IsActive == true && x.Visibility == true).ToList();
 
             return ObjectMapper.Map<List<Product>, List<ProductInListDto>>(products);
         }
@@ -304,7 +247,7 @@ namespace MetaKing.Catalog.Products
             var childIds = children.Select(x => x.Id).ToList();
 
             var query = await Repository.GetQueryableAsync();
-            var products = query.Where(x => childIds.Contains(x.CategoryId)).ToList();
+            var products = query.Where(x => childIds.Contains(x.CategoryId)).Where(x => x.IsActive == true && x.Visibility == true).ToList();
 
             return ObjectMapper.Map<List<Product>, List<ProductInListDto>>(products);
         }
@@ -314,8 +257,7 @@ namespace MetaKing.Catalog.Products
             var query = await Repository.GetQueryableAsync();
 
             var products = query
-                .Where(x => categoryIds.Contains(x.CategoryId))
-                .ToList();
+                .Where(x => categoryIds.Contains(x.CategoryId)).Where(x => x.IsActive == true && x.Visibility == true).ToList();
 
             return ObjectMapper.Map<List<Product>, List<ProductInListDto>>(products);
         }

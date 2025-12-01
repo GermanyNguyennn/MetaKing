@@ -19,12 +19,10 @@ export class AttributeComponent implements OnInit, OnDestroy {
   items: ProductAttributeInListDto[] = [];
   public selectedItems: ProductAttributeInListDto[] = [];
 
-  //Paging variables
   public skipCount: number = 0;
   public maxResultCount: number = 10;
   public totalCount: number;
 
-  //Filter
   AttributeCategories: any[] = [];
   keyword: string = '';
   categoryId: string = '';
@@ -48,26 +46,26 @@ export class AttributeComponent implements OnInit, OnDestroy {
   loadData() {
     this.toggleBlockUI(true);
     this.attributeService
-      .getListFilter({
-        keyword: this.keyword,
-        maxResultCount: this.maxResultCount,
-        skipCount: this.skipCount,
-      })
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe({
-        next: (response: PagedResultDto<ProductAttributeInListDto>) => {
-          this.items = response.items;
-          this.totalCount = response.totalCount;
-          this.toggleBlockUI(false);
-        },
-        error: () => {
-          this.toggleBlockUI(false);
-        },
-      });
+    .getListFilter({
+      keyword: this.keyword,
+      maxResultCount: this.maxResultCount,
+      skipCount: this.skipCount,
+    })
+    .pipe(takeUntil(this.ngUnsubscribe))
+    .subscribe({
+      next: (response: PagedResultDto<ProductAttributeInListDto>) => {
+        this.items = response.items;
+        this.totalCount = response.totalCount;
+        this.toggleBlockUI(false);
+      },
+      error: () => {
+        this.toggleBlockUI(false);
+      },
+    });
   }
 
   pageChanged(event: any): void {
-    this.skipCount = event.page * event.rows; // không trừ 1
+    this.skipCount = event.page * event.rows;
     this.maxResultCount = event.rows;
     this.loadData();
   }
@@ -109,6 +107,7 @@ export class AttributeComponent implements OnInit, OnDestroy {
       }
     });
   }
+  
   deleteItems(){
     if(this.selectedItems.length == 0){
       this.notificationService.showError("Bạn Phải Chọn Ít Nhất Một Bản Ghi");

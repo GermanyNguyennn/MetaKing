@@ -41,20 +41,20 @@ export class RoleAssignComponent implements OnInit, OnDestroy {
     forkJoin({
       roles,
     })
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe({
-        next: (repsonse: any) => {
-          var roles = repsonse.roles as RoleDto[];
-          roles.forEach(element => {
-            this.availableRoles.push(element.name);
-          });
-          this.loadDetails(this.config.data.id);
-          this.toggleBlockUI(false);
-        },
-        error: () => {
-          this.toggleBlockUI(false);
-        },
-      });
+    .pipe(takeUntil(this.ngUnsubscribe))
+    .subscribe({
+      next: (repsonse: any) => {
+        var roles = repsonse.roles as RoleDto[];
+        roles.forEach(element => {
+          this.availableRoles.push(element.name);
+        });
+        this.loadDetails(this.config.data.id);
+        this.toggleBlockUI(false);
+      },
+      error: () => {
+        this.toggleBlockUI(false);
+      },
+    });
     this.saveBtnName = 'Cập Nhật';
     this.closeBtnName = 'Hủy';
   }
@@ -62,36 +62,36 @@ export class RoleAssignComponent implements OnInit, OnDestroy {
   loadRoles() {
     this.toggleBlockUI(true);
     this.roleService
-      .getListAll()
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe({
-        next: (response: RoleDto[]) => {
-          response.forEach(element => {
-            this.availableRoles.push(element.name);
-          });
-          this.toggleBlockUI(false);
-        },
-        error: () => {
-          this.toggleBlockUI(false);
-        },
-      });
+    .getListAll()
+    .pipe(takeUntil(this.ngUnsubscribe))
+    .subscribe({
+      next: (response: RoleDto[]) => {
+        response.forEach(element => {
+          this.availableRoles.push(element.name);
+        });
+        this.toggleBlockUI(false);
+      },
+      error: () => {
+        this.toggleBlockUI(false);
+      },
+    });
   }
 
   loadDetails(id: any) {
     this.toggleBlockUI(true);
     this.userService
-      .get(id)
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe({
-        next: (response: UserDto) => {
-          this.seletedRoles = response.roles;
-          this.availableRoles = this.availableRoles.filter(x => !this.seletedRoles.includes(x));
-          this.toggleBlockUI(false);
-        },
-        error: () => {
-          this.toggleBlockUI(false);
-        },
-      });
+    .get(id)
+    .pipe(takeUntil(this.ngUnsubscribe))
+    .subscribe({
+      next: (response: UserDto) => {
+        this.seletedRoles = response.roles;
+        this.availableRoles = this.availableRoles.filter(x => !this.seletedRoles.includes(x));
+        this.toggleBlockUI(false);
+      },
+      error: () => {
+        this.toggleBlockUI(false);
+      },
+    });
   }
   saveChanged() {
     this.toggleBlockUI(true);
@@ -100,12 +100,12 @@ export class RoleAssignComponent implements OnInit, OnDestroy {
 
   private saveData() {
     this.userService
-      .assignRoles(this.config.data.id, this.seletedRoles)
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe(() => {
-        this.toggleBlockUI(false);
-        this.ref.close();
-      });
+    .assignRoles(this.config.data.id, this.seletedRoles)
+    .pipe(takeUntil(this.ngUnsubscribe))
+    .subscribe(() => {
+      this.toggleBlockUI(false);
+      this.ref.close();
+    });
   }
 
   private toggleBlockUI(enabled: boolean) {

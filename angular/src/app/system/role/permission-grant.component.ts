@@ -17,7 +17,6 @@ import { Subject, takeUntil } from 'rxjs';
 export class PermissionGrantComponent implements OnInit, OnDestroy {
   private ngUnsubscribe = new Subject<void>();
 
-  // Default
   public blockedPanelDetail: boolean = false;
   public form: FormGroup;
   public title: string;
@@ -54,23 +53,23 @@ export class PermissionGrantComponent implements OnInit, OnDestroy {
   loadDetail(providerKey: string, providerName: string) {
     this.toggleBlockUI(true);
     this.roleService
-      .getPermissions(providerName, providerKey)
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe({
-        next: (response: GetPermissionListResultDto) => {
-          this.groups = response.groups;
-          this.groups.forEach(element => {
-            element.permissions.forEach(permission => {
-              this.permissions.push(permission);
-            });
+    .getPermissions(providerName, providerKey)
+    .pipe(takeUntil(this.ngUnsubscribe))
+    .subscribe({
+      next: (response: GetPermissionListResultDto) => {
+        this.groups = response.groups;
+        this.groups.forEach(element => {
+          element.permissions.forEach(permission => {
+            this.permissions.push(permission);
           });
-          this.buildForm();
-          this.toggleBlockUI(false);
-        },
-        error: () => {
-          this.toggleBlockUI(false);
-        },
-      });
+        });
+        this.buildForm();
+        this.toggleBlockUI(false);
+      },
+      error: () => {
+        this.toggleBlockUI(false);
+      },
+    });
   }
   
   saveChanged() {
@@ -89,17 +88,16 @@ export class PermissionGrantComponent implements OnInit, OnDestroy {
       permissions: permissions,
     };
     this.roleService
-      .updatePermissions('R', this.config.data.name, updateValues)
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe(() => {
-        this.toggleBlockUI(false);
-        this.ref.close(this.form.value);
-      });
+    .updatePermissions('R', this.config.data.name, updateValues)
+    .pipe(takeUntil(this.ngUnsubscribe))
+    .subscribe(() => {
+      this.toggleBlockUI(false);
+      this.ref.close(this.form.value);
+    });
   }
 
   buildForm() {
     this.form = this.fb.group({});
-    //Fill value
     for (let index = 0; index < this.groups.length; index++) {
       const group = this.groups[index];
       for (let jIndex = 0; jIndex < group.permissions.length; jIndex++) {

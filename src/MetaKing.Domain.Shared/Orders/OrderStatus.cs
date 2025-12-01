@@ -6,11 +6,11 @@ namespace MetaKing.Orders
 {
     public enum OrderStatus
     {
-        New =1,
+        New = 1,
         Confirmed = 2,
         Processing = 3,
         Shipping = 4,
-        Finished  = 5,
+        Finished = 5,
         Canceled = 6
     }
 }

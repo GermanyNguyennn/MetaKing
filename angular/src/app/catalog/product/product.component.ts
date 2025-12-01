@@ -21,12 +21,10 @@ export class ProductComponent implements OnInit, OnDestroy {
   items: ProductInListDto[] = [];
   public selectedItems: ProductInListDto[] = [];
 
-  //Paging variables
   public skipCount: number = 0;
   public maxResultCount: number = 10;
   public totalCount: number;
 
-  //Filter
   productCategories: any[] = [];
   productCategoriesAll: ProductCategoryInListDto[] = [];
   keyword: string = '';
@@ -52,39 +50,38 @@ export class ProductComponent implements OnInit, OnDestroy {
   loadData() {
     this.toggleBlockUI(true);
     this.productService
-      .getListFilter({
-        keyword: this.keyword,
-        categoryId: this.categoryId,
-        maxResultCount: this.maxResultCount,
-        skipCount: this.skipCount,
-      })
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe({
-        next: (response: PagedResultDto<ProductInListDto>) => {
-          this.items = response.items;
-          this.totalCount = response.totalCount;
-          // compute parent category name for each item
-          if (this.productCategoriesAll && this.productCategoriesAll.length > 0) {
-            const dict = new Map<string, ProductCategoryInListDto>();
-            this.productCategoriesAll.forEach(c => dict.set(c.id, c));
+    .getListFilter({
+      keyword: this.keyword,
+      categoryId: this.categoryId,
+      maxResultCount: this.maxResultCount,
+      skipCount: this.skipCount,
+    })
+    .pipe(takeUntil(this.ngUnsubscribe))
+    .subscribe({
+      next: (response: PagedResultDto<ProductInListDto>) => {
+        this.items = response.items;
+        this.totalCount = response.totalCount;
+        if (this.productCategoriesAll && this.productCategoriesAll.length > 0) {
+          const dict = new Map<string, ProductCategoryInListDto>();
+          this.productCategoriesAll.forEach(c => dict.set(c.id, c));
 
-            this.items.forEach(item => {
-              const cat = item.categoryId ? dict.get(item.categoryId) : undefined;
-              const parentId = cat ? (cat as any).parentId : undefined;
-              if (parentId) {
-                const parent = dict.get(parentId);
-                (item as any).parentCategoryName = parent ? parent.name : null;
-              } else {
-                (item as any).parentCategoryName = null;
-              }
-            });
-          }
-          this.toggleBlockUI(false);
-        },
-        error: () => {
-          this.toggleBlockUI(false);
-        },
-      });
+          this.items.forEach(item => {
+            const cat = item.categoryId ? dict.get(item.categoryId) : undefined;
+            const parentId = cat ? (cat as any).parentId : undefined;
+            if (parentId) {
+              const parent = dict.get(parentId);
+              (item as any).parentCategoryName = parent ? parent.name : null;
+            } else {
+              (item as any).parentCategoryName = null;
+            }
+          });
+        }
+        this.toggleBlockUI(false);
+      },
+      error: () => {
+        this.toggleBlockUI(false);
+      },
+    });
   }
 
   loadProductCategories() {
@@ -102,7 +99,7 @@ export class ProductComponent implements OnInit, OnDestroy {
   }
 
   pageChanged(event: any): void {
-    this.skipCount = event.page * event.rows; // không trừ 1
+    this.skipCount = event.page * event.rows;
     this.maxResultCount = event.rows;
     this.loadData();
   }
@@ -183,19 +180,19 @@ export class ProductComponent implements OnInit, OnDestroy {
   deleteItemsConfirmed(ids: string[]) {
     this.toggleBlockUI(true);
     this.productService
-      .deleteMultiple(ids)
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe({
-        next: () => {
-          this.loadData();
-          this.notificationService.showSuccess('Xóa Bản Ghi Thành Công');
-          this.selectedItems = [];
-          this.toggleBlockUI(false);
-        },
-        error: () => {
-          this.toggleBlockUI(false);
-        },
-      });
+    .deleteMultiple(ids)
+    .pipe(takeUntil(this.ngUnsubscribe))
+    .subscribe({
+      next: () => {
+        this.loadData();
+        this.notificationService.showSuccess('Xóa Bản Ghi Thành Công');
+        this.selectedItems = [];
+        this.toggleBlockUI(false);
+      },
+      error: () => {
+        this.toggleBlockUI(false);
+      },
+    });
   }
 
   getProductTypeName(value: number) {

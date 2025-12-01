@@ -16,8 +16,8 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
   blockedPanel: boolean = false;
   btnDisabled = false;
   public form: FormGroup;
+  public coverPicture;
 
-  //Dropdown
   dataTypes: any[] = [];
   selectedEntity = {} as ProductCategoryDto;
 
@@ -27,7 +27,9 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
     private config: DynamicDialogConfig,
     private ref: DynamicDialogRef,
     private utilService: UtilityService,
-    private notificationSerivce: NotificationService
+    private notificationSerivce: NotificationService,
+    private cd: ChangeDetectorRef,
+    private sanitizer: DomSanitizer
   ) {}
 
   validationMessages = {
@@ -65,7 +67,6 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
   }
 
   initFormData() {
-    //Load edit data to form
     if (this.utilService.isEmpty(this.config.data?.id) == true) {
       this.toggleBlockUI(false);
     } else {
@@ -76,18 +77,18 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
   loadFormDetails(id: string) {
     this.toggleBlockUI(true);
     this.categoryService
-      .get(id)
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe({
-        next: (response: ProductCategoryDto) => {
-          this.selectedEntity = response;
-          this.buildForm();
-          this.toggleBlockUI(false);
-        },
-        error: () => {
-          this.toggleBlockUI(false);
-        },
-      });
+    .get(id)
+    .pipe(takeUntil(this.ngUnsubscribe))
+    .subscribe({
+      next: (response: ProductCategoryDto) => {
+        this.selectedEntity = response;
+        this.buildForm();
+        this.toggleBlockUI(false);
+      },
+      error: () => {
+        this.toggleBlockUI(false);
+      },
+    });
   }
 
   saveChanged() {
@@ -95,32 +96,32 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
 
     if (this.utilService.isEmpty(this.config.data?.id) == true) {
       this.categoryService
-        .create(this.form.value)
-        .pipe(takeUntil(this.ngUnsubscribe))
-        .subscribe({
-          next: () => {
-            this.toggleBlockUI(false);
-            this.ref.close(this.form.value);
-          },
-          error: err => {
-            this.notificationSerivce.showError(err.error.error.message);
-            this.toggleBlockUI(false);
-          },
-        });
+      .create(this.form.value)
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe({
+        next: () => {
+          this.toggleBlockUI(false);
+          this.ref.close(this.form.value);
+        },
+        error: err => {
+          this.notificationSerivce.showError(err.error.error.message);
+          this.toggleBlockUI(false);
+        },
+      });
     } else {
       this.categoryService
-        .update(this.config.data?.id, this.form.value)
-        .pipe(takeUntil(this.ngUnsubscribe))
-        .subscribe({
-          next: () => {
-            this.toggleBlockUI(false);
-            this.ref.close(this.form.value);
-          },
-          error: err => {
-            this.notificationSerivce.showError(err.error.error.message);
-            this.toggleBlockUI(false);
-          },
-        });
+      .update(this.config.data?.id, this.form.value)
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe({
+        next: () => {
+          this.toggleBlockUI(false);
+          this.ref.close(this.form.value);
+        },
+        error: err => {
+          this.notificationSerivce.showError(err.error.error.message);
+          this.toggleBlockUI(false);
+        },
+      });
     }
   }
 
@@ -149,6 +150,35 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
         this.blockedPanel = false;
         this.btnDisabled = false;
       }, 1000);
+    }
+  }
+
+  // loadThumbnail(fileName: string) {
+  //   this.categoryService
+  //   .getThumbnailImage(fileName)
+  //   .pipe(takeUntil(this.ngUnsubscribe))
+  //   .subscribe({
+  //     next: (response: string) => {
+  //       var fileExt = this.selectedEntity.coverPicture?.split('.').pop();
+  //       this.coverPicture = this.sanitizer.bypassSecurityTrustResourceUrl(
+  //         `data:image/${fileExt};base64, ${response}`
+  //       );
+  //     },
+  //   });
+  // }
+
+  onFileChanged(event) {
+    const reader = new FileReader();
+    if (event.target.files && event.target.files.length) {
+      const [file] = event.target.files;
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.form.patchValue({
+          thumbnailPictureName: file.name,
+          thumbnailPictureContent: reader.result,
+        });
+        this.cd.markForCheck();
+      };
     }
   }
 }

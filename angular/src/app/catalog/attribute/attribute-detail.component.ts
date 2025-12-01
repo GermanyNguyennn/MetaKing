@@ -18,7 +18,6 @@ export class AttributeDetailComponent implements OnInit, OnDestroy {
   btnDisabled = false;
   public form: FormGroup;
 
-  //Dropdown
   dataTypes: any[] = [];
   selectedEntity = {} as ProductAttributeDto;
 
@@ -63,7 +62,6 @@ export class AttributeDetailComponent implements OnInit, OnDestroy {
   }
 
   initFormData() {
-    //Load edit data to form
     if (this.utilService.isEmpty(this.config.data?.id) == true) {
       this.toggleBlockUI(false);
     } else {
@@ -74,23 +72,22 @@ export class AttributeDetailComponent implements OnInit, OnDestroy {
   loadFormDetails(id: string) {
     this.toggleBlockUI(true);
     this.attributeService
-      .get(id)
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe({
-        next: (response: ProductAttributeDto) => {
-          this.selectedEntity = response;
-          this.buildForm();
-          this.toggleBlockUI(false);
-        },
-        error: () => {
-          this.toggleBlockUI(false);
-        },
-      });
+    .get(id)
+    .pipe(takeUntil(this.ngUnsubscribe))
+    .subscribe({
+      next: (response: ProductAttributeDto) => {
+        this.selectedEntity = response;
+        this.buildForm();
+        this.toggleBlockUI(false);
+      },
+      error: () => {
+        this.toggleBlockUI(false);
+      },
+    });
   }
 
   saveChanged() {
     this.toggleBlockUI(true);
-
     if (this.utilService.isEmpty(this.config.data?.id) == true) {
       this.attributeService
         .create(this.form.value)
@@ -107,18 +104,18 @@ export class AttributeDetailComponent implements OnInit, OnDestroy {
         });
     } else {
       this.attributeService
-        .update(this.config.data?.id, this.form.value)
-        .pipe(takeUntil(this.ngUnsubscribe))
-        .subscribe({
-          next: () => {
-            this.toggleBlockUI(false);
-            this.ref.close(this.form.value);
-          },
-          error: err => {
-            this.notificationSerivce.showError(err.error.error.message);
-            this.toggleBlockUI(false);
-          },
-        });
+      .update(this.config.data?.id, this.form.value)
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe({
+        next: () => {
+          this.toggleBlockUI(false);
+          this.ref.close(this.form.value);
+        },
+        error: err => {
+          this.notificationSerivce.showError(err.error.error.message);
+          this.toggleBlockUI(false);
+        },
+      });
     }
   }
 

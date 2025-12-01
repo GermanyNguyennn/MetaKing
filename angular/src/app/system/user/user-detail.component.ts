@@ -14,7 +14,6 @@ import { RoleDto, RolesService } from '@proxy/system/roles';
 export class UserDetailComponent implements OnInit, OnDestroy {
   private ngUnsubscribe = new Subject<void>();
 
-  // Default
   public blockedPanelDetail: boolean = false;
   public form: FormGroup;
   public title: string;
@@ -37,6 +36,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     private utilService: UtilityService,
     private fb: FormBuilder
   ) {}
+  
   ngOnDestroy(): void {
     if (this.ref) {
       this.ref.close();
@@ -77,44 +77,44 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     forkJoin({
       roles
     })
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe({
-        next: (repsonse: any) => {
-          var roles = repsonse.roles as RoleDto[];
-          roles.forEach(element => {
-            this.roles.push({
-              value: element.id,
-              label: element.name,
-            });
+    .pipe(takeUntil(this.ngUnsubscribe))
+    .subscribe({
+      next: (repsonse: any) => {
+        var roles = repsonse.roles as RoleDto[];
+        roles.forEach(element => {
+          this.roles.push({
+            value: element.id,
+            label: element.name,
           });
+        });
 
-          if (this.utilService.isEmpty(this.config.data?.id) == false) {
-            this.loadFormDetails(this.config.data?.id);
-          } else {
-            this.setMode('create');
-            this.toggleBlockUI(false);
-          }
-        },
-        error: () => {
+        if (this.utilService.isEmpty(this.config.data?.id) == false) {
+          this.loadFormDetails(this.config.data?.id);
+        } else {
+          this.setMode('create');
           this.toggleBlockUI(false);
-        },
-      });
+        }
+      },
+      error: () => {
+        this.toggleBlockUI(false);
+      },
+    });
   }
   loadFormDetails(id: string) {
     this.userService
-      .get(id)
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe({
-        next: (response: UserDto) => {
-          this.selectedEntity = response;
-          this.buildForm();
-          this.setMode('update');
-          this.toggleBlockUI(false);
-        },
-        error: () => {
-          this.toggleBlockUI(false);
-        },
-      });
+    .get(id)
+    .pipe(takeUntil(this.ngUnsubscribe))
+    .subscribe({
+      next: (response: UserDto) => {
+        this.selectedEntity = response;
+        this.buildForm();
+        this.setMode('update');
+        this.toggleBlockUI(false);
+      },
+      error: () => {
+        this.toggleBlockUI(false);
+      },
+    });
   }
 
   saveChanged() {
@@ -127,31 +127,31 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     console.log(this.form.value);
     if (this.utilService.isEmpty(this.config.data?.id)) {
       this.userService
-        .create(this.form.value)
-        .pipe(takeUntil(this.ngUnsubscribe))
-        .subscribe({
-          next: () => {
-            this.ref.close(this.form.value);
-            this.toggleBlockUI(false);
-          },
-          error: () => {
-            this.toggleBlockUI(false);
-          },
-        });
+      .create(this.form.value)
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe({
+        next: () => {
+          this.ref.close(this.form.value);
+          this.toggleBlockUI(false);
+        },
+        error: () => {
+          this.toggleBlockUI(false);
+        },
+      });
     } else {
       this.userService
-        .update(this.config.data?.id, this.form.value)
-        .pipe(takeUntil(this.ngUnsubscribe))
-        .subscribe({
-          next: () => {
-            this.toggleBlockUI(false);
+      .update(this.config.data?.id, this.form.value)
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe({
+        next: () => {
+          this.toggleBlockUI(false);
 
-            this.ref.close(this.form.value);
-          },
-          error: () => {
-            this.toggleBlockUI(false);
-          },
-        });
+          this.ref.close(this.form.value);
+        },
+        error: () => {
+          this.toggleBlockUI(false);
+        },
+      });
     }
   }
   private toggleBlockUI(enabled: boolean) {
@@ -166,12 +166,12 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     }
   }
 
-  setMode(mode: string) {
+  setMode(mode: string) { 
     if (mode == 'update') {
       this.form.controls['userName'].clearValidators();
       this.form.controls['userName'].disable();
-      this.form.controls['email'].clearValidators();
-      this.form.controls['email'].disable();
+      // this.form.controls['email'].clearValidators();
+      // this.form.controls['email'].disable();
       this.form.controls['password'].clearValidators();
       this.form.controls['password'].disable();
     } else if (mode == 'create') {

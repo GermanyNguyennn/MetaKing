@@ -43,6 +43,7 @@ export class RoleDetailComponent implements OnInit, OnDestroy {
   generateSlug() {
     this.form.controls['slug'].setValue(this.utilService.MakeSeoTitle(this.form.get('name').value));
   }
+
   ngOnInit() {
     this.buildForm();
     if (this.utilService.isEmpty(this.config.data?.id) == false) {
@@ -70,18 +71,18 @@ export class RoleDetailComponent implements OnInit, OnDestroy {
   loadDetail(id: any) {
     this.toggleBlockUI(true);
     this.roleService
-      .get(id)
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe({
-        next: (response: RoleDto) => {
-          this.selectedEntity = response;
-          this.buildForm();
-          this.toggleBlockUI(false);
-        },
-        error: () => {
-          this.toggleBlockUI(false);
-        },
-      });
+    .get(id)
+    .pipe(takeUntil(this.ngUnsubscribe))
+    .subscribe({
+      next: (response: RoleDto) => {
+        this.selectedEntity = response;
+        this.buildForm();
+        this.toggleBlockUI(false);
+      },
+      error: () => {
+        this.toggleBlockUI(false);
+      },
+    });
   }
   
   saveChanged() {
@@ -92,20 +93,20 @@ export class RoleDetailComponent implements OnInit, OnDestroy {
   private saveData() {
     if (this.utilService.isEmpty(this.config.data?.id)) {
       this.roleService
-        .create(this.form.value)
-        .pipe(takeUntil(this.ngUnsubscribe))
-        .subscribe(() => {
-          this.ref.close(this.form.value);
-          this.toggleBlockUI(false);
-        });
+      .create(this.form.value)
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(() => {
+        this.ref.close(this.form.value);
+        this.toggleBlockUI(false);
+      });
     } else {
       this.roleService
-        .update(this.config.data.id, this.form.value)
-        .pipe(takeUntil(this.ngUnsubscribe))
-        .subscribe(() => {
-          this.toggleBlockUI(false);
-          this.ref.close(this.form.value);
-        });
+      .update(this.config.data.id, this.form.value)
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(() => {
+        this.toggleBlockUI(false);
+        this.ref.close(this.form.value);
+      });
     }
   }
 

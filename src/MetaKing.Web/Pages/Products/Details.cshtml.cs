@@ -33,7 +33,7 @@ namespace MetaKing.Pages.Products
 
         public async Task OnGetAsync(string categorySlug, string slug)
         {
-            Category = await _productCategoriesAppService.GetBySlugAsync(categorySlug);;
+            Category = await _productCategoriesAppService.GetBySlugAsync(categorySlug);
 
             Product = await _productsAppService.GetBySlugAsync(slug);
 

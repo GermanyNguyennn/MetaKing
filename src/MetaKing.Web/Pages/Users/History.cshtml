@@ -31,6 +31,9 @@ else
             <div class="d-flex justify-content-between px-xl-5">
                 <div>
                     <strong>Mã Đơn Hàng: </strong>@order.Code
+                    <span class="badge @GetStatusBadge(order.Status)">
+                        @order.Status.ToString()
+                    </span>
                 </div>
 
                 <div>
@@ -84,8 +87,6 @@ else
         </div>
     }
 }
-
-
 
 @functions {
     private string GetStatusBadge(OrderStatus status)

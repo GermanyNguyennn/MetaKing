@@ -22,7 +22,6 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   public form: FormGroup;
   public thumbnailImage;
 
-  //Dropdown
   productCategories: any[] = [];
   productCategoriesAll: ProductCategoryInListDto[] = [];
   parentCategories: any[] = [];
@@ -105,21 +104,15 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe({
         next: (response: any) => {
-          //Push data to dropdown
           var productCategories = response.productCategories as ProductCategoryInListDto[];
           var manufacturers = response.manufacturers as ManufacturerInListDto[];
-          // Keep raw list for building parent/child relationships
           this.productCategoriesAll = productCategories;
-
-          // Build parent categories (ParentId == null)
           this.parentCategories = productCategories
             .filter(x => (x as any).parentId == null || (x as any).parentId === undefined)
             .map(x => ({ value: x.id, label: x.name }));
+            this.childCategories = [];
 
-          // Default childCategories empty; will populate when parent selected
-          this.childCategories = [];
-
-          manufacturers.forEach(element => {
+            manufacturers.forEach(element => {
             this.manufacturers.push({
               value: element.id,
               label: element.name,
@@ -139,34 +132,30 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
       });
   }
 
-  
   onParentChanged(parentId: string) {
     this.selectedParentId = parentId;
-    // find children whose parentId == parentId
     const children = this.productCategoriesAll.filter(x => (x as any).parentId === parentId);
     this.childCategories = children.map(x => ({ value: x.id, label: x.name }));
-    // If no children, allow selecting the parent itself
     if (this.childCategories.length === 0 && parentId) {
       const parent = this.productCategoriesAll.find(x => x.id === parentId);
       if (parent) {
         this.childCategories = [{ value: parent.id, label: parent.name }];
       }
     }
-    // reset categoryId when parent changes
     this.form.patchValue({ categoryId: null });
   }
 
   getNewSuggestionCode() {
     this.productService
-      .getSuggestNewCode()
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe({
-        next: (response: string) => {
-          this.form.patchValue({
-            code: response,
-          });
-        }
-      });
+    .getSuggestNewCode()
+    .pipe(takeUntil(this.ngUnsubscribe))
+    .subscribe({
+      next: (response: string) => {
+        this.form.patchValue({
+          code: response,
+        });
+      }
+    });
   }
 
   loadFormDetails(id: string) {
@@ -221,18 +210,18 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         });
     } else {
       this.productService
-        .update(this.config.data?.id, this.form.value)
-        .pipe(takeUntil(this.ngUnsubscribe))
-        .subscribe({
-          next: () => {
-            this.toggleBlockUI(false);
-            this.ref.close(this.form.value);
-          },
-          error: err => {
-            this.notificationSerivce.showError(err.error.error.message);
-            this.toggleBlockUI(false);
-          },
-        });
+      .update(this.config.data?.id, this.form.value)
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe({
+        next: () => {
+          this.toggleBlockUI(false);
+          this.ref.close(this.form.value);
+        },
+        error: err => {
+          this.notificationSerivce.showError(err.error.error.message);
+          this.toggleBlockUI(false);
+        },
+      });
     }
   }
 

@@ -19,8 +19,8 @@ namespace MetaKing.Catalog.Products
         Task<List<ProductAttributeValueDto>> GetListProductAttributeAllAsync(Guid productId);
         Task<PagedResult<ProductAttributeValueDto>> GetListProductAttributesAsync(ProductAttributeListFilterDto input);
         Task<ProductDto> GetBySlugAsync(string slug);
-        Task<List<ProductDto>> GetProductsByParentCategoryAsync(Guid parentCategoryId);
-        Task<List<ProductDto>> GetProductsByDirectChildrenAsync(Guid parentCategoryId);
+        Task<List<ProductInListDto>> GetListByParentCategoryAsync(Guid parentCategoryId);
+        Task<List<ProductInListDto>> GetListByChildCategoryAsync(Guid parentCategoryId);
         Task<List<ProductInListDto>> GetListByCategoryIdsAsync(List<Guid> categoryIds);
 
     }

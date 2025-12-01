@@ -1,14 +1,20 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using MetaKing.Admin.Catalog.Products;
+using MetaKing.Admin.Permissions;
+using MetaKing.ProductCategories;
+using MetaKing.Products;
+using Microsoft.AspNetCore.Authorization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using MetaKing.Admin.Permissions;
-using MetaKing.ProductCategories;
+using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
+using Volo.Abp.BlobStoring;
 using Volo.Abp.Domain.Repositories;
+using Volo.Abp.ObjectMapping;
 
 namespace MetaKing.Admin.Catalog.ProductCategories
 {
@@ -22,9 +28,17 @@ namespace MetaKing.Admin.Catalog.ProductCategories
         CreateUpdateProductCategoryDto,
         CreateUpdateProductCategoryDto>, IProductCategoriesAppService
     {
-        public ProductCategoriesAppService(IRepository<ProductCategory, Guid> repository)
+        private readonly ProductCategoryManager _productCategoryManager;
+        private readonly IBlobContainer<ProductCategoryCoverPictureContainer> _fileContainer;
+
+        public ProductCategoriesAppService(IRepository<ProductCategory, Guid> repository,
+            ProductCategoryManager productCategoryManager, IBlobContainer<ProductCategoryCoverPictureContainer> fileContainer
+            )
             : base(repository)
         {
+            _productCategoryManager = productCategoryManager;
+            _fileContainer = fileContainer;
+
             //GetPolicyName = MetaKingPermissions.ProductCategory.Default;
             //GetListPolicyName = MetaKingPermissions.ProductCategory.Default;
             //CreatePolicyName = MetaKingPermissions.ProductCategory.Create;
@@ -36,6 +50,84 @@ namespace MetaKing.Admin.Catalog.ProductCategories
             CreatePolicyName = null;
             UpdatePolicyName = null;
             DeletePolicyName = null;
+        }
+
+        //[Authorize(MetaKingPermissions.ProductCategory.Update)]
+        public override async Task<ProductCategoryDto> CreateAsync(CreateUpdateProductCategoryDto input)
+        {
+            var productCategory = await _productCategoryManager.CreateAsync(
+                input.Name,
+                input.Code,
+                input.Slug,
+                input.SortOrder,
+                input.Visibility,
+                input.IsActive,
+                input.ParentId,
+                input.SeoMetaDescription);
+
+            if (input.CoverPictureContent != null && input.CoverPictureContent.Length > 0)
+            {
+                await SaveThumbnailImageAsync(input.CoverPictureName, input.CoverPictureContent);
+                productCategory.CoverPicture = input.CoverPictureName;
+            }
+
+            var result = await Repository.InsertAsync(productCategory);
+
+            return ObjectMapper.Map<ProductCategory, ProductCategoryDto>(result);
+        }
+
+        //[Authorize(MetaKingPermissions.ProductCategory.Update)]
+
+        public override async Task<ProductCategoryDto> UpdateAsync(Guid id, CreateUpdateProductCategoryDto input)
+        {
+            var productCategory = await Repository.GetAsync(id);
+            if (productCategory == null)
+                throw new BusinessException(MetaKingDomainErrorCodes.ProductIsNotExists);
+            productCategory.Name = input.Name;
+            productCategory.Code = input.Code;
+            productCategory.Slug = input.Slug;
+            productCategory.SortOrder = input.SortOrder;
+            productCategory.Visibility = input.Visibility;
+            productCategory.IsActive = input.IsActive;
+            productCategory.SeoMetaDescription = input.SeoMetaDescription;
+
+            if (input.CoverPictureContent != null && input.CoverPictureContent.Length > 0)
+            {
+                await SaveThumbnailImageAsync(input.CoverPictureName, input.CoverPictureContent);
+                productCategory.CoverPicture = input.CoverPictureName;
+            }
+
+            await Repository.UpdateAsync(productCategory);
+
+            return ObjectMapper.Map<ProductCategory, ProductCategoryDto>(productCategory);
+        }
+
+        //[Authorize(MetaKingPermissions.Product.Update)]
+
+        private async Task SaveThumbnailImageAsync(string fileName, string base64)
+        {
+            Regex regex = new Regex(@"^[\w/\:.-]+;base64,");
+            base64 = regex.Replace(base64, string.Empty);
+            byte[] bytes = Convert.FromBase64String(base64);
+            await _fileContainer.SaveAsync(fileName, bytes, overrideExisting: true);
+        }
+
+        //[Authorize(MetaKingPermissions.Product.Default)]
+
+        public async Task<string> GetThumbnailImageAsync(string fileName)
+        {
+            if (string.IsNullOrEmpty(fileName))
+            {
+                return null;
+            }
+            var thumbnailContent = await _fileContainer.GetAllBytesOrNullAsync(fileName);
+
+            if (thumbnailContent is null)
+            {
+                return null;
+            }
+            var result = Convert.ToBase64String(thumbnailContent);
+            return result;
         }
 
         //[Authorize(MetaKingPermissions.ProductCategory.Delete)]

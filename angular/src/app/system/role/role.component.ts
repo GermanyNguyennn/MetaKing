@@ -15,16 +15,13 @@ import { PermissionGrantComponent } from './permission-grant.component';
   styleUrls: ['./role.component.scss'],
 })
 export class RoleComponent implements OnInit, OnDestroy {
-  //System variables
   private ngUnsubscribe = new Subject<void>();
   public blockedPanel: boolean = false;
 
-  //Paging variables
   public skipCount: number = 0;
   public maxResultCount: number = 10;
   public totalCount: number;
 
-  //Business variables
   public items: RoleDto[];
   public selectedItems: RoleDto[] = [];
   public keyword: string = '';
@@ -49,26 +46,26 @@ export class RoleComponent implements OnInit, OnDestroy {
     this.toggleBlockUI(true);
 
     this.roleService
-      .getListFilter({
-        maxResultCount: this.maxResultCount,
-        skipCount: this.skipCount,
-        keyword: this.keyword,
-      })
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe({
-        next: (response: PagedResultDto<RoleInListDto>) => {
-          this.items = response.items;
-          this.totalCount = response.totalCount;
-          if (selectionId != null && this.items.length > 0) {
-            this.selectedItems = this.items.filter(x => x.id == selectionId);
-          }
+    .getListFilter({
+      maxResultCount: this.maxResultCount,
+      skipCount: this.skipCount,
+      keyword: this.keyword,
+    })
+    .pipe(takeUntil(this.ngUnsubscribe))
+    .subscribe({
+      next: (response: PagedResultDto<RoleInListDto>) => {
+        this.items = response.items;
+        this.totalCount = response.totalCount;
+        if (selectionId != null && this.items.length > 0) {
+          this.selectedItems = this.items.filter(x => x.id == selectionId);
+        }
 
-          this.toggleBlockUI(false);
-        },
-        error: () => {
-          this.toggleBlockUI(false);
-        },
-      });
+        this.toggleBlockUI(false);
+      },
+      error: () => {
+        this.toggleBlockUI(false);
+      },
+    });
   }
 
   showAddModal() {
@@ -87,7 +84,7 @@ export class RoleComponent implements OnInit, OnDestroy {
   }
 
   pageChanged(event: any): void {
-    this.skipCount = event.page * event.rows; // không trừ 1
+    this.skipCount = event.page * event.rows;
     this.maxResultCount = event.rows;
     this.loadData();
   }
@@ -154,7 +151,6 @@ export class RoleComponent implements OnInit, OnDestroy {
 
   deleteItemsConfirm(ids: any[]) {
     this.toggleBlockUI(true);
-
     this.roleService.deleteMultiple(ids).subscribe({
       next: () => {
         this.loadData();

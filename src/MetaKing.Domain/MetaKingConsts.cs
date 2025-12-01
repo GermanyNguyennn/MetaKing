@@ -1,6 +1,4 @@
-﻿using Volo.Abp.Identity;
-
-namespace MetaKing;
+﻿namespace MetaKing;
 
 public static class MetaKingConsts
 {

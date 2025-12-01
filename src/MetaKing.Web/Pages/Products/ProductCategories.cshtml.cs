@@ -108,7 +108,7 @@ namespace MetaKing.Pages.Products
             return new HomeCacheItem
             {
                 Categories = root,
-                Products = new List<ProductInListDto>() // không cần sản phẩm ở cache
+                Products = new List<ProductInListDto>()
             };
         }
     }

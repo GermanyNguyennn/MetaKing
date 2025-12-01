@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using MetaKing.Admin.Permissions;
 using MetaKing.ProductAttributes;
 using MetaKing.ProductCategories;
 using MetaKing.Products;
@@ -13,7 +12,6 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.BlobStoring;
 using Volo.Abp.Domain.Repositories;
-using MetaKing.Admin.Catalog.Products;
 using MetaKing.Admin.Catalog.Products.Attributes;
 
 namespace MetaKing.Admin.Catalog.Products
@@ -211,7 +209,6 @@ namespace MetaKing.Admin.Catalog.Products
             return result;
         }
 
-
         public async Task<string> GetSuggestNewCodeAsync()
         {
             return await _productCodeGenerator.GenerateAsync();
@@ -383,7 +380,7 @@ namespace MetaKing.Admin.Catalog.Products
                             TextValue = aText != null ? aText.Value : null,
                             VarcharValue = aVarchar != null ? aVarchar.Value : null,
                             DateTimeId = adate != null ? adate.Id : null,
-                            DecimalId = adecimal!=null? adecimal.Id : null,
+                            DecimalId = adecimal != null ? adecimal.Id : null,
                             IntId = aint != null ? aint.Id : null,
                             TextId = aText != null ? aText.Id : null,
                             VarcharId = aVarchar != null ? aVarchar.Id : null,
@@ -442,10 +439,10 @@ namespace MetaKing.Admin.Catalog.Products
                             TextId = aText != null ? aText.Id : null,
                             VarcharId = aVarchar != null ? aVarchar.Id : null,
                         };
-            query = query.Where(x => x.DateTimeId != null 
-            || x.DecimalId != null 
-            || x.IntValue != null 
-            || x.TextId != null 
+            query = query.Where(x => x.DateTimeId != null
+            || x.DecimalId != null
+            || x.IntValue != null
+            || x.TextId != null
             || x.VarcharId != null);
             var totalCount = await AsyncExecuter.LongCountAsync(query);
             var data = await AsyncExecuter.ToListAsync(

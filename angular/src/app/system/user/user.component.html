@@ -68,6 +68,7 @@
           <th style="width: 10px">
             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
           </th>
+          <th>Họ</th>
           <th>Tên</th>
           <th>Tài Khoản</th>
           <th>Email</th>
@@ -83,6 +84,7 @@
             <span class="ui-column-title"></span>
             <p-tableCheckbox [value]="row"></p-tableCheckbox>
           </td>
+          <td>{{ row.surname }}</td>
           <td>{{ row.name }}</td>
           <td>{{ row.userName }}</td>
           <td>{{ row.email }}</td>

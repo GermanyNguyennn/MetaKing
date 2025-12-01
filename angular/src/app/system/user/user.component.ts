@@ -17,16 +17,13 @@ import { SetPasswordComponent } from './set-password.component';
   styleUrls: ['./user.component.scss'],
 })
 export class UserComponent implements OnInit, OnDestroy {
-  //System variables
   private ngUnsubscribe = new Subject<void>();
   public blockedPanel: boolean = false;
 
-  //Paging variables
   public skipCount: number = 0;
   public maxResultCount: number = 10;
   public totalCount: number;
 
-  //Business variables
   public items: UserInListDto[];
   public selectedItems: UserInListDto[] = [];
   public keyword: string = '';
@@ -50,25 +47,25 @@ export class UserComponent implements OnInit, OnDestroy {
   loadData(selectionId = null) {
     this.toggleBlockUI(true);
     this.userService
-      .getListWithFilter({
-        maxResultCount: this.maxResultCount,
-        skipCount: this.skipCount,
-        keyword: this.keyword,
-      })
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe({
-        next: (response: PagedResultDto<UserInListDto>) => {
-          this.items = response.items;
-          this.totalCount = response.totalCount;
-          if (selectionId != null && this.items.length > 0) {
-            this.selectedItems = this.items.filter(x => x.id == selectionId);
-          }
-          this.toggleBlockUI(false);
-        },
-        error: () => {
-          this.toggleBlockUI(false);
-        },
-      });
+    .getListWithFilter({
+      maxResultCount: this.maxResultCount,
+      skipCount: this.skipCount,
+      keyword: this.keyword,
+    })
+    .pipe(takeUntil(this.ngUnsubscribe))
+    .subscribe({
+      next: (response: PagedResultDto<UserInListDto>) => {
+        this.items = response.items;
+        this.totalCount = response.totalCount;
+        if (selectionId != null && this.items.length > 0) {
+          this.selectedItems = this.items.filter(x => x.id == selectionId);
+        }
+        this.toggleBlockUI(false);
+      },
+      error: () => {
+        this.toggleBlockUI(false);
+      },
+    });
   }
 
   showAddModal() {

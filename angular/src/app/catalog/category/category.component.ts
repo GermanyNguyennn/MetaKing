@@ -19,13 +19,10 @@ export class CategoryComponent implements OnInit, OnDestroy {
   public selectedItems: ProductCategoryInListDto[] = [];
   rowColors: { [key: string]: string } = {};
 
-
-  //Paging variables
   public skipCount: number = 0;
   public maxResultCount: number = 10;
   public totalCount: number;
 
-  //Filter
   categoryCategories: any[] = [];
   keyword: string = '';
   categoryId: string = '';
@@ -46,7 +43,6 @@ export class CategoryComponent implements OnInit, OnDestroy {
     this.loadData();
   }
 
-  // Hàm tạo màu HSL dựa trên số lượng category
   private generateColors(count: number): string[] {
     const colors: string[] = [];
     for (let i = 0; i < count; i++) {
@@ -57,7 +53,6 @@ export class CategoryComponent implements OnInit, OnDestroy {
   }
 
   private assignColors() {
-    // Lấy danh sách parentId duy nhất
     const parentIds = Array.from(new Set(this.items.map(x => x.parentId || x.id)));
     const colors = this.generateColors(parentIds.length);
 
@@ -66,7 +61,6 @@ export class CategoryComponent implements OnInit, OnDestroy {
     });
   }
 
-  // Lấy màu cho từng dòng
   getRowColor(row: ProductCategoryInListDto): string {
     const parentKey = row.parentId || row.id;
     return this.rowColors[parentKey] || 'transparent';
@@ -137,6 +131,7 @@ export class CategoryComponent implements OnInit, OnDestroy {
       }
     });
   }
+  
   deleteItems(){
     if(this.selectedItems.length == 0){
       this.notificationService.showError("Bạn Phải Chọn Ít Nhất Một Bản Ghi");
