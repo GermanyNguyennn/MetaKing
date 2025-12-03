@@ -66,7 +66,17 @@ export class ManufacturersService {
     this.restService.request<any, PagedResultDto<ManufacturerInListDto>>({
       method: 'GET',
       url: '/api/app/manufacturers/filter',
-      params: { keyword: input.keyword, skipCount: input.skipCount, maxResultCount: input.maxResultCount },
+      params: { keyword: input.keyword, sorting: input.sorting, skipCount: input.skipCount, maxResultCount: input.maxResultCount },
+    },
+    { apiName: this.apiName });
+  
+
+  getThumbnailImage = (fileName: string) =>
+    this.restService.request<any, string>({
+      method: 'GET',
+      responseType: 'text',
+      url: '/api/app/manufacturers/thumbnail-image',
+      params: { fileName },
     },
     { apiName: this.apiName });
   

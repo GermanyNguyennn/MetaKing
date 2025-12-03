@@ -31,9 +31,7 @@ namespace MetaKing.Admin.Catalog.ProductCategories
         private readonly ProductCategoryManager _productCategoryManager;
         private readonly IBlobContainer<ProductCategoryCoverPictureContainer> _fileContainer;
 
-        public ProductCategoriesAppService(IRepository<ProductCategory, Guid> repository,
-            ProductCategoryManager productCategoryManager, IBlobContainer<ProductCategoryCoverPictureContainer> fileContainer
-            )
+        public ProductCategoriesAppService(IRepository<ProductCategory, Guid> repository, ProductCategoryManager productCategoryManager, IBlobContainer<ProductCategoryCoverPictureContainer> fileContainer)
             : base(repository)
         {
             _productCategoryManager = productCategoryManager;
@@ -102,17 +100,24 @@ namespace MetaKing.Admin.Catalog.ProductCategories
             return ObjectMapper.Map<ProductCategory, ProductCategoryDto>(productCategory);
         }
 
-        //[Authorize(MetaKingPermissions.Product.Update)]
+        //[Authorize(MetaKingPermissions.ProductCategory.Update)]
 
         private async Task SaveThumbnailImageAsync(string fileName, string base64)
         {
-            Regex regex = new Regex(@"^[\w/\:.-]+;base64,");
-            base64 = regex.Replace(base64, string.Empty);
+            if (string.IsNullOrWhiteSpace(base64) || string.IsNullOrWhiteSpace(fileName))
+                return;
+
+            var commaIndex = base64.IndexOf(',');
+            if (commaIndex >= 0)
+                base64 = base64.Substring(commaIndex + 1);
+
             byte[] bytes = Convert.FromBase64String(base64);
+
             await _fileContainer.SaveAsync(fileName, bytes, overrideExisting: true);
         }
 
-        //[Authorize(MetaKingPermissions.Product.Default)]
+
+        //[Authorize(MetaKingPermissions.ProductCategory.Default)]
 
         public async Task<string> GetThumbnailImageAsync(string fileName)
         {

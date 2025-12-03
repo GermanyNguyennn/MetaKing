@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MetaKing.Admin.Catalog.Manufacturers
+﻿namespace MetaKing.Admin.Catalog.Manufacturers
 {
     public class CreateUpdateManufacturerDto
     {
@@ -13,5 +9,7 @@ namespace MetaKing.Admin.Catalog.Manufacturers
         public bool Visibility { get; set; }
         public bool IsActive { get; set; }
         public string Country { get; set; }
+        public string? CoverPictureName { get; set; }
+        public string? CoverPictureContent { get; set; }
     }
 }

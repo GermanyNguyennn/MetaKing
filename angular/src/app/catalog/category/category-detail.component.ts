@@ -33,21 +33,8 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
   ) {}
 
   validationMessages = {
-    code: [
-      { type: 'required', message: 'Bạn Phải Nhập Mã Duy Nhất' },
-    ],
-    label: [
-      { type: 'required', message: 'Bạn Phải Nhập Nhãn Hiển Thị' },
-      { type: 'maxlength', message: 'Bạn Không Được Nhập Quá 255 Kí Tự' },
-    ],
-    dataType: [
-      { type: 'required', message: 'Bạn Phải Chọn Kiểu Dữ Liệu' },
-    ],
-    sortOrder: [
-      { type: 'required', message: 'Bạn Phải Nhập Thứ Tự' },
-    ],
+    
   };
-
 
   ngOnDestroy(): void {
     if (this.ref) {
@@ -153,19 +140,19 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
     }
   }
 
-  // loadThumbnail(fileName: string) {
-  //   this.categoryService
-  //   .getThumbnailImage(fileName)
-  //   .pipe(takeUntil(this.ngUnsubscribe))
-  //   .subscribe({
-  //     next: (response: string) => {
-  //       var fileExt = this.selectedEntity.coverPicture?.split('.').pop();
-  //       this.coverPicture = this.sanitizer.bypassSecurityTrustResourceUrl(
-  //         `data:image/${fileExt};base64, ${response}`
-  //       );
-  //     },
-  //   });
-  // }
+  loadThumbnail(fileName: string) {
+    this.categoryService
+    .getThumbnailImage(fileName)
+    .pipe(takeUntil(this.ngUnsubscribe))
+    .subscribe({
+      next: (response: string) => {
+        var fileExt = this.selectedEntity.coverPicture?.split('.').pop();
+        this.coverPicture = this.sanitizer.bypassSecurityTrustResourceUrl(
+          `data:image/${fileExt};base64, ${response}`
+        );
+      },
+    });
+  }
 
   onFileChanged(event) {
     const reader = new FileReader();

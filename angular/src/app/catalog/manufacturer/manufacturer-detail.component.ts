@@ -1,33 +1,34 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ProductAttributeDto, ProductAttributesService } from '@proxy/catalog/product-attributes';
-import { attributeTypeOptions } from '@proxy/meta-king/product-attributes';
+import { ManufacturerDto, ManufacturersService } from '@proxy/catalog/manufacturers';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Subject, takeUntil } from 'rxjs';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 import { UtilityService } from 'src/app/shared/services/utility.service'; 
 
 @Component({
-  selector: 'app-attribute-detail',
-  templateUrl: './attribute-detail.component.html',
+  selector: 'app-manufacturer-detail',
+  templateUrl: './manufacturer-detail.component.html',
 })
-export class AttributeDetailComponent implements OnInit, OnDestroy {
+export class ManufacturerDetailComponent implements OnInit, OnDestroy {
   private ngUnsubscribe = new Subject<void>();
   blockedPanel: boolean = false;
   btnDisabled = false;
   public form: FormGroup;
+  public coverPicture;
 
-  dataTypes: any[] = [];
-  selectedEntity = {} as ProductAttributeDto;
+  selectedEntity = {} as ManufacturerDto;
 
   constructor(
-    private attributeService: ProductAttributesService,
+    private categoryService: ManufacturersService,
     private fb: FormBuilder,
     private config: DynamicDialogConfig,
     private ref: DynamicDialogRef,
     private utilService: UtilityService,
-    private notificationSerivce: NotificationService
+    private notificationSerivce: NotificationService,
+    private cd: ChangeDetectorRef,
+    private sanitizer: DomSanitizer
   ) {}
 
   validationMessages = {
@@ -44,8 +45,11 @@ export class AttributeDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.buildForm();
-    this.loadAttributeTypes();
     this.initFormData();
+  }
+
+  generateSlug() {
+    this.form.controls['slug'].setValue(this.utilService.MakeSeoTitle(this.form.get('name').value));
   }
 
   initFormData() {
@@ -58,11 +62,11 @@ export class AttributeDetailComponent implements OnInit, OnDestroy {
 
   loadFormDetails(id: string) {
     this.toggleBlockUI(true);
-    this.attributeService
+    this.categoryService
     .get(id)
     .pipe(takeUntil(this.ngUnsubscribe))
     .subscribe({
-      next: (response: ProductAttributeDto) => {
+      next: (response: ManufacturerDto) => {
         this.selectedEntity = response;
         this.buildForm();
         this.toggleBlockUI(false);
@@ -75,22 +79,23 @@ export class AttributeDetailComponent implements OnInit, OnDestroy {
 
   saveChanged() {
     this.toggleBlockUI(true);
+
     if (this.utilService.isEmpty(this.config.data?.id) == true) {
-      this.attributeService
-        .create(this.form.value)
-        .pipe(takeUntil(this.ngUnsubscribe))
-        .subscribe({
-          next: () => {
-            this.toggleBlockUI(false);
-            this.ref.close(this.form.value);
-          },
-          error: err => {
-            this.notificationSerivce.showError(err.error.error.message);
-            this.toggleBlockUI(false);
-          },
-        });
+      this.categoryService
+      .create(this.form.value)
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe({
+        next: () => {
+          this.toggleBlockUI(false);
+          this.ref.close(this.form.value);
+        },
+        error: err => {
+          this.notificationSerivce.showError(err.error.error.message);
+          this.toggleBlockUI(false);
+        },
+      });
     } else {
-      this.attributeService
+      this.categoryService
       .update(this.config.data?.id, this.form.value)
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe({
@@ -106,30 +111,17 @@ export class AttributeDetailComponent implements OnInit, OnDestroy {
     }
   }
 
-  loadAttributeTypes() {
-    attributeTypeOptions.forEach(element => {
-      this.dataTypes.push({
-        value: element.value,
-        label: element.key,
-      });
-    });
-  }
-
   private buildForm() {
     this.form = this.fb.group({
-      label: new FormControl(
-        this.selectedEntity.label || null,
+      name: new FormControl(
+        this.selectedEntity.name || null,
         Validators.compose([Validators.required, Validators.maxLength(250)])
       ),
       code: new FormControl(this.selectedEntity.code || null, Validators.required),
-      dataType: new FormControl(this.selectedEntity.dataType || null, Validators.required),
-      sortOrder: new FormControl(this.selectedEntity.sortOrder || null, Validators.required),
+      slug: new FormControl(this.selectedEntity.slug || null, Validators.required),
       visibility: new FormControl(this.selectedEntity.visibility || true),
       isActive: new FormControl(this.selectedEntity.isActive || true),
-      isRequired: new FormControl(this.selectedEntity.isRequired || true),
-      isUnique: new FormControl(this.selectedEntity.isUnique || false),
-      note: new FormControl(this.selectedEntity.note || null),
-    });
+      });
   }
 
   private toggleBlockUI(enabled: boolean) {
@@ -141,6 +133,35 @@ export class AttributeDetailComponent implements OnInit, OnDestroy {
         this.blockedPanel = false;
         this.btnDisabled = false;
       }, 1000);
+    }
+  }
+
+  loadThumbnail(fileName: string) {
+    this.categoryService
+    .getThumbnailImage(fileName)
+    .pipe(takeUntil(this.ngUnsubscribe))
+    .subscribe({
+      next: (response: string) => {
+        var fileExt = this.selectedEntity.coverPicture?.split('.').pop();
+        this.coverPicture = this.sanitizer.bypassSecurityTrustResourceUrl(
+          `data:image/${fileExt};base64, ${response}`
+        );
+      },
+    });
+  }
+
+  onFileChanged(event) {
+    const reader = new FileReader();
+    if (event.target.files && event.target.files.length) {
+      const [file] = event.target.files;
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.form.patchValue({
+          thumbnailPictureName: file.name,
+          thumbnailPictureContent: reader.result,
+        });
+        this.cd.markForCheck();
+      };
     }
   }
 }

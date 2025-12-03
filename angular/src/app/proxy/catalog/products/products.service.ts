@@ -75,7 +75,7 @@ export class ProductsService {
     this.restService.request<any, PagedResultDto<ProductInListDto>>({
       method: 'GET',
       url: '/api/app/products/filter',
-      params: { categoryId: input.categoryId, keyword: input.keyword, skipCount: input.skipCount, maxResultCount: input.maxResultCount },
+      params: { categoryId: input.categoryId, keyword: input.keyword, sorting: input.sorting, skipCount: input.skipCount, maxResultCount: input.maxResultCount },
     },
     { apiName: this.apiName });
   
@@ -92,7 +92,7 @@ export class ProductsService {
     this.restService.request<any, PagedResultDto<ProductAttributeValueDto>>({
       method: 'GET',
       url: '/api/app/products/product-attributes',
-      params: { productId: input.productId, keyword: input.keyword, skipCount: input.skipCount, maxResultCount: input.maxResultCount },
+      params: { productId: input.productId, keyword: input.keyword, sorting: input.sorting, skipCount: input.skipCount, maxResultCount: input.maxResultCount },
     },
     { apiName: this.apiName });
   

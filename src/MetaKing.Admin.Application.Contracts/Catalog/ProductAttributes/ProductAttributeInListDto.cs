@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using MetaKing.ProductAttributes;
 using Volo.Abp.Application.Dtos;
 

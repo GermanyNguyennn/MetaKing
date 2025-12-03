@@ -9,6 +9,24 @@ namespace MetaKing.Manufacturers
 {
     public class Manufacturer : CreationAuditedAggregateRoot<Guid>
     {
+        public Manufacturer() { }
+
+        public Manufacturer(Guid id,
+            string name, string code, string slug,
+            string coverPicture,
+            bool visibility, bool isActive,
+            string country)
+        {
+            Id = id;
+            Name = name;
+            Code = code;
+            Slug = slug;
+            CoverPicture = coverPicture;
+            Visibility = visibility;
+            IsActive = isActive;
+            Country = country;
+        }
+
         public string Name { get; set; }
         public string Code { get; set; }
         public string Slug { get; set; }

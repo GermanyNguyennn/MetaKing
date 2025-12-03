@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using MetaKing.ProductAttributes;
+﻿using MetaKing.ProductAttributes;
 
 namespace MetaKing.Admin.Catalog.ProductAttributes
 {

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using MetaKing.Products;
 using Volo.Abp.Application.Dtos;
 
@@ -19,7 +17,6 @@ namespace MetaKing.Admin.Catalog.Products
         public bool IsActive { get; set; }
         public Guid CategoryId { get; set; }
         public string ThumbnailPicture { get; set; }
-
         public string CategoryName { get; set; }
         public string CategorySlug { get; set; }
     }

@@ -54,7 +54,6 @@ export class ProductAttributeComponent implements OnInit, OnDestroy {
   }
 
   initFormData() {
-    //Load data to form
     var attributes = this.productAttributeService.getListAll();
     this.toggleBlockUI(true);
     forkJoin({
@@ -63,7 +62,6 @@ export class ProductAttributeComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe({
         next: (response: any) => {
-          //Push data to dropdown
           this.fullAttributes = response.attributes;
           var attributes = response.attributes as ProductAttributeInListDto[];
           attributes.forEach(element => {

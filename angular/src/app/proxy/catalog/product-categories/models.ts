@@ -5,11 +5,12 @@ export interface CreateUpdateProductCategoryDto {
   code?: string;
   slug?: string;
   sortOrder: number;
-  coverPicture?: string;
   visibility: boolean;
   isActive: boolean;
   parentId?: string;
   seoMetaDescription?: string;
+  coverPictureName?: string;
+  coverPictureContent?: string;
 }
 
 export interface ProductCategoryDto {
@@ -21,6 +22,7 @@ export interface ProductCategoryDto {
   visibility: boolean;
   isActive: boolean;
   parentId?: string;
+  parentName?: string;
   seoMetaDescription?: string;
   id?: string;
 }
@@ -33,4 +35,5 @@ export interface ProductCategoryInListDto extends EntityDto<string> {
   visibility: boolean;
   isActive: boolean;
   parentId?: string;
+  parentName?: string;
 }

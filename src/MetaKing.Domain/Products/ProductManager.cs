@@ -37,7 +37,7 @@ namespace MetaKing.Products
 
             var category =  await _productCategoryRepository.GetAsync(categoryId);
 
-            return new Product(Guid.NewGuid(), manufacturerId, name, code, slug, productType, sKU, sortOrder, visibility, isActive, categoryId, seoMetaDescription, description, null, sellPrice, category?.Name, category?.Slug);
+            return new Product(Guid.NewGuid(), manufacturerId, name, code, slug, productType, sKU, sortOrder, visibility, isActive, categoryId, seoMetaDescription, description, string.Empty, sellPrice, category?.Name, category?.Slug);
         }
     }
 }

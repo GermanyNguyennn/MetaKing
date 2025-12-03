@@ -8,6 +8,8 @@ export interface CreateUpdateManufacturerDto {
   visibility: boolean;
   isActive: boolean;
   country?: string;
+  coverPictureName?: string;
+  coverPictureContent?: string;
 }
 
 export interface ManufacturerDto {

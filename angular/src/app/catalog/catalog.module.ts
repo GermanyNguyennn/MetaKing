@@ -27,13 +27,16 @@ import { AttributeDetailComponent } from './attribute/attribute-detail.component
 import { CategoryDetailComponent } from './category/category-detail.component';
 import { AttributeComponent } from './attribute/attribute.component';
 import { CategoryComponent } from './category/category.component';
+import { ManufacturerComponent } from './manufacturer/manufacturer.component';
+import { ManufacturerDetailComponent } from './manufacturer/manufacturer-detail.component';
+
 
 @NgModule({
-  declarations: [ProductComponent, ProductDetailComponent, ProductAttributeComponent, AttributeComponent, AttributeDetailComponent, CategoryComponent, CategoryDetailComponent],
+  declarations: [ProductComponent, ProductDetailComponent, ProductAttributeComponent, AttributeComponent, AttributeDetailComponent, CategoryComponent, CategoryDetailComponent, ManufacturerComponent, ManufacturerDetailComponent],
   imports: [SharedModule, CatalogRoutingModule, PanelModule, TableModule, PaginatorModule, BlockUIModule, ProgressSpinnerModule, ButtonModule, DropdownModule, CheckboxModule, InputTextModule, InputTextareaModule,
     InputNumberModule, DynamicDialogModule, ConfirmDialogModule, CalendarModule, BadgeModule, ImageModule, EditorModule, MetaKingSharedModule, FormsModule, ReactiveFormsModule],
     entryComponents:[
-      ProductDetailComponent, ProductAttributeComponent, AttributeDetailComponent, CategoryDetailComponent
+      ProductDetailComponent, ProductAttributeComponent, AttributeDetailComponent, CategoryDetailComponent, ManufacturerDetailComponent
     ]
 })
 export class CatalogModule {}

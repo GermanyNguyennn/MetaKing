@@ -67,7 +67,7 @@
           formControlName="parentCategoryId"
           placeholder="Chọn Danh Mục Cha"
           (onChange)="
-onParentChanged($event.value)"
+          onParentChanged($event.value)"
           [showClear]="true"
           autoWidth="false"
           [style]="{ width: '100%' }"
@@ -140,7 +140,6 @@ onParentChanged($event.value)"
         <p-checkbox formControlName="isActive" binary="true" id="isActive"></p-checkbox>
         <label for="isActive">Kích Hoạt</label>
       </div>
-
       <div class="field col-12">
         <label for="seoMetaDescription" class="block">Mô Tả SEO <span class="required">*</span></label>
         <textarea

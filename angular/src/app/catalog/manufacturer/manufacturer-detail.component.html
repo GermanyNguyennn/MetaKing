@@ -1,8 +1,8 @@
 <form [formGroup]="form" skipValidation (ngSubmit)="saveChanged()">
-  <p-panel #pnl header="Chi Tiết Danh Mục">
+  <p-panel #pnl header="Chi Tiết Nhà Sản Xuất">
     <div class="formgrid grid">
       <div class="field col-12">
-        <label for="name" class="block">Tên Danh Mục <span class="required">*</span></label>
+        <label for="name" class="block">Tên Nhà Sản Xuất <span class="required">*</span></label>
         <input 
           id="name" 
           pInputText 
@@ -34,16 +34,7 @@
           fieldName="slug"
           [validationMessages]="validationMessages"
         ></app-validation-message>
-      </div>   
-      <div class="field col-12">
-        <label for="sortOrder" class="block">Thứ Tự <span class="required">*</span></label>
-        <p-inputNumber formControlName="sortOrder"></p-inputNumber>
-        <app-validation-message
-          [entityForm]="form"
-          fieldName="sortOrder"
-          [validationMessages]="validationMessages"
-        ></app-validation-message>
-      </div>
+      </div>         
       <div class="field col-12 md:col-6">
         <label for="coverPicture" class="block">Hình Ảnh <span class="required">*</span></label>
         <input id="coverPicture" type="file" (change)="onFileChanged($event)" class="w-full">
@@ -63,16 +54,7 @@
       <div class="field-checkbox col-12 md:col-6">
         <p-checkbox formControlName="isActive" binary="true" id="isActive"></p-checkbox>
         <label for="isActive">Kích Hoạt</label>
-      </div>
-      <div class="field col-12">
-        <label for="seoMetaDescription" class="block">Mô Tả SEO <span class="required">*</span></label>
-        <textarea
-          id="seoMetaDescription"
-          pInputTextarea
-          class="w-full"
-          formControlName="seoMetaDescription"
-        ></textarea>
-      </div>
+      </div>      
     </div>
     <ng-template pTemplate="footer">
       <button

@@ -4,6 +4,7 @@ import { ProductComponent } from './product/product.component';
 import { AttributeComponent } from './attribute/attribute.component';
 import { PermissionGuard } from '@abp/ng.core';
 import { CategoryComponent } from './category/category.component';
+import { ManufacturerComponent } from './manufacturer/manufacturer.component';
 
 const routes: Routes = [
   { 
@@ -25,7 +26,14 @@ const routes: Routes = [
     path: 'category', component: CategoryComponent,
     canActivate: [PermissionGuard],
     // data: {
-    //   requiredPolicy: 'MetaKingAdminCatalog.Attribute',
+    //   requiredPolicy: 'MetaKingAdminCatalog.Category',
+    // }, 
+  },
+  { 
+    path: 'manufacturer', component: ManufacturerComponent,
+    canActivate: [PermissionGuard],
+    // data: {
+    //   requiredPolicy: 'MetaKingAdminCatalog.Component',
     // }, 
   }
 ];

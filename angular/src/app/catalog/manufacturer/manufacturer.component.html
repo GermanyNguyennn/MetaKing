@@ -1,0 +1,99 @@
+<p-panel header="Danh Sách Nhà Sản Xuất">
+  <div class="grid">
+    <div class="col-4">
+      <button
+        pButton
+        type="button"
+        (click)="showAddModal()"
+        icon="fa fa-plus"
+        iconPos="left"
+        label="Thêm"
+      ></button>
+      <button
+        pButton
+        type="button"
+        (click)="showEditModal()"
+        *ngIf="selectedItems.length == 1"
+        class="ml-1 p-button-help"
+        icon="fa fa-minus"
+        iconPos="left"
+        label="Sửa"
+      ></button>
+      <button
+        pButton
+        type="button"
+        (click)="deleteItems()"
+        *ngIf="selectedItems.length > 0"
+        class="ml-1 p-button-danger"
+        icon="fa fa-minus"
+        iconPos="left"
+        label="Xóa"
+      ></button>
+    </div>
+    <div class="col-8">
+      <div class="formgroup-inline">
+        <div class="field">
+          <label for="txt-keyword" class="p-sr-only">Từ Khóa</label>
+          <input id="txt-keyword" [(ngModel)]="keyword" pInputText type="text" placeholder="Từ Khoá" />
+        </div>
+        <button
+          type="button"
+          pButton
+          (click)="loadData()"
+          icon="fa fa-search"
+          iconPos="left"
+          label="Tìm Kiếm"
+        ></button>
+      </div>
+    </div>
+  </div>
+
+  <!--Table-->
+  <p-table #pnl [value]="items" [(selection)]="selectedItems" selectionMode="multiple">
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 10px">
+          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        </th>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Code</th>
+        <th>Hiển Thị</th>
+        <th>Kích Hoạt</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-row>
+      <tr [pSelectableRow]="row" [ngStyle]="{'background-color': getRowColor(row)}">
+        <td style="width: 10px">
+          <span class="ui-column-title"></span>
+          <p-tableCheckbox [value]="row"></p-tableCheckbox>
+        </td>     
+        <td>{{ row.id }}</td>  
+        <td>{{ row.name }}</td>
+        <td>{{ row.code }}</td>
+        <td>
+          <p-badge *ngIf="row.visibility == 1" severity="success" value="Hiển thị"></p-badge>
+          <p-badge *ngIf="row.visibility == 0" severity="danger" value="Ẩn"></p-badge>
+        </td>
+        <td>
+          <p-badge *ngIf="row.isActive == 1" value="Kích Hoạt" severity="success"></p-badge>
+          <p-badge *ngIf="row.isActive == 0" value="Khoá" severity="danger"></p-badge>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div style="text-align: left">Tổng: {{ totalCount | number }}</div>
+    </ng-template>
+  </p-table>
+  <!--Paginator-->
+  <p-paginator
+    [rows]="maxResultCount"
+    [totalRecords]="totalCount"
+    (onPageChange)="pageChanged($event)"
+    [rowsPerPageOptions]="[10, 20, 30, 50, 100]"
+  ></p-paginator>
+  <!--Block UI-->
+  <p-blockUI [blocked]="blockedPanel" [target]="pnl">
+    <p-progressSpinner></p-progressSpinner>
+  </p-blockUI>
+</p-panel>

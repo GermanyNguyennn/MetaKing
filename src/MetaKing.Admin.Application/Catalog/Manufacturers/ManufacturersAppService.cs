@@ -1,12 +1,14 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using MetaKing.Manufacturers;
+using MetaKing.ProductCategories;
+using Microsoft.AspNetCore.Authorization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MetaKing.Admin.Permissions;
-using MetaKing.Manufacturers;
+using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
+using Volo.Abp.BlobStoring;
 using Volo.Abp.Domain.Repositories;
 
 namespace MetaKing.Admin.Catalog.Manufacturers
@@ -21,9 +23,15 @@ namespace MetaKing.Admin.Catalog.Manufacturers
         CreateUpdateManufacturerDto,
         CreateUpdateManufacturerDto>, IManufacturersAppService
     {
-        public ManufacturersAppService(IRepository<Manufacturer, Guid> repository)
+
+        private readonly ManufacturerManager _manufacturerManager;
+        private readonly IBlobContainer<ProductCategoryCoverPictureContainer> _fileContainer;
+        public ManufacturersAppService(IRepository<Manufacturer, Guid> repository, ManufacturerManager manufacturerManager, IBlobContainer<ProductCategoryCoverPictureContainer> fileContainer)
             : base(repository)
         {
+
+            _manufacturerManager = manufacturerManager;
+            _fileContainer = fileContainer;
             //GetPolicyName = MetaKingPermissions.Manufacturer.Default;
             //GetListPolicyName = MetaKingPermissions.Manufacturer.Default;
             //CreatePolicyName = MetaKingPermissions.Manufacturer.Create;
@@ -35,6 +43,88 @@ namespace MetaKing.Admin.Catalog.Manufacturers
             CreatePolicyName = null;
             UpdatePolicyName = null;
             DeletePolicyName = null;
+        }
+
+        //[Authorize(MetaKingPermissions.Manufacturer.Update)]
+        public override async Task<ManufacturerDto> CreateAsync(CreateUpdateManufacturerDto input)
+        {
+            var manufacturer = await _manufacturerManager.CreateAsync(
+                input.Name,
+                input.Code,
+                input.Slug,
+                input.Visibility,
+                input.IsActive,
+                input.Country);
+
+            if (input.CoverPictureContent != null && input.CoverPictureContent.Length > 0)
+            {
+                await SaveThumbnailImageAsync(input.CoverPictureName, input.CoverPictureContent);
+                manufacturer.CoverPicture = input.CoverPictureName;
+            }
+
+            var result = await Repository.InsertAsync(manufacturer);
+
+            return ObjectMapper.Map<Manufacturer, ManufacturerDto>(result);
+        }
+
+        //[Authorize(MetaKingPermissions.Manufacturer.Update)]
+
+        public override async Task<ManufacturerDto> UpdateAsync(Guid id, CreateUpdateManufacturerDto input)
+        {
+            var manufacturer = await Repository.GetAsync(id);
+            if (manufacturer == null)
+                throw new BusinessException(MetaKingDomainErrorCodes.ProductIsNotExists);
+            manufacturer.Name = input.Name;
+            manufacturer.Code = input.Code;
+            manufacturer.Slug = input.Slug;
+            manufacturer.Visibility = input.Visibility;
+            manufacturer.IsActive = input.IsActive;
+            manufacturer.Country = input.Country;
+
+            if (input.CoverPictureContent != null && input.CoverPictureContent.Length > 0)
+            {
+                await SaveThumbnailImageAsync(input.CoverPictureName, input.CoverPictureContent);
+                manufacturer.CoverPicture = input.CoverPictureName;
+            }
+
+            await Repository.UpdateAsync(manufacturer);
+
+            return ObjectMapper.Map<Manufacturer, ManufacturerDto>(manufacturer);
+        }
+
+        //[Authorize(MetaKingPermissions.Manufacturer.Update)]
+
+        private async Task SaveThumbnailImageAsync(string fileName, string base64)
+        {
+            if (string.IsNullOrWhiteSpace(base64) || string.IsNullOrWhiteSpace(fileName))
+                return;
+
+            var commaIndex = base64.IndexOf(',');
+            if (commaIndex >= 0)
+                base64 = base64.Substring(commaIndex + 1);
+
+            byte[] bytes = Convert.FromBase64String(base64);
+
+            await _fileContainer.SaveAsync(fileName, bytes, overrideExisting: true);
+        }
+
+
+        //[Authorize(MetaKingPermissions.Manufacturer.Default)]
+
+        public async Task<string> GetThumbnailImageAsync(string fileName)
+        {
+            if (string.IsNullOrEmpty(fileName))
+            {
+                return null;
+            }
+            var thumbnailContent = await _fileContainer.GetAllBytesOrNullAsync(fileName);
+
+            if (thumbnailContent is null)
+            {
+                return null;
+            }
+            var result = Convert.ToBase64String(thumbnailContent);
+            return result;
         }
 
         //[Authorize(MetaKingPermissions.Manufacturer.Delete)]

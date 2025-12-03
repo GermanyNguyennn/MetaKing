@@ -185,9 +185,15 @@ namespace MetaKing.Admin.Catalog.Products
 
         private async Task SaveThumbnailImageAsync(string fileName, string base64)
         {
-            Regex regex = new Regex(@"^[\w/\:.-]+;base64,");
-            base64 = regex.Replace(base64, string.Empty);
+            if (string.IsNullOrWhiteSpace(base64) || string.IsNullOrWhiteSpace(fileName))
+                return;
+
+            var commaIndex = base64.IndexOf(',');
+            if (commaIndex >= 0)
+                base64 = base64.Substring(commaIndex + 1);
+
             byte[] bytes = Convert.FromBase64String(base64);
+
             await _fileContainer.SaveAsync(fileName, bytes, overrideExisting: true);
         }
 

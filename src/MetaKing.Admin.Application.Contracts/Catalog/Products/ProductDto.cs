@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using MetaKing.Products;
 using Volo.Abp.Application.Dtos;
 
@@ -21,10 +19,8 @@ namespace MetaKing.Admin.Catalog.Products
         public string SeoMetaDescription { get; set; }
         public string Description { get; set; }
         public string ThumbnailPicture { get; set; }
-
         public double SellPrice { get; set; }
         public Guid Id { get; set; }
-
         public string CategoryName { get; set; }
         public string CategorySlug { get; set; }
     }

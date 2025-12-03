@@ -74,7 +74,7 @@ export class ProductCategoriesService {
     this.restService.request<any, PagedResultDto<ProductCategoryInListDto>>({
       method: 'GET',
       url: '/api/app/product-categories/filter',
-      params: { keyword: input.keyword, skipCount: input.skipCount, maxResultCount: input.maxResultCount },
+      params: { keyword: input.keyword, sorting: input.sorting, skipCount: input.skipCount, maxResultCount: input.maxResultCount },
     },
     { apiName: this.apiName });
   
@@ -83,6 +83,16 @@ export class ProductCategoriesService {
     this.restService.request<any, ProductCategoryInListDto[]>({
       method: 'GET',
       url: '/api/app/product-categories/parent',
+    },
+    { apiName: this.apiName });
+  
+
+  getThumbnailImage = (fileName: string) =>
+    this.restService.request<any, string>({
+      method: 'GET',
+      responseType: 'text',
+      url: '/api/app/product-categories/thumbnail-image',
+      params: { fileName },
     },
     { apiName: this.apiName });
   
