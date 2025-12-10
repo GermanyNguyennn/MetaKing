@@ -23,8 +23,7 @@ namespace MetaKing.Products
 
         public async Task<Product> CreateAsync(Guid manufacturerId,
             string name, string code, string slug,
-            ProductType productType, string sKU,
-            int sortOrder, bool visibility,
+            ProductType productType, string sKU,  bool isVisibility,
             bool isActive, Guid categoryId,
             string seoMetaDescription, string description, double sellPrice)
         {
@@ -37,7 +36,7 @@ namespace MetaKing.Products
 
             var category =  await _productCategoryRepository.GetAsync(categoryId);
 
-            return new Product(Guid.NewGuid(), manufacturerId, name, code, slug, productType, sKU, sortOrder, visibility, isActive, categoryId, seoMetaDescription, description, string.Empty, sellPrice, category?.Name, category?.Slug);
+            return new Product(Guid.NewGuid(), manufacturerId, name, code, slug, productType, sKU, isVisibility, isActive, categoryId, seoMetaDescription, description, string.Empty, sellPrice, category?.Name!, category?.Slug!);
         }
     }
 }

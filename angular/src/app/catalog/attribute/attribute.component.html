@@ -52,13 +52,12 @@
   <p-table #pnl [value]="items" [(selection)]="selectedItems" selectionMode="multiple">
     <ng-template pTemplate="header">
       <tr>
-        <th style="width: 10px">
+        <th>
           <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
         </th>
-        <th>Mã</th>
+        <th>Mã Thuộc Tính</th>
         <th>Kiểu Dữ liệu</th>
-        <th>Nhãn</th>
-        <th>Thứ Tự</th>
+        <th>Tên Thuộc Tính</th>
         <th>Bắt Buộc Nhập</th>
         <th>Duy Nhất</th>
         <th>Hiển Thị</th>
@@ -74,7 +73,6 @@
         <td>{{ row.code }}</td>
         <td>{{ getAttributeTypeName(row.dataType) }}</td>
         <td>{{ row.label }}</td>
-        <td>{{ row.sortOrder }}</td>       
         <td>
           <p-badge *ngIf="row.isRequired == 1" severity="success" value="Có"></p-badge>
           <p-badge *ngIf="row.isRequired == 0" severity="danger" value="Không"></p-badge>
@@ -84,8 +82,8 @@
           <p-badge *ngIf="row.isUnique == 0" severity="danger" value="Không"></p-badge>
         </td>
         <td>
-          <p-badge *ngIf="row.visibility == 1" severity="success" value="Hiển thị"></p-badge>
-          <p-badge *ngIf="row.visibility == 0" severity="danger" value="Ẩn"></p-badge>
+          <p-badge *ngIf="row.isVisibility == 1" severity="success" value="Hiển thị"></p-badge>
+          <p-badge *ngIf="row.isVisibility == 0" severity="danger" value="Ẩn"></p-badge>
         </td>
         <td>
           <p-badge *ngIf="row.isActive == 1" value="Kích Hoạt" severity="success"></p-badge>

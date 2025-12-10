@@ -39,7 +39,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     private config: DynamicDialogConfig,
     private ref: DynamicDialogRef,
     private utilService: UtilityService,
-    private notificationSerivce: NotificationService,
+    private notificationService: NotificationService,
     private cd: ChangeDetectorRef,
     private sanitizer: DomSanitizer
   ) {}
@@ -204,7 +204,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
             this.ref.close(this.form.value);
           },
           error: err => {
-            this.notificationSerivce.showError(err.error.error.message);
+            this.notificationService.showError(err.error.error.message);
             this.toggleBlockUI(false);
           },          
         });
@@ -218,7 +218,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
           this.ref.close(this.form.value);
         },
         error: err => {
-          this.notificationSerivce.showError(err.error.error.message);
+          this.notificationService.showError(err.error.error.message);
           this.toggleBlockUI(false);
         },
       });
@@ -243,16 +243,12 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
       code: new FormControl(this.selectedEntity.code || null, Validators.required),
       slug: new FormControl(this.selectedEntity.slug || null, Validators.required),
       sku: new FormControl(this.selectedEntity.sku || null, Validators.required),
-      manufacturerId: new FormControl(
-        this.selectedEntity.manufacturerId || null,
-        Validators.required
-      ),
+      manufacturerId: new FormControl(this.selectedEntity.manufacturerId || null,Validators.required),
       categoryId: new FormControl(this.selectedEntity.categoryId || null, Validators.required),
       parentCategoryId: new FormControl(this.selectedEntity['parentCategoryId'] || null),
       productType: new FormControl(this.selectedEntity.productType || null, Validators.required),
-      sortOrder: new FormControl(this.selectedEntity.sortOrder || null, Validators.required),
       sellPrice: new FormControl(this.selectedEntity.sellPrice || null, Validators.required),
-      visibility: new FormControl(this.selectedEntity.visibility || true),
+      isVisibility: new FormControl(this.selectedEntity.isVisibility || true),
       isActive: new FormControl(this.selectedEntity.isActive || true),
       seoMetaDescription: new FormControl(this.selectedEntity.seoMetaDescription || null),
       description: new FormControl(this.selectedEntity.description || null),

@@ -1,7 +1,7 @@
 import type { BaseListFilterDto } from '../../../models';
 import type { AttributeType } from '../../../meta-king/product-attributes/attribute-type.enum';
 
-export interface AddUpdateProductAttributeDto {
+export interface CreateUpdateProductAttributeDto {
   productId?: string;
   attributeId?: string;
   dateTimeValue?: string;

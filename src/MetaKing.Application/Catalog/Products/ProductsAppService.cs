@@ -59,7 +59,7 @@ namespace MetaKing.Catalog.Products
         public async Task<List<ProductInListDto>> GetListAllAsync()
         {
             var query = await Repository.GetQueryableAsync();
-            query = query.Where(x => x.IsActive == true && x.Visibility == true);
+            query = query.Where(x => x.IsActive == true && x.IsVisibility == true);
             var data = await AsyncExecuter.ToListAsync(query);
 
             return ObjectMapper.Map<List<Product>, List<ProductInListDto>>(data);
@@ -72,7 +72,7 @@ namespace MetaKing.Catalog.Products
             query = query
                 .WhereIf(!string.IsNullOrWhiteSpace(input.Keyword), x => x.Name.Contains(input.Keyword))
                 .WhereIf(input.CategoryId.HasValue, x => x.CategoryId == input.CategoryId)
-                .Where(x => x.IsActive == true && x.Visibility == true);
+                .Where(x => x.IsActive == true && x.IsVisibility == true);
 
             var totalCount = await AsyncExecuter.LongCountAsync(query);
             var data = await AsyncExecuter
@@ -236,7 +236,7 @@ namespace MetaKing.Catalog.Products
             var categoryIds = await _productCategoriesAppService.GetAllChildrenIdsAsync(parentCategoryId);
 
             var query = await Repository.GetQueryableAsync();
-            var products = query.Where(x => categoryIds.Contains(x.CategoryId)).Where(x => x.IsActive == true && x.Visibility == true).ToList();
+            var products = query.Where(x => categoryIds.Contains(x.CategoryId)).Where(x => x.IsActive == true && x.IsVisibility == true).ToList();
 
             return ObjectMapper.Map<List<Product>, List<ProductInListDto>>(products);
         }
@@ -247,7 +247,7 @@ namespace MetaKing.Catalog.Products
             var childIds = children.Select(x => x.Id).ToList();
 
             var query = await Repository.GetQueryableAsync();
-            var products = query.Where(x => childIds.Contains(x.CategoryId)).Where(x => x.IsActive == true && x.Visibility == true).ToList();
+            var products = query.Where(x => childIds.Contains(x.CategoryId)).Where(x => x.IsActive == true && x.IsVisibility == true).ToList();
 
             return ObjectMapper.Map<List<Product>, List<ProductInListDto>>(products);
         }
@@ -257,7 +257,7 @@ namespace MetaKing.Catalog.Products
             var query = await Repository.GetQueryableAsync();
 
             var products = query
-                .Where(x => categoryIds.Contains(x.CategoryId)).Where(x => x.IsActive == true && x.Visibility == true).ToList();
+                .Where(x => categoryIds.Contains(x.CategoryId)).Where(x => x.IsActive == true && x.IsVisibility == true).ToList();
 
             return ObjectMapper.Map<List<Product>, List<ProductInListDto>>(products);
         }

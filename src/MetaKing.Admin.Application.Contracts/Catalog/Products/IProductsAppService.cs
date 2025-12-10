@@ -21,8 +21,8 @@ namespace MetaKing.Admin.Catalog.Products
         Task<string> GetThumbnailImageAsync(string fileName);
         Task<string> GetSuggestNewCodeAsync();
 
-        Task<ProductAttributeValueDto> AddProductAttributeAsync(AddUpdateProductAttributeDto input);
-        Task<ProductAttributeValueDto> UpdateProductAttributeAsync(Guid id, AddUpdateProductAttributeDto input);
+        Task<ProductAttributeValueDto> AddProductAttributeAsync(CreateUpdateProductAttributeDto input);
+        Task<ProductAttributeValueDto> UpdateProductAttributeAsync(Guid id, CreateUpdateProductAttributeDto input);
 
         Task RemoveProductAttributeAsync(Guid attributeId, Guid id);
 

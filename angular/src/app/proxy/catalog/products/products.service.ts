@@ -1,4 +1,4 @@
-import type { AddUpdateProductAttributeDto, ProductAttributeListFilterDto, ProductAttributeValueDto } from './attributes/models';
+import type { CreateUpdateProductAttributeDto, ProductAttributeListFilterDto, ProductAttributeValueDto } from './attributes/models';
 import type { CreateUpdateProductDto, ProductDto, ProductInListDto, ProductListFilterDto } from './models';
 import { RestService } from '@abp/ng.core';
 import type { PagedResultDto, PagedResultRequestDto } from '@abp/ng.core';
@@ -11,7 +11,7 @@ export class ProductsService {
   apiName = 'Default';
   
 
-  addProductAttribute = (input: AddUpdateProductAttributeDto) =>
+  addProductAttribute = (input: CreateUpdateProductAttributeDto) =>
     this.restService.request<any, ProductAttributeValueDto>({
       method: 'POST',
       url: '/api/app/products/product-attribute',
@@ -75,7 +75,7 @@ export class ProductsService {
     this.restService.request<any, PagedResultDto<ProductInListDto>>({
       method: 'GET',
       url: '/api/app/products/filter',
-      params: { categoryId: input.categoryId, keyword: input.keyword, sorting: input.sorting, skipCount: input.skipCount, maxResultCount: input.maxResultCount },
+      params: { categoryId: input.categoryId, keyword: input.keyword, sortField: input.sortField, sortOrder: input.sortOrder, skipCount: input.skipCount, maxResultCount: input.maxResultCount },
     },
     { apiName: this.apiName });
   
@@ -92,7 +92,7 @@ export class ProductsService {
     this.restService.request<any, PagedResultDto<ProductAttributeValueDto>>({
       method: 'GET',
       url: '/api/app/products/product-attributes',
-      params: { productId: input.productId, keyword: input.keyword, sorting: input.sorting, skipCount: input.skipCount, maxResultCount: input.maxResultCount },
+      params: { productId: input.productId, keyword: input.keyword, sortField: input.sortField, sortOrder: input.sortOrder, skipCount: input.skipCount, maxResultCount: input.maxResultCount },
     },
     { apiName: this.apiName });
   
@@ -133,7 +133,7 @@ export class ProductsService {
     { apiName: this.apiName });
   
 
-  updateProductAttribute = (id: string, input: AddUpdateProductAttributeDto) =>
+  updateProductAttribute = (id: string, input: CreateUpdateProductAttributeDto) =>
     this.restService.request<any, ProductAttributeValueDto>({
       method: 'PUT',
       url: `/api/app/products/${id}/product-attribute`,

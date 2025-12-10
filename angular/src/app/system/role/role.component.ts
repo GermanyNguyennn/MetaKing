@@ -71,7 +71,7 @@ export class RoleComponent implements OnInit, OnDestroy {
   showAddModal() {
     const ref = this.dialogService.open(RoleDetailComponent, {
       header: 'Thêm Quyền',
-      width: '70%',
+      width: '80%',
     });
 
     ref.onClose.subscribe((data: RoleDto) => {
@@ -101,7 +101,7 @@ export class RoleComponent implements OnInit, OnDestroy {
         id: id,
       },
       header: 'Cập Nhật Quyền',
-      width: '70%',
+      width: '80%',
     });
 
     ref.onClose.subscribe((data: RoleDto) => {
@@ -120,7 +120,7 @@ export class RoleComponent implements OnInit, OnDestroy {
         name: name,
       },
       header: name,
-      width: '70%',
+      width: '80%',
     });
 
     ref.onClose.subscribe((data: RoleDto) => {

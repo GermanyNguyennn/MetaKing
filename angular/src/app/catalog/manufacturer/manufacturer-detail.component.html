@@ -34,7 +34,16 @@
           fieldName="slug"
           [validationMessages]="validationMessages"
         ></app-validation-message>
-      </div>         
+      </div> 
+      <div class="field col-12">
+        <label for="country" class="block">Quốc Gia <span class="required">*</span></label>
+        <input id="country" pInputText type="text" formControlName="country" />
+        <app-validation-message
+          [entityForm]="form"
+          fieldName="country"
+          [validationMessages]="validationMessages"
+        ></app-validation-message>
+      </div>          
       <div class="field col-12 md:col-6">
         <label for="coverPicture" class="block">Hình Ảnh <span class="required">*</span></label>
         <input id="coverPicture" type="file" (change)="onFileChanged($event)" class="w-full">
@@ -48,8 +57,8 @@
         ></p-image>
       </div>
       <div class="field-checkbox col-12 md:col-6">
-        <p-checkbox formControlName="visibility" binary="true" id="visibility"></p-checkbox>
-        <label for="visibility">Hiển Thị</label>
+        <p-checkbox formControlName="isVisibility" binary="true" id="isVisibility"></p-checkbox>
+        <label for="isVisibility">Hiển Thị</label>
       </div>
       <div class="field-checkbox col-12 md:col-6">
         <p-checkbox formControlName="isActive" binary="true" id="isActive"></p-checkbox>

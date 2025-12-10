@@ -20,6 +20,7 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
 
   dataTypes: any[] = [];
   selectedEntity = {} as ProductCategoryDto;
+  categoryOptions: any[] = [];
 
   constructor(
     private categoryService: ProductCategoriesService,
@@ -27,7 +28,7 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
     private config: DynamicDialogConfig,
     private ref: DynamicDialogRef,
     private utilService: UtilityService,
-    private notificationSerivce: NotificationService,
+    private notificationService: NotificationService,
     private cd: ChangeDetectorRef,
     private sanitizer: DomSanitizer
   ) {}
@@ -46,7 +47,24 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.buildForm();
+    this.loadParentCategories();
     this.initFormData();
+  }
+
+  loadParentCategories() {
+  this.categoryService
+    .getList({
+      maxResultCount: 1000,
+      skipCount: 0,
+    })
+    .pipe(takeUntil(this.ngUnsubscribe))
+    .subscribe({
+      next: (response) => {
+        const currentId = this.config.data?.id;
+
+        this.categoryOptions = response.items.filter(x => x.id !== currentId);
+      }
+    });
   }
 
   generateSlug() {
@@ -91,7 +109,7 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
           this.ref.close(this.form.value);
         },
         error: err => {
-          this.notificationSerivce.showError(err.error.error.message);
+          this.notificationService.showError(err.error.error.message);
           this.toggleBlockUI(false);
         },
       });
@@ -105,7 +123,7 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
           this.ref.close(this.form.value);
         },
         error: err => {
-          this.notificationSerivce.showError(err.error.error.message);
+          this.notificationService.showError(err.error.error.message);
           this.toggleBlockUI(false);
         },
       });
@@ -120,11 +138,11 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
       ),
       code: new FormControl(this.selectedEntity.code || null, Validators.required),
       slug: new FormControl(this.selectedEntity.slug || null, Validators.required),
-      sortOrder: new FormControl(this.selectedEntity.sortOrder || null, Validators.required),
-      visibility: new FormControl(this.selectedEntity.visibility || true),
+      isVisibility: new FormControl(this.selectedEntity.isVisibility || true),
       isActive: new FormControl(this.selectedEntity.isActive || true),
-      seoMetaDescription: new FormControl(this.selectedEntity.seoMetaDescription || null),
       parentId: new FormControl(this.selectedEntity.parentId || null),
+      coverPictureName: new FormControl(this.selectedEntity.coverPicture || null),
+      coverPictureContent: new FormControl(null),
     });
   }
 
@@ -161,8 +179,8 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
       reader.readAsDataURL(file);
       reader.onload = () => {
         this.form.patchValue({
-          thumbnailPictureName: file.name,
-          thumbnailPictureContent: reader.result,
+          coverPictureName: file.name,
+          coverPictureContent: reader.result,
         });
         this.cd.markForCheck();
       };

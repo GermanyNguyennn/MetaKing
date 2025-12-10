@@ -9,30 +9,26 @@ namespace MetaKing.ProductCategories
 
         public ProductCategory(Guid id, 
             string name, string code, string slug, 
-            int sortOrder, string coverPicture, 
-            bool visibility, bool isActive, 
-            Guid? parentId, string seoMetaDescription)
+            string coverPicture, 
+            bool isVisibility, bool isActive, 
+            Guid? parentId)
         {
             Id = id;
             Name = name;
             Code = code;
             Slug = slug;
-            SortOrder = sortOrder;
             CoverPicture = coverPicture;
-            Visibility = visibility;
+            IsVisibility = isVisibility;
             IsActive = isActive;
             ParentId = parentId;
-            SeoMetaDescription = seoMetaDescription;
         }
 
         public string Name { get; set; }
         public string Code { get; set; }
         public string Slug { get; set; }
-        public int SortOrder { get; set; }
         public string CoverPicture { get; set; }
-        public bool Visibility { get; set; }
+        public bool IsVisibility { get; set; }
         public bool IsActive { get; set; }
         public Guid? ParentId { get; set; }
-        public string SeoMetaDescription { get; set; }
     }
 }

@@ -35,8 +35,8 @@ public class MetaKingPublicApplicationAutoMapperProfile : Profile
         //Order
         CreateMap<Order, OrderDto>();
 
-            // Identity user mapping for CurrentUser
-            CreateMap<IdentityUser, UserDto>();
+        // Identity user mapping for CurrentUser
+        CreateMap<IdentityUser, UserDto>();
     }
         
 }

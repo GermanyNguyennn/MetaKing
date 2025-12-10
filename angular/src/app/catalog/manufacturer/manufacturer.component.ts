@@ -27,6 +27,9 @@ export class ManufacturerComponent implements OnInit, OnDestroy {
   keyword: string = '';
   categoryId: string = '';
 
+  sortField: string = 'name';
+  sortOrder: string = 'ASC';
+
   constructor(
     private categoryService: ManufacturersService,
     private dialogService: DialogService,
@@ -43,6 +46,20 @@ export class ManufacturerComponent implements OnInit, OnDestroy {
     this.loadData();
   }
 
+  sort(field: string) {
+    // Nếu click lại cùng field → đảo chiều SORT
+    if (this.sortField === field) {
+      this.sortOrder = this.sortOrder === 'ASC' ? 'DESC' : 'ASC';
+    } else {
+      // Click cột mới → reset sortOrder về ASC
+      this.sortField = field;
+      this.sortOrder = 'ASC';
+    }
+
+    // Load lại dữ liệu từ API
+    this.loadData();
+  }
+
   loadData() {
     this.toggleBlockUI(true);
     this.categoryService
@@ -50,6 +67,8 @@ export class ManufacturerComponent implements OnInit, OnDestroy {
         keyword: this.keyword,
         maxResultCount: this.maxResultCount,
         skipCount: this.skipCount,
+        sortField: this.sortField,
+        sortOrder: this.sortOrder
       })
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe({
@@ -73,7 +92,7 @@ export class ManufacturerComponent implements OnInit, OnDestroy {
   showAddModal() {
     const ref = this.dialogService.open(ManufacturerDetailComponent, {
       header: 'Thêm Nhà Sản Xuất',
-      width: '70%',
+      width: '80%',
     });
 
     ref.onClose.subscribe((data: ManufacturerDto) => {
@@ -96,7 +115,7 @@ export class ManufacturerComponent implements OnInit, OnDestroy {
         id: id,
       },
       header: 'Cập Nhật Nhà Sản Xuất',
-      width: '70%',
+      width: '80%',
     });
 
     ref.onClose.subscribe((data: ManufacturerDto) => {

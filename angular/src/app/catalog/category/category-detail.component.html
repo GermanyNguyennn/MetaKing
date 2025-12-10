@@ -19,7 +19,7 @@
       </div>
       <div class="field col-12">
         <label for="code" class="block">Code <span class="required">*</span></label>
-        <input id="code" pInputText type="text" formControlName="code" />
+        <input id="code" pInputText type="text" class="w-full" formControlName="code" />
         <app-validation-message
           [entityForm]="form"
           fieldName="code"
@@ -34,15 +34,18 @@
           fieldName="slug"
           [validationMessages]="validationMessages"
         ></app-validation-message>
-      </div>   
+      </div>         
       <div class="field col-12">
-        <label for="sortOrder" class="block">Thứ Tự <span class="required">*</span></label>
-        <p-inputNumber formControlName="sortOrder"></p-inputNumber>
-        <app-validation-message
-          [entityForm]="form"
-          fieldName="sortOrder"
-          [validationMessages]="validationMessages"
-        ></app-validation-message>
+        <label for="parentId" class="block">Danh Mục Cha</label>
+        <p-dropdown 
+          [options]="categoryOptions" 
+          optionLabel="name" 
+          optionValue="id" 
+          placeholder="Chọn Danh Mục Cha" 
+          formControlName="parentId"
+          [showClear]="true"
+          [style]="{ width: '100%' }"
+        ></p-dropdown>
       </div>
       <div class="field col-12 md:col-6">
         <label for="coverPicture" class="block">Hình Ảnh <span class="required">*</span></label>
@@ -52,27 +55,18 @@
         <p-image
           [src]="coverPicture"
           [alt]="selectedEntity.name"
-          width="250"
           [preview]="true"
         ></p-image>
       </div>
       <div class="field-checkbox col-12 md:col-6">
-        <p-checkbox formControlName="visibility" binary="true" id="visibility"></p-checkbox>
-        <label for="visibility">Hiển Thị</label>
+        <p-checkbox formControlName="isVisibility" binary="true" id="isVisibility"></p-checkbox>
+        <label for="isVisibility">Hiển Thị</label>
       </div>
       <div class="field-checkbox col-12 md:col-6">
         <p-checkbox formControlName="isActive" binary="true" id="isActive"></p-checkbox>
         <label for="isActive">Kích Hoạt</label>
       </div>
-      <div class="field col-12">
-        <label for="seoMetaDescription" class="block">Mô Tả SEO <span class="required">*</span></label>
-        <textarea
-          id="seoMetaDescription"
-          pInputTextarea
-          class="w-full"
-          formControlName="seoMetaDescription"
-        ></textarea>
-      </div>
+      
     </div>
     <ng-template pTemplate="footer">
       <button

@@ -18,17 +18,15 @@ namespace MetaKing.ProductCategories
             _productCategoryRepository = productCategoryRepository;
         }
 
-        public async Task<ProductCategory> CreateAsync(string name, string code, string slug,
-            int sortOrder, bool visibility,
-            bool isActive, Guid? parentId,
-            string seoMetaDescription)
+        public async Task<ProductCategory> CreateAsync(string name, string code, string slug, bool isVisibility,
+            bool isActive, Guid? parentId)
         {
             if (await _productCategoryRepository.AnyAsync(x => x.Name == name))
                 throw new UserFriendlyException("Tên danh mục đã tồn tại", MetaKingDomainErrorCodes.ProductNameAlreadyExists);
             if (await _productCategoryRepository.AnyAsync(x => x.Code == code))
                 throw new UserFriendlyException("Mã danh mục đã tồn tại", MetaKingDomainErrorCodes.ProductCodeAlreadyExists);           
 
-            return new ProductCategory(Guid.NewGuid(), name, code, slug, sortOrder, string.Empty, visibility, isActive, parentId, seoMetaDescription);
+            return new ProductCategory(Guid.NewGuid(), name, code, slug, string.Empty, isVisibility, isActive, parentId);
         }
     }
 }

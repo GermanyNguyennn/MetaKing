@@ -1238,7 +1238,19 @@
                 },
                 {
                   "nameOnMethod": "input",
-                  "name": "Sorting",
+                  "name": "SortField",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "SortOrder",
                   "jsonName": null,
                   "type": "System.String",
                   "typeSimple": "string",
@@ -1639,7 +1651,19 @@
                 },
                 {
                   "nameOnMethod": "input",
-                  "name": "Sorting",
+                  "name": "SortField",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "SortOrder",
                   "jsonName": null,
                   "type": "System.String",
                   "typeSimple": "string",
@@ -2359,7 +2383,19 @@
                 },
                 {
                   "nameOnMethod": "input",
-                  "name": "Sorting",
+                  "name": "SortField",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "SortOrder",
                   "jsonName": null,
                   "type": "System.String",
                   "typeSimple": "string",
@@ -2610,9 +2646,9 @@
                   "parametersOnMethod": [
                     {
                       "name": "input",
-                      "typeAsString": "MetaKing.Admin.Catalog.Products.Attributes.AddUpdateProductAttributeDto, MetaKing.Admin.Application.Contracts",
-                      "type": "MetaKing.Admin.Catalog.Products.Attributes.AddUpdateProductAttributeDto",
-                      "typeSimple": "MetaKing.Admin.Catalog.Products.Attributes.AddUpdateProductAttributeDto",
+                      "typeAsString": "MetaKing.Admin.Catalog.Products.Attributes.CreateUpdateProductAttributeDto, MetaKing.Admin.Application.Contracts",
+                      "type": "MetaKing.Admin.Catalog.Products.Attributes.CreateUpdateProductAttributeDto",
+                      "typeSimple": "MetaKing.Admin.Catalog.Products.Attributes.CreateUpdateProductAttributeDto",
                       "isOptional": false,
                       "defaultValue": null
                     }
@@ -2635,9 +2671,9 @@
                     },
                     {
                       "name": "input",
-                      "typeAsString": "MetaKing.Admin.Catalog.Products.Attributes.AddUpdateProductAttributeDto, MetaKing.Admin.Application.Contracts",
-                      "type": "MetaKing.Admin.Catalog.Products.Attributes.AddUpdateProductAttributeDto",
-                      "typeSimple": "MetaKing.Admin.Catalog.Products.Attributes.AddUpdateProductAttributeDto",
+                      "typeAsString": "MetaKing.Admin.Catalog.Products.Attributes.CreateUpdateProductAttributeDto, MetaKing.Admin.Application.Contracts",
+                      "type": "MetaKing.Admin.Catalog.Products.Attributes.CreateUpdateProductAttributeDto",
+                      "typeSimple": "MetaKing.Admin.Catalog.Products.Attributes.CreateUpdateProductAttributeDto",
                       "isOptional": false,
                       "defaultValue": null
                     }
@@ -2992,7 +3028,19 @@
                 },
                 {
                   "nameOnMethod": "input",
-                  "name": "Sorting",
+                  "name": "SortField",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "SortOrder",
                   "jsonName": null,
                   "type": "System.String",
                   "typeSimple": "string",
@@ -3095,9 +3143,9 @@
               "parametersOnMethod": [
                 {
                   "name": "input",
-                  "typeAsString": "MetaKing.Admin.Catalog.Products.Attributes.AddUpdateProductAttributeDto, MetaKing.Admin.Application.Contracts",
-                  "type": "MetaKing.Admin.Catalog.Products.Attributes.AddUpdateProductAttributeDto",
-                  "typeSimple": "MetaKing.Admin.Catalog.Products.Attributes.AddUpdateProductAttributeDto",
+                  "typeAsString": "MetaKing.Admin.Catalog.Products.Attributes.CreateUpdateProductAttributeDto, MetaKing.Admin.Application.Contracts",
+                  "type": "MetaKing.Admin.Catalog.Products.Attributes.CreateUpdateProductAttributeDto",
+                  "typeSimple": "MetaKing.Admin.Catalog.Products.Attributes.CreateUpdateProductAttributeDto",
                   "isOptional": false,
                   "defaultValue": null
                 }
@@ -3107,8 +3155,8 @@
                   "nameOnMethod": "input",
                   "name": "input",
                   "jsonName": null,
-                  "type": "MetaKing.Admin.Catalog.Products.Attributes.AddUpdateProductAttributeDto",
-                  "typeSimple": "MetaKing.Admin.Catalog.Products.Attributes.AddUpdateProductAttributeDto",
+                  "type": "MetaKing.Admin.Catalog.Products.Attributes.CreateUpdateProductAttributeDto",
+                  "typeSimple": "MetaKing.Admin.Catalog.Products.Attributes.CreateUpdateProductAttributeDto",
                   "isOptional": false,
                   "defaultValue": null,
                   "constraintTypes": null,
@@ -3260,7 +3308,19 @@
                 },
                 {
                   "nameOnMethod": "input",
-                  "name": "Sorting",
+                  "name": "SortField",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "SortOrder",
                   "jsonName": null,
                   "type": "System.String",
                   "typeSimple": "string",
@@ -3319,9 +3379,9 @@
                 },
                 {
                   "name": "input",
-                  "typeAsString": "MetaKing.Admin.Catalog.Products.Attributes.AddUpdateProductAttributeDto, MetaKing.Admin.Application.Contracts",
-                  "type": "MetaKing.Admin.Catalog.Products.Attributes.AddUpdateProductAttributeDto",
-                  "typeSimple": "MetaKing.Admin.Catalog.Products.Attributes.AddUpdateProductAttributeDto",
+                  "typeAsString": "MetaKing.Admin.Catalog.Products.Attributes.CreateUpdateProductAttributeDto, MetaKing.Admin.Application.Contracts",
+                  "type": "MetaKing.Admin.Catalog.Products.Attributes.CreateUpdateProductAttributeDto",
+                  "typeSimple": "MetaKing.Admin.Catalog.Products.Attributes.CreateUpdateProductAttributeDto",
                   "isOptional": false,
                   "defaultValue": null
                 }
@@ -3343,8 +3403,8 @@
                   "nameOnMethod": "input",
                   "name": "input",
                   "jsonName": null,
-                  "type": "MetaKing.Admin.Catalog.Products.Attributes.AddUpdateProductAttributeDto",
-                  "typeSimple": "MetaKing.Admin.Catalog.Products.Attributes.AddUpdateProductAttributeDto",
+                  "type": "MetaKing.Admin.Catalog.Products.Attributes.CreateUpdateProductAttributeDto",
+                  "typeSimple": "MetaKing.Admin.Catalog.Products.Attributes.CreateUpdateProductAttributeDto",
                   "isOptional": false,
                   "defaultValue": null,
                   "constraintTypes": null,
@@ -3776,7 +3836,19 @@
                 },
                 {
                   "nameOnMethod": "input",
-                  "name": "Sorting",
+                  "name": "SortField",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "SortOrder",
                   "jsonName": null,
                   "type": "System.String",
                   "typeSimple": "string",
@@ -4486,7 +4558,19 @@
                 },
                 {
                   "nameOnMethod": "input",
-                  "name": "Sorting",
+                  "name": "SortField",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "SortOrder",
                   "jsonName": null,
                   "type": "System.String",
                   "typeSimple": "string",
@@ -7636,7 +7720,19 @@
           "regex": null
         },
         {
-          "name": "Sorting",
+          "name": "SortField",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "SortOrder",
           "jsonName": null,
           "type": "System.String",
           "typeSimple": "string",
@@ -7693,19 +7789,7 @@
           "regex": null
         },
         {
-          "name": "CoverPicture",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Visibility",
+          "name": "IsVisibility",
           "jsonName": null,
           "type": "System.Boolean",
           "typeSimple": "boolean",
@@ -7810,6 +7894,18 @@
           "regex": null
         },
         {
+          "name": "Country",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
           "name": "CoverPicture",
           "jsonName": null,
           "type": "System.String",
@@ -7822,7 +7918,7 @@
           "regex": null
         },
         {
-          "name": "Visibility",
+          "name": "IsVisibility",
           "jsonName": null,
           "type": "System.Boolean",
           "typeSimple": "boolean",
@@ -7838,18 +7934,6 @@
           "jsonName": null,
           "type": "System.Boolean",
           "typeSimple": "boolean",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Country",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,
@@ -7915,6 +7999,18 @@
           "regex": null
         },
         {
+          "name": "Country",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
           "name": "CoverPicture",
           "jsonName": null,
           "type": "System.String",
@@ -7927,7 +8023,7 @@
           "regex": null
         },
         {
-          "name": "Visibility",
+          "name": "IsVisibility",
           "jsonName": null,
           "type": "System.Boolean",
           "typeSimple": "boolean",
@@ -7943,18 +8039,6 @@
           "jsonName": null,
           "type": "System.Boolean",
           "typeSimple": "boolean",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Country",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,
@@ -8008,19 +8092,7 @@
           "regex": null
         },
         {
-          "name": "SortOrder",
-          "jsonName": null,
-          "type": "System.Int32",
-          "typeSimple": "number",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Visibility",
+          "name": "IsVisibility",
           "jsonName": null,
           "type": "System.Boolean",
           "typeSimple": "boolean",
@@ -8125,19 +8197,7 @@
           "regex": null
         },
         {
-          "name": "SortOrder",
-          "jsonName": null,
-          "type": "System.Int32",
-          "typeSimple": "number",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Visibility",
+          "name": "IsVisibility",
           "jsonName": null,
           "type": "System.Boolean",
           "typeSimple": "boolean",
@@ -8254,19 +8314,7 @@
           "regex": null
         },
         {
-          "name": "SortOrder",
-          "jsonName": null,
-          "type": "System.Int32",
-          "typeSimple": "number",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Visibility",
+          "name": "IsVisibility",
           "jsonName": null,
           "type": "System.Boolean",
           "typeSimple": "boolean",
@@ -8371,19 +8419,7 @@
           "regex": null
         },
         {
-          "name": "SortOrder",
-          "jsonName": null,
-          "type": "System.Int32",
-          "typeSimple": "number",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Visibility",
+          "name": "IsVisibility",
           "jsonName": null,
           "type": "System.Boolean",
           "typeSimple": "boolean",
@@ -8411,18 +8447,6 @@
           "jsonName": null,
           "type": "System.Guid?",
           "typeSimple": "string?",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "SeoMetaDescription",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,
@@ -8500,18 +8524,6 @@
           "regex": null
         },
         {
-          "name": "SortOrder",
-          "jsonName": null,
-          "type": "System.Int32",
-          "typeSimple": "number",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
           "name": "CoverPicture",
           "jsonName": null,
           "type": "System.String",
@@ -8524,7 +8536,7 @@
           "regex": null
         },
         {
-          "name": "Visibility",
+          "name": "IsVisibility",
           "jsonName": null,
           "type": "System.Boolean",
           "typeSimple": "boolean",
@@ -8561,18 +8573,6 @@
         },
         {
           "name": "ParentName",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "SeoMetaDescription",
           "jsonName": null,
           "type": "System.String",
           "typeSimple": "string",
@@ -8629,10 +8629,10 @@
           "regex": null
         },
         {
-          "name": "SortOrder",
+          "name": "Slug",
           "jsonName": null,
-          "type": "System.Int32",
-          "typeSimple": "number",
+          "type": "System.String",
+          "typeSimple": "string",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,
@@ -8653,7 +8653,7 @@
           "regex": null
         },
         {
-          "name": "Visibility",
+          "name": "IsVisibility",
           "jsonName": null,
           "type": "System.Boolean",
           "typeSimple": "boolean",
@@ -8702,7 +8702,7 @@
         }
       ]
     },
-    "MetaKing.Admin.Catalog.Products.Attributes.AddUpdateProductAttributeDto": {
+    "MetaKing.Admin.Catalog.Products.Attributes.CreateUpdateProductAttributeDto": {
       "baseType": null,
       "isEnum": false,
       "enumNames": null,
@@ -9097,19 +9097,7 @@
           "regex": null
         },
         {
-          "name": "SortOrder",
-          "jsonName": null,
-          "type": "System.Int32",
-          "typeSimple": "number",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Visibility",
+          "name": "IsVisibility",
           "jsonName": null,
           "type": "System.Boolean",
           "typeSimple": "boolean",
@@ -9286,19 +9274,7 @@
           "regex": null
         },
         {
-          "name": "SortOrder",
-          "jsonName": null,
-          "type": "System.Int32",
-          "typeSimple": "number",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Visibility",
+          "name": "IsVisibility",
           "jsonName": null,
           "type": "System.Boolean",
           "typeSimple": "boolean",
@@ -9499,19 +9475,7 @@
           "regex": null
         },
         {
-          "name": "SortOrder",
-          "jsonName": null,
-          "type": "System.Int32",
-          "typeSimple": "number",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Visibility",
+          "name": "IsVisibility",
           "jsonName": null,
           "type": "System.Boolean",
           "typeSimple": "boolean",

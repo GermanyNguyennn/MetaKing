@@ -2,7 +2,7 @@
 
 namespace MetaKing.Admin.Catalog.Products.Attributes
 {
-    public class AddUpdateProductAttributeDto
+    public class CreateUpdateProductAttributeDto
     {
         public Guid ProductId { get; set; }
         public Guid AttributeId { get; set; }

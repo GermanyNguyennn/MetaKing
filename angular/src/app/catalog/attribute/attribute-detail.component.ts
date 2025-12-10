@@ -27,7 +27,7 @@ export class AttributeDetailComponent implements OnInit, OnDestroy {
     private config: DynamicDialogConfig,
     private ref: DynamicDialogRef,
     private utilService: UtilityService,
-    private notificationSerivce: NotificationService
+    private notificationService: NotificationService
   ) {}
 
   validationMessages = {
@@ -85,7 +85,7 @@ export class AttributeDetailComponent implements OnInit, OnDestroy {
             this.ref.close(this.form.value);
           },
           error: err => {
-            this.notificationSerivce.showError(err.error.error.message);
+            this.notificationService.showError(err.error.error.message);
             this.toggleBlockUI(false);
           },
         });
@@ -99,7 +99,7 @@ export class AttributeDetailComponent implements OnInit, OnDestroy {
           this.ref.close(this.form.value);
         },
         error: err => {
-          this.notificationSerivce.showError(err.error.error.message);
+          this.notificationService.showError(err.error.error.message);
           this.toggleBlockUI(false);
         },
       });
@@ -123,11 +123,10 @@ export class AttributeDetailComponent implements OnInit, OnDestroy {
       ),
       code: new FormControl(this.selectedEntity.code || null, Validators.required),
       dataType: new FormControl(this.selectedEntity.dataType || null, Validators.required),
-      sortOrder: new FormControl(this.selectedEntity.sortOrder || null, Validators.required),
-      visibility: new FormControl(this.selectedEntity.visibility || true),
+      isVisibility: new FormControl(this.selectedEntity.isVisibility || true),
       isActive: new FormControl(this.selectedEntity.isActive || true),
       isRequired: new FormControl(this.selectedEntity.isRequired || true),
-      isUnique: new FormControl(this.selectedEntity.isUnique || false),
+      isUnique: new FormControl(this.selectedEntity.isUnique || true),
       note: new FormControl(this.selectedEntity.note || null),
     });
   }

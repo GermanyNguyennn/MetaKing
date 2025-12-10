@@ -4,8 +4,7 @@ export interface CreateUpdateManufacturerDto {
   name?: string;
   code?: string;
   slug?: string;
-  coverPicture?: string;
-  visibility: boolean;
+  isVisibility: boolean;
   isActive: boolean;
   country?: string;
   coverPictureName?: string;
@@ -16,10 +15,10 @@ export interface ManufacturerDto {
   name?: string;
   code?: string;
   slug?: string;
-  coverPicture?: string;
-  visibility: boolean;
-  isActive: boolean;
   country?: string;
+  coverPicture?: string;
+  isVisibility: boolean;
+  isActive: boolean;
   id?: string;
 }
 
@@ -27,8 +26,8 @@ export interface ManufacturerInListDto extends EntityDto<string> {
   name?: string;
   code?: string;
   slug?: string;
-  coverPicture?: string;
-  visibility: boolean;
-  isActive: boolean;
   country?: string;
+  coverPicture?: string;
+  isVisibility: boolean;
+  isActive: boolean;
 }

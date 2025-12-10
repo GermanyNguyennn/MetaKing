@@ -36,7 +36,7 @@ export class ProductAttributeComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private config: DynamicDialogConfig,
     private ref: DynamicDialogRef,
-    private notificationSerivce: NotificationService,
+    private notificationService: NotificationService,
     private confirmationService: ConfirmationService
   ) {}
 
@@ -107,7 +107,7 @@ export class ProductAttributeComponent implements OnInit, OnDestroy {
           this.loadFormDetails(this.config.data.id);
         },
         error: err => {
-          this.notificationSerivce.showError(err.error.error.message);
+          this.notificationService.showError(err.error.error.message);
           this.toggleBlockUI(false);
         },
       });
@@ -173,7 +173,7 @@ export class ProductAttributeComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe({
         next: () => {
-          this.notificationSerivce.showSuccess('Xóa Thuộc Tính Thành Công');
+          this.notificationService.showSuccess('Xóa Thuộc Tính Thành Công');
           this.loadFormDetails(this.config.data?.id);
           this.toggleBlockUI(false);
         },

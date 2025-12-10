@@ -86,8 +86,7 @@ namespace MetaKing.Admin.Catalog.Products
                 input.Slug,
                 input.ProductType,
                 input.SKU,
-                input.SortOrder,
-                input.Visibility,
+                input.IsVisibility,
                 input.IsActive,
                 input.CategoryId,
                 input.SeoMetaDescription,
@@ -96,8 +95,8 @@ namespace MetaKing.Admin.Catalog.Products
 
             if (input.ThumbnailPictureContent != null && input.ThumbnailPictureContent.Length > 0)
             {
-                await SaveThumbnailImageAsync(input.ThumbnailPictureName, input.ThumbnailPictureContent);
-                product.ThumbnailPicture = input.ThumbnailPictureName;
+                await SaveThumbnailImageAsync(input.ThumbnailPictureName!, input.ThumbnailPictureContent);
+                product.ThumbnailPicture = input.ThumbnailPictureName!;
             }
 
             var result = await Repository.InsertAsync(product);
@@ -118,8 +117,7 @@ namespace MetaKing.Admin.Catalog.Products
             product.Slug = input.Slug;
             product.ProductType = input.ProductType;
             product.SKU = input.SKU;
-            product.SortOrder = input.SortOrder;
-            product.Visibility = input.Visibility;
+            product.IsVisibility = input.IsVisibility;
             product.IsActive = input.IsActive;
 
             if (product.CategoryId != input.CategoryId)
@@ -134,8 +132,8 @@ namespace MetaKing.Admin.Catalog.Products
 
             if (input.ThumbnailPictureContent != null && input.ThumbnailPictureContent.Length > 0)
             {
-                await SaveThumbnailImageAsync(input.ThumbnailPictureName, input.ThumbnailPictureContent);
-                product.ThumbnailPicture = input.ThumbnailPictureName;
+                await SaveThumbnailImageAsync(input.ThumbnailPictureName!, input.ThumbnailPictureContent);
+                product.ThumbnailPicture = input.ThumbnailPictureName!;
 
             }
             product.SellPrice = input.SellPrice;
@@ -222,7 +220,7 @@ namespace MetaKing.Admin.Catalog.Products
 
         //[Authorize(MetaKingPermissions.Product.Update)]
 
-        public async Task<ProductAttributeValueDto> AddProductAttributeAsync(AddUpdateProductAttributeDto input)
+        public async Task<ProductAttributeValueDto> AddProductAttributeAsync(CreateUpdateProductAttributeDto input)
         {
             var product = await Repository.GetAsync(input.ProductId);
             if (product == null)
@@ -275,7 +273,7 @@ namespace MetaKing.Admin.Catalog.Products
                     await _productAttributeTextRepository.InsertAsync(productAttributeText);
                     break;
             }
-            await UnitOfWorkManager.Current.SaveChangesAsync();
+            await UnitOfWorkManager.Current!.SaveChangesAsync();
             return new ProductAttributeValueDto()
             {
                 AttributeId = input.AttributeId,
@@ -461,7 +459,7 @@ namespace MetaKing.Admin.Catalog.Products
 
         //[Authorize(MetaKingPermissions.Product.Update)]
 
-        public async Task<ProductAttributeValueDto> UpdateProductAttributeAsync(Guid id, AddUpdateProductAttributeDto input)
+        public async Task<ProductAttributeValueDto> UpdateProductAttributeAsync(Guid id, CreateUpdateProductAttributeDto input)
         {
             var product = await Repository.GetAsync(input.ProductId);
             if (product == null)

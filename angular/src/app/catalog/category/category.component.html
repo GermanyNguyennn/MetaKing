@@ -52,14 +52,13 @@
   <p-table #pnl [value]="items" [(selection)]="selectedItems" selectionMode="multiple">
     <ng-template pTemplate="header">
       <tr>
-        <th style="width: 10px">
+        <th>
           <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
         </th>
-        <th>Id</th>
-        <th>Name</th>
+        <th>Mã Danh Mục</th>
+        <th>Tên Danh Mục</th>
         <th>Code</th>
-        <th>ParentId</th>
-        <th>Sort Order</th>
+        <th>Danh Mục Cha</th>
         <th>Hiển Thị</th>
         <th>Kích Hoạt</th>
       </tr>
@@ -73,11 +72,10 @@
         <td>{{ row.id }}</td>  
         <td>{{ row.name }}</td>
         <td>{{ row.code }}</td>
-        <td>{{ row.parentId }}</td>
-        <td>{{ row.sortOrder }}</td>
+        <td>{{ row.parentName }}</td>
         <td>
-          <p-badge *ngIf="row.visibility == 1" severity="success" value="Hiển thị"></p-badge>
-          <p-badge *ngIf="row.visibility == 0" severity="danger" value="Ẩn"></p-badge>
+          <p-badge *ngIf="row.isVisibility == 1" severity="success" value="Hiển thị"></p-badge>
+          <p-badge *ngIf="row.isVisibility == 0" severity="danger" value="Ẩn"></p-badge>
         </td>
         <td>
           <p-badge *ngIf="row.isActive == 1" value="Kích Hoạt" severity="success"></p-badge>

@@ -52,14 +52,14 @@ namespace MetaKing.Admin.Catalog.Manufacturers
                 input.Name,
                 input.Code,
                 input.Slug,
-                input.Visibility,
+                input.IsVisibility,
                 input.IsActive,
                 input.Country);
 
             if (input.CoverPictureContent != null && input.CoverPictureContent.Length > 0)
             {
-                await SaveThumbnailImageAsync(input.CoverPictureName, input.CoverPictureContent);
-                manufacturer.CoverPicture = input.CoverPictureName;
+                await SaveThumbnailImageAsync(input.CoverPictureName!, input.CoverPictureContent);
+                manufacturer.CoverPicture = input.CoverPictureName!;
             }
 
             var result = await Repository.InsertAsync(manufacturer);
@@ -77,14 +77,14 @@ namespace MetaKing.Admin.Catalog.Manufacturers
             manufacturer.Name = input.Name;
             manufacturer.Code = input.Code;
             manufacturer.Slug = input.Slug;
-            manufacturer.Visibility = input.Visibility;
+            manufacturer.IsVisibility = input.IsVisibility;
             manufacturer.IsActive = input.IsActive;
             manufacturer.Country = input.Country;
 
             if (input.CoverPictureContent != null && input.CoverPictureContent.Length > 0)
             {
-                await SaveThumbnailImageAsync(input.CoverPictureName, input.CoverPictureContent);
-                manufacturer.CoverPicture = input.CoverPictureName;
+                await SaveThumbnailImageAsync(input.CoverPictureName!, input.CoverPictureContent);
+                manufacturer.CoverPicture = input.CoverPictureName!;
             }
 
             await Repository.UpdateAsync(manufacturer);
@@ -115,13 +115,13 @@ namespace MetaKing.Admin.Catalog.Manufacturers
         {
             if (string.IsNullOrEmpty(fileName))
             {
-                return null;
+                return null!;
             }
             var thumbnailContent = await _fileContainer.GetAllBytesOrNullAsync(fileName);
 
             if (thumbnailContent is null)
             {
-                return null;
+                return null!;
             }
             var result = Convert.ToBase64String(thumbnailContent);
             return result;
@@ -131,7 +131,7 @@ namespace MetaKing.Admin.Catalog.Manufacturers
         public async Task DeleteMultipleAsync(IEnumerable<Guid> ids)
         {
             await Repository.DeleteManyAsync(ids);
-            await UnitOfWorkManager.Current.SaveChangesAsync();
+            await UnitOfWorkManager.Current!.SaveChangesAsync();
         }
 
         //[Authorize(MetaKingPermissions.Manufacturer.Default)]
@@ -149,12 +149,39 @@ namespace MetaKing.Admin.Catalog.Manufacturers
         public async Task<PagedResultDto<ManufacturerInListDto>> GetListFilterAsync(BaseListFilterDto input)
         {
             var query = await Repository.GetQueryableAsync();
-            query = query.WhereIf(!string.IsNullOrWhiteSpace(input.Keyword), x => x.Name.Contains(input.Keyword));
+            query = query.WhereIf(!string.IsNullOrWhiteSpace(input.Keyword), x => x.Name.Contains(input.Keyword!));
+
+            query = ApplySorting(query, input.SortField, input.SortOrder);
 
             var totalCount = await AsyncExecuter.LongCountAsync(query);
             var data = await AsyncExecuter.ToListAsync(query.Skip(input.SkipCount).Take(input.MaxResultCount));
 
             return new PagedResultDto<ManufacturerInListDto>(totalCount, ObjectMapper.Map<List<Manufacturer>, List<ManufacturerInListDto>>(data));
         }
+
+        private IQueryable<Manufacturer> ApplySorting(IQueryable<Manufacturer> query, string? sortField, string? sortOrder)
+        {
+            // Mặc định không có sắp xếp → sắp xếp theo Name
+            if (string.IsNullOrWhiteSpace(sortField))
+                sortField = "Name";
+
+            if (string.IsNullOrWhiteSpace(sortOrder))
+                sortOrder = "ASC";
+
+            bool isAsc = sortOrder.Equals("ASC", StringComparison.OrdinalIgnoreCase);
+
+            return sortField switch
+            {
+                "Name" => isAsc ? query.OrderBy(x => x.Name) : query.OrderByDescending(x => x.Name),
+                "Code" => isAsc ? query.OrderBy(x => x.Code) : query.OrderByDescending(x => x.Code),
+                "Slug" => isAsc ? query.OrderBy(x => x.Slug) : query.OrderByDescending(x => x.Slug),
+                "Country" => isAsc ? query.OrderBy(x => x.Country) : query.OrderByDescending(x => x.Country),
+                "CoverPicture" => isAsc ? query.OrderBy(x => x.CoverPicture) : query.OrderByDescending(x => x.CoverPicture),
+                "Visibility" => isAsc ? query.OrderBy(x => x.IsVisibility) : query.OrderByDescending(x => x.IsVisibility),
+                "IsActive" => isAsc ? query.OrderBy(x => x.IsActive) : query.OrderByDescending(x => x.IsActive),
+                _ => isAsc ? query.OrderBy(x => x.Name) : query.OrderByDescending(x => x.Name),
+            };
+        }
+
     }
 }

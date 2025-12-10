@@ -107,7 +107,7 @@ export class ProductComponent implements OnInit, OnDestroy {
   showAddModal() {
     const ref = this.dialogService.open(ProductDetailComponent, {
       header: 'Thêm Sản Phẩm',
-      width: '70%',
+      width: '80%',
     });
 
     ref.onClose.subscribe((data: ProductDto) => {
@@ -130,7 +130,7 @@ export class ProductComponent implements OnInit, OnDestroy {
         id: id,
       },
       header: 'Cập Nhật Sản Phẩm',
-      width: '70%',
+      width: '80%',
     });
 
     ref.onClose.subscribe((data: ProductDto) => {
@@ -148,7 +148,7 @@ export class ProductComponent implements OnInit, OnDestroy {
         id: id,
       },
       header: 'Quản Lý Thuộc Tính Sản Phẩm',
-      width: '70%',
+      width: '80%',
     });
 
     ref.onClose.subscribe((data: ProductDto) => {

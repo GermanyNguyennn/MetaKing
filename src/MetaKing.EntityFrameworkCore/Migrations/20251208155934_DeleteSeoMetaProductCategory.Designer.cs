@@ -4,6 +4,7 @@ using MetaKing.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Volo.Abp.EntityFrameworkCore;
 
@@ -12,9 +13,11 @@ using Volo.Abp.EntityFrameworkCore;
 namespace MetaKing.Migrations
 {
     [DbContext(typeof(MetaKingDbContext))]
-    partial class MetaKingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251208155934_DeleteSeoMetaProductCategory")]
+    partial class DeleteSeoMetaProductCategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -232,9 +235,6 @@ namespace MetaKing.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsVisibility")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -245,6 +245,9 @@ namespace MetaKing.Migrations
                         .HasMaxLength(50)
                         .IsUnicode(false)
                         .HasColumnType("varchar(50)");
+
+                    b.Property<bool>("Visibility")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -464,9 +467,6 @@ namespace MetaKing.Migrations
                     b.Property<bool>("IsUnique")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsVisibility")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Label")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -475,6 +475,12 @@ namespace MetaKing.Migrations
                     b.Property<string>("Note")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SortOrder")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Visibility")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -520,9 +526,6 @@ namespace MetaKing.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsVisibility")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -536,6 +539,12 @@ namespace MetaKing.Migrations
                         .HasMaxLength(50)
                         .IsUnicode(false)
                         .HasColumnType("varchar(50)");
+
+                    b.Property<int>("SortOrder")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Visibility")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -593,9 +602,6 @@ namespace MetaKing.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsVisibility")
-                        .HasColumnType("bit");
-
                     b.Property<DateTime?>("LastModificationTime")
                         .HasColumnType("datetime2")
                         .HasColumnName("LastModificationTime");
@@ -635,10 +641,16 @@ namespace MetaKing.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(50)");
 
+                    b.Property<int>("SortOrder")
+                        .HasColumnType("int");
+
                     b.Property<string>("ThumbnailPicture")
                         .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
+
+                    b.Property<bool>("Visibility")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 

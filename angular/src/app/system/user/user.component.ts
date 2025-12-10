@@ -71,7 +71,7 @@ export class UserComponent implements OnInit, OnDestroy {
   showAddModal() {
     const ref = this.dialogService.open(UserDetailComponent, {
       header: 'Thêm Người Dùng',
-      width: '70%',
+      width: '80%',
     });
 
     ref.onClose.subscribe((data: UserDto) => {
@@ -100,7 +100,7 @@ export class UserComponent implements OnInit, OnDestroy {
         id: id,
       },
       header: 'Cập Nhật Người Dùng',
-      width: '70%',
+      width: '80%',
     });
 
     ref.onClose.subscribe((data: UserDto) => {
@@ -150,7 +150,7 @@ export class UserComponent implements OnInit, OnDestroy {
         id: id,
       },
       header: 'Đặt Lại Mật Khẩu',
-      width: '70%',
+      width: '80%',
     });
 
     ref.onClose.subscribe((result: boolean) => {
@@ -168,7 +168,7 @@ export class UserComponent implements OnInit, OnDestroy {
         id: id,
       },
       header: 'Gán Quyền',
-      width: '70%',
+      width: '80%',
     });
 
     ref.onClose.subscribe((result: boolean) => {

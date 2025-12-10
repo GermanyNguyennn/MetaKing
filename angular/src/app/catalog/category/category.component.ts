@@ -47,7 +47,7 @@ export class CategoryComponent implements OnInit, OnDestroy {
     const colors: string[] = [];
     for (let i = 0; i < count; i++) {
       const hue = (i * 360) / count;
-      colors.push(`hsl(${hue}, 70%, 85%)`);
+      colors.push(`hsl(${hue}, 80%, 85%)`);
     }
     return colors;
   }
@@ -97,7 +97,7 @@ export class CategoryComponent implements OnInit, OnDestroy {
   showAddModal() {
     const ref = this.dialogService.open(CategoryDetailComponent, {
       header: 'Thêm Danh Mục',
-      width: '70%',
+      width: '80%',
     });
 
     ref.onClose.subscribe((data: ProductCategoryDto) => {
@@ -120,7 +120,7 @@ export class CategoryComponent implements OnInit, OnDestroy {
         id: id,
       },
       header: 'Cập Nhật Danh Mục',
-      width: '70%',
+      width: '80%',
     });
 
     ref.onClose.subscribe((data: ProductCategoryDto) => {

@@ -5,8 +5,7 @@ export interface CreateUpdateProductAttributeDto {
   code?: string;
   dataType: AttributeType;
   label?: string;
-  sortOrder: number;
-  visibility: boolean;
+  isVisibility: boolean;
   isActive: boolean;
   isRequired: boolean;
   isUnique: boolean;
@@ -17,8 +16,7 @@ export interface ProductAttributeDto {
   code?: string;
   dataType: AttributeType;
   label?: string;
-  sortOrder: number;
-  visibility: boolean;
+  isVisibility: boolean;
   isActive: boolean;
   isRequired: boolean;
   isUnique: boolean;
@@ -30,8 +28,7 @@ export interface ProductAttributeInListDto extends EntityDto<string> {
   code?: string;
   dataType: AttributeType;
   label?: string;
-  sortOrder: number;
-  visibility: boolean;
+  isVisibility: boolean;
   isActive: boolean;
   isRequired: boolean;
   isUnique: boolean;

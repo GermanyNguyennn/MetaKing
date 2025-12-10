@@ -30,9 +30,6 @@ namespace MetaKing.ProductCategories
 
             builder.Property(x => x.CoverPicture)
                .HasMaxLength(250);
-
-            builder.Property(x => x.SeoMetaDescription)
-             .HasMaxLength(250);
         }
     }
 }

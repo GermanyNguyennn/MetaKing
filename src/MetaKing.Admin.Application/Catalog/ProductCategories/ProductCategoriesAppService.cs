@@ -53,16 +53,25 @@ namespace MetaKing.Admin.Catalog.ProductCategories
         //[Authorize(MetaKingPermissions.ProductCategory.Update)]
         public override async Task<ProductCategoryDto> CreateAsync(CreateUpdateProductCategoryDto input)
         {
+            // Validate ParentId nếu có
+            if (input.ParentId.HasValue)
+            {
+                var parent = await Repository.FindAsync(input.ParentId.Value);
+                if (parent == null)
+                    throw new BusinessException("ParentCategoryNotFound");
+            }
+
+            // Tạo entity qua domain service
             var productCategory = await _productCategoryManager.CreateAsync(
                 input.Name,
                 input.Code,
                 input.Slug,
-                input.SortOrder,
-                input.Visibility,
+                input.IsVisibility,
                 input.IsActive,
-                input.ParentId,
-                input.SeoMetaDescription);
+                input.ParentId
+            );
 
+            // Xử lý upload ảnh
             if (input.CoverPictureContent != null && input.CoverPictureContent.Length > 0)
             {
                 await SaveThumbnailImageAsync(input.CoverPictureName, input.CoverPictureContent);
@@ -70,9 +79,9 @@ namespace MetaKing.Admin.Catalog.ProductCategories
             }
 
             var result = await Repository.InsertAsync(productCategory);
-
             return ObjectMapper.Map<ProductCategory, ProductCategoryDto>(result);
         }
+
 
         //[Authorize(MetaKingPermissions.ProductCategory.Update)]
 
@@ -81,18 +90,25 @@ namespace MetaKing.Admin.Catalog.ProductCategories
             var productCategory = await Repository.GetAsync(id);
             if (productCategory == null)
                 throw new BusinessException(MetaKingDomainErrorCodes.ProductIsNotExists);
+
+            // Không cho tự làm parent của chính nó
+            if (input.ParentId.HasValue && input.ParentId.Value == id)
+                throw new BusinessException("Category Cannot Be Parent Itself");
+
+            // Gán giá trị mới
             productCategory.Name = input.Name;
             productCategory.Code = input.Code;
             productCategory.Slug = input.Slug;
-            productCategory.SortOrder = input.SortOrder;
-            productCategory.Visibility = input.Visibility;
+            productCategory.IsVisibility = input.IsVisibility;
             productCategory.IsActive = input.IsActive;
-            productCategory.SeoMetaDescription = input.SeoMetaDescription;
+            productCategory.ParentId = input.ParentId;
 
+
+            // Xử lý ảnh
             if (input.CoverPictureContent != null && input.CoverPictureContent.Length > 0)
             {
-                await SaveThumbnailImageAsync(input.CoverPictureName, input.CoverPictureContent);
-                productCategory.CoverPicture = input.CoverPictureName;
+                await SaveThumbnailImageAsync(input.CoverPictureName!, input.CoverPictureContent);
+                productCategory.CoverPicture = input.CoverPictureName!;
             }
 
             await Repository.UpdateAsync(productCategory);
@@ -123,13 +139,13 @@ namespace MetaKing.Admin.Catalog.ProductCategories
         {
             if (string.IsNullOrEmpty(fileName))
             {
-                return null;
+                return null!;
             }
             var thumbnailContent = await _fileContainer.GetAllBytesOrNullAsync(fileName);
 
             if (thumbnailContent is null)
             {
-                return null;
+                return null!;
             }
             var result = Convert.ToBase64String(thumbnailContent);
             return result;
@@ -140,7 +156,7 @@ namespace MetaKing.Admin.Catalog.ProductCategories
         public async Task DeleteMultipleAsync(IEnumerable<Guid> ids)
         {
             await Repository.DeleteManyAsync(ids);
-            await UnitOfWorkManager.Current.SaveChangesAsync();
+            await UnitOfWorkManager.Current!.SaveChangesAsync();
         }
 
         //[Authorize(MetaKingPermissions.ProductCategory.Default)]
@@ -177,12 +193,28 @@ namespace MetaKing.Admin.Catalog.ProductCategories
         public async Task<PagedResultDto<ProductCategoryInListDto>> GetListFilterAsync(BaseListFilterDto input)
         {
             var query = await Repository.GetQueryableAsync();
-            query = query.WhereIf(!string.IsNullOrWhiteSpace(input.Keyword), x => x.Name.Contains(input.Keyword));
+            query = query.WhereIf(!string.IsNullOrWhiteSpace(input.Keyword), x => x.Name.Contains(input.Keyword!));
 
-            var totalCount = await AsyncExecuter.LongCountAsync(query);
-            var data = await AsyncExecuter.ToListAsync(query.Skip(input.SkipCount).Take(input.MaxResultCount));
+            var joinedQuery =
+                from category in query
+                join parent in query on category.ParentId equals parent.Id into groupCategory
+                from parent in groupCategory.DefaultIfEmpty()
+                select new ProductCategoryInListDto
+                {
+                    Id = category.Id,
+                    Name = category.Name,
+                    Code = category.Code,
+                    ParentId = category.ParentId,
+                    ParentName = parent != null ? parent.Name : null,
+                    IsVisibility = category.IsVisibility,
+                    IsActive = category.IsActive,
+                };
 
-            return new PagedResultDto<ProductCategoryInListDto>(totalCount,ObjectMapper.Map<List<ProductCategory>,List<ProductCategoryInListDto>>(data));
+            var totalCount = await AsyncExecuter.LongCountAsync(joinedQuery);
+
+            var data = await AsyncExecuter.ToListAsync(joinedQuery.Skip(input.SkipCount).Take(input.MaxResultCount));
+
+            return new PagedResultDto<ProductCategoryInListDto>(totalCount, data);
         }
     }
 }

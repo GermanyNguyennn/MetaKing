@@ -14,7 +14,7 @@ namespace MetaKing.Manufacturers
         public Manufacturer(Guid id,
             string name, string code, string slug,
             string coverPicture,
-            bool visibility, bool isActive,
+            bool isVisibility, bool isActive,
             string country)
         {
             Id = id;
@@ -22,7 +22,7 @@ namespace MetaKing.Manufacturers
             Code = code;
             Slug = slug;
             CoverPicture = coverPicture;
-            Visibility = visibility;
+            IsVisibility = isVisibility;
             IsActive = isActive;
             Country = country;
         }
@@ -31,7 +31,7 @@ namespace MetaKing.Manufacturers
         public string Code { get; set; }
         public string Slug { get; set; }
         public string CoverPicture { get; set; }
-        public bool Visibility { get; set; }
+        public bool IsVisibility { get; set; }
         public bool IsActive { get; set; }
         public string Country { get; set; }
     }

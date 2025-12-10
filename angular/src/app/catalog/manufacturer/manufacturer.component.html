@@ -52,18 +52,48 @@
   <p-table #pnl [value]="items" [(selection)]="selectedItems" selectionMode="multiple">
     <ng-template pTemplate="header">
       <tr>
-        <th style="width: 10px">
+        <th>
           <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
         </th>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Code</th>
-        <th>Hiển Thị</th>
-        <th>Kích Hoạt</th>
+        <th (click)="sort('id')" style="cursor: pointer">
+          Mã Nhà Sản Xuất
+          <i *ngIf="sortField === 'id' && sortOrder === 'ASC'" class="fa fa-sort-up"></i>
+          <i *ngIf="sortField === 'id' && sortOrder === 'DESC'" class="fa fa-sort-down"></i>
+        </th>
+
+        <th (click)="sort('name')" style="cursor: pointer">
+          Tên Nhà Sản Xuất
+          <i *ngIf="sortField === 'name' && sortOrder === 'ASC'" class="fa fa-sort-up"></i>
+          <i *ngIf="sortField === 'name' && sortOrder === 'DESC'" class="fa fa-sort-down"></i>
+        </th>
+
+        <th (click)="sort('code')" style="cursor: pointer">
+          Code
+          <i *ngIf="sortField === 'code' && sortOrder === 'ASC'" class="fa fa-sort-up"></i>
+          <i *ngIf="sortField === 'code' && sortOrder === 'DESC'" class="fa fa-sort-down"></i>
+        </th>
+
+        <th (click)="sort('country')" style="cursor: pointer">
+          Quốc Gia
+          <i *ngIf="sortField === 'country' && sortOrder === 'ASC'" class="fa fa-sort-up"></i>
+          <i *ngIf="sortField === 'country' && sortOrder === 'DESC'" class="fa fa-sort-down"></i>
+        </th>
+
+        <th (click)="sort('isVisibility')" style="cursor: pointer">
+          Hiển Thị
+          <i *ngIf="sortField === 'isVisibility' && sortOrder === 'ASC'" class="fa fa-sort-up"></i>
+          <i *ngIf="sortField === 'isVisibility' && sortOrder === 'DESC'" class="fa fa-sort-down"></i>
+        </th>
+
+        <th (click)="sort('isActive')" style="cursor: pointer">
+          Kích Hoạt
+          <i *ngIf="sortField === 'isActive' && sortOrder === 'ASC'" class="fa fa-sort-up"></i>
+          <i *ngIf="sortField === 'isActive' && sortOrder === 'DESC'" class="fa fa-sort-down"></i>
+        </th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-row>
-      <tr [pSelectableRow]="row" [ngStyle]="{'background-color': getRowColor(row)}">
+      <tr [pSelectableRow]="row">
         <td style="width: 10px">
           <span class="ui-column-title"></span>
           <p-tableCheckbox [value]="row"></p-tableCheckbox>
@@ -71,9 +101,10 @@
         <td>{{ row.id }}</td>  
         <td>{{ row.name }}</td>
         <td>{{ row.code }}</td>
+        <td>{{ row.country }}</td>
         <td>
-          <p-badge *ngIf="row.visibility == 1" severity="success" value="Hiển thị"></p-badge>
-          <p-badge *ngIf="row.visibility == 0" severity="danger" value="Ẩn"></p-badge>
+          <p-badge *ngIf="row.isVisibility == 1" severity="success" value="Hiển thị"></p-badge>
+          <p-badge *ngIf="row.isVisibility == 0" severity="danger" value="Ẩn"></p-badge>
         </td>
         <td>
           <p-badge *ngIf="row.isActive == 1" value="Kích Hoạt" severity="success"></p-badge>
