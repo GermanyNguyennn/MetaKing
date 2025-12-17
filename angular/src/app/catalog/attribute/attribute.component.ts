@@ -7,6 +7,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { Subject, take, takeUntil } from 'rxjs';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 import { AttributeDetailComponent } from './attribute-detail.component';
+import { MessageConstants } from 'src/app/shared/constants/messages.const';
 
 @Component({
   selector: 'app-attribute',
@@ -27,11 +28,14 @@ export class AttributeComponent implements OnInit, OnDestroy {
   keyword: string = '';
   categoryId: string = '';
 
+  sortField: string = 'name';
+  sortOrder: string = 'ASC';
+
   constructor(
     private attributeService: ProductAttributesService,
     private dialogService: DialogService,
     private notificationService: NotificationService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
   ) {}
 
   ngOnDestroy(): void {
@@ -43,6 +47,20 @@ export class AttributeComponent implements OnInit, OnDestroy {
     this.loadData();
   }
 
+    sort(field: string) {
+    // Nếu click lại cùng field → đảo chiều SORT
+    if (this.sortField === field) {
+      this.sortOrder = this.sortOrder === 'ASC' ? 'DESC' : 'ASC';
+    } else {
+      // Click cột mới → reset sortOrder về ASC
+      this.sortField = field;
+      this.sortOrder = 'ASC';
+    }
+
+    // Load lại dữ liệu từ API
+    this.loadData();
+  }
+
   loadData() {
     this.toggleBlockUI(true);
     this.attributeService
@@ -50,6 +68,8 @@ export class AttributeComponent implements OnInit, OnDestroy {
       keyword: this.keyword,
       maxResultCount: this.maxResultCount,
       skipCount: this.skipCount,
+      sortField: this.sortField,
+      sortOrder: this.sortOrder
     })
     .pipe(takeUntil(this.ngUnsubscribe))
     .subscribe({
@@ -79,7 +99,7 @@ export class AttributeComponent implements OnInit, OnDestroy {
     ref.onClose.subscribe((data: ProductAttributeDto) => {
       if (data) {
         this.loadData();
-        this.notificationService.showSuccess('Thêm Thuộc Tính Thành Công');
+        this.notificationService.showSuccess(MessageConstants.CREATED_OK_MSG);
         this.selectedItems = [];
       }
     });
@@ -87,7 +107,7 @@ export class AttributeComponent implements OnInit, OnDestroy {
 
   showEditModal() {
     if (this.selectedItems.length == 0) {
-      this.notificationService.showError('Bạn Phải Chọn Một Bản Ghi');
+      this.notificationService.showError(MessageConstants.NOT_CHOOSE_ANY_RECORD);
       return;
     }
     const id = this.selectedItems[0].id;
@@ -102,7 +122,7 @@ export class AttributeComponent implements OnInit, OnDestroy {
     ref.onClose.subscribe((data: ProductAttributeDto) => {
       if (data) {
         this.loadData();
-        this.notificationService.showSuccess('Cập Nhật Thuộc Tính Thành Công');
+        this.notificationService.showSuccess(MessageConstants.UPDATED_OK_MSG);
         this.selectedItems = [];
       }
     });
@@ -110,7 +130,7 @@ export class AttributeComponent implements OnInit, OnDestroy {
   
   deleteItems(){
     if(this.selectedItems.length == 0){
-      this.notificationService.showError("Bạn Phải Chọn Ít Nhất Một Bản Ghi");
+      this.notificationService.showError(MessageConstants.NOT_CHOOSE_ANY_RECORD);
       return;
     }
     var ids =[];
@@ -118,7 +138,7 @@ export class AttributeComponent implements OnInit, OnDestroy {
       ids.push(element.id);
     });
     this.confirmationService.confirm({
-      message:'Bạn Có Muốn Xoá Bản Ghi Này Không?',
+      message:MessageConstants.CONFIRM_DELETE_MSG,
       accept:()=>{
         this.deleteItemsConfirmed(ids);
       }
@@ -130,7 +150,7 @@ export class AttributeComponent implements OnInit, OnDestroy {
     this.attributeService.deleteMultiple(ids).pipe(takeUntil(this.ngUnsubscribe)).subscribe({
       next: ()=>{
         this.loadData();
-        this.notificationService.showSuccess("Xóa Thuộc Tính Thành Công");
+        this.notificationService.showSuccess(MessageConstants.DELETED_OK_MSG);
         this.selectedItems = [];
         this.toggleBlockUI(false);
       },

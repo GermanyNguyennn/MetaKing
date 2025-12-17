@@ -65,7 +65,7 @@ namespace MetaKing.Admin.System.Roles
         public async Task DeleteMultipleAsync(IEnumerable<Guid> ids)
         {
             await Repository.DeleteManyAsync(ids);
-            await UnitOfWorkManager.Current.SaveChangesAsync();
+            await UnitOfWorkManager.Current!.SaveChangesAsync();
         }
 
         //[Authorize(IdentityPermissions.Roles.Default)]
@@ -84,7 +84,7 @@ namespace MetaKing.Admin.System.Roles
         public async Task<PagedResultDto<RoleInListDto>> GetListFilterAsync(BaseListFilterDto input)
         {
             var query = await Repository.GetQueryableAsync();
-            query = query.WhereIf(!string.IsNullOrWhiteSpace(input.Keyword), x => x.Name.Contains(input.Keyword));
+            query = query.WhereIf(!string.IsNullOrWhiteSpace(input.Keyword), x => x.Name.Contains(input.Keyword!));
 
             var totalCount = await AsyncExecuter.LongCountAsync(query);
             var data = await AsyncExecuter.ToListAsync(query.Skip(input.SkipCount).Take(input.MaxResultCount));
@@ -106,7 +106,7 @@ namespace MetaKing.Admin.System.Roles
             var role = new IdentityRole(Guid.NewGuid(), input.Name);
             role.ExtraProperties[RoleConsts.DescriptionFieldName] = input.Description;
             var data = await Repository.InsertAsync(role);
-            await UnitOfWorkManager.Current.SaveChangesAsync();
+            await UnitOfWorkManager.Current!.SaveChangesAsync();
             return ObjectMapper.Map<IdentityRole, RoleDto>(data);
         }
 
@@ -128,7 +128,7 @@ namespace MetaKing.Admin.System.Roles
             }
             role.ExtraProperties[RoleConsts.DescriptionFieldName] = input.Description;
             var data = await Repository.UpdateAsync(role);
-            await UnitOfWorkManager.Current.SaveChangesAsync();
+            await UnitOfWorkManager.Current!.SaveChangesAsync();
             return ObjectMapper.Map<IdentityRole, RoleDto>(data);
         }
 
@@ -203,7 +203,7 @@ namespace MetaKing.Admin.System.Roles
             return new PermissionGrantInfoDto
             {
                 Name = permission.Name,
-                DisplayName = permission.DisplayName?.Localize(StringLocalizerFactory),
+                DisplayName = permission.DisplayName?.Localize(StringLocalizerFactory)!,
                 ParentName = permission.Parent?.Name,
                 AllowedProviders = permission.Providers,
                 GrantedProviders = new List<ProviderInfoDto>()
@@ -215,7 +215,7 @@ namespace MetaKing.Admin.System.Roles
             return new PermissionGroupDto
             {
                 Name = group.Name,
-                DisplayName = group.DisplayName?.Localize(StringLocalizerFactory),
+                DisplayName = group.DisplayName?.Localize(StringLocalizerFactory)!,
                 Permissions = new List<PermissionGrantInfoDto>(),
             };
         }

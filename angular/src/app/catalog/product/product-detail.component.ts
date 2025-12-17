@@ -44,37 +44,6 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     private sanitizer: DomSanitizer
   ) {}
 
-  validationMessages = {
-  code: [
-    { type: 'required', message: 'Bạn Phải Nhập Mã Sản Phẩm' },
-  ],
-  name: [
-    { type: 'required', message: 'Bạn Phải Nhập Tên Sản Phẩm' },
-    { type: 'maxlength', message: 'Bạn Không Được Nhập Quá 255 Kí Tự' },
-  ],
-  slug: [
-    { type: 'required', message: 'Bạn Phải Nhập Slug Sản Phẩm' },
-  ],
-  sku: [
-    { type: 'required', message: 'Bạn Phải Nhập Mã SKU Sản Phẩm' },
-  ],
-  manufacturerId: [
-    { type: 'required', message: 'Bạn Phải Chọn Nhà Sản Xuất' },
-  ],
-  categoryId: [
-    { type: 'required', message: 'Bạn Phải Chọn Danh Mục Sản Phẩm' },
-  ],
-  productType: [
-    { type: 'required', message: 'Bạn Phải Chọn Loại Sản Phẩm' },
-  ],
-  sortOrder: [
-    { type: 'required', message: 'Bạn Phải Nhập Thứ Tự Sản Phẩm' },
-  ],
-  sellPrice: [
-    { type: 'required', message: 'Bạn Phải Nhập Giá Bán' },
-  ],
-};
-
   ngOnDestroy(): void {
     if (this.ref) {
       this.ref.close();
@@ -94,42 +63,43 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   }
 
   initFormData() {
-    var productCategories = this.productCategoryService.getListAll();
-    var manufacturers = this.manufacturerService.getListAll();
+    const productCategories = this.productCategoryService.getListAll();
+    const manufacturers = this.manufacturerService.getListAll();
+
     this.toggleBlockUI(true);
-    forkJoin({
-      productCategories,
-      manufacturers,
-    })
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe({
-        next: (response: any) => {
-          var productCategories = response.productCategories as ProductCategoryInListDto[];
-          var manufacturers = response.manufacturers as ManufacturerInListDto[];
-          this.productCategoriesAll = productCategories;
-          this.parentCategories = productCategories
-            .filter(x => (x as any).parentId == null || (x as any).parentId === undefined)
-            .map(x => ({ value: x.id, label: x.name }));
-            this.childCategories = [];
 
-            manufacturers.forEach(element => {
-            this.manufacturers.push({
-              value: element.id,
-              label: element.name,
-            });
-          });
+    forkJoin({ productCategories, manufacturers })
+    .pipe(takeUntil(this.ngUnsubscribe))
+    .subscribe({
+      next: (response) => {
+        const productCategories = response.productCategories as ProductCategoryInListDto[];
+        const manufacturers = response.manufacturers as ManufacturerInListDto[];
 
-          if (this.utilService.isEmpty(this.config.data?.id) == true) {
-            this.getNewSuggestionCode();
-            this.toggleBlockUI(false);
-          } else {
-            this.loadFormDetails(this.config.data?.id);
-          }
-        },
-        error: () => {
+        this.productCategoriesAll = productCategories;
+
+        this.parentCategories = productCategories
+          .filter(x => x.parentId == null)
+          .map(x => ({
+            value: x.id,
+            label: x.name,
+          }));
+
+        this.childCategories = [];
+
+        this.manufacturers = manufacturers.map(x => ({
+          value: x.id,
+          label: x.name,
+        }));
+
+        if (this.utilService.isEmpty(this.config.data?.id)) {
+          this.getNewSuggestionCode();
           this.toggleBlockUI(false);
-        },
-      });
+        } else {
+          this.loadFormDetails(this.config.data?.id);
+        }
+      },
+      error: () => this.toggleBlockUI(false),
+    });
   }
 
   onParentChanged(parentId: string) {
@@ -226,12 +196,10 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   }
 
   loadProductTypes() {
-    productTypeOptions.forEach(element => {
-      this.productTypes.push({
-        value: element.value,
-        label: element.key,
-      });
-    });
+    this.productTypes = productTypeOptions.map(x => ({
+      label: x.key,
+      value: x.value
+    }));
   }
 
   private buildForm() {

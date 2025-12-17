@@ -9,6 +9,7 @@ import { Subject, take, takeUntil } from 'rxjs';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 import { ProductDetailComponent } from './product-detail.component';
 import { ProductAttributeComponent } from './product-attribute.component';
+import { MessageConstants } from 'src/app/shared/constants/messages.const';
 
 @Component({
   selector: 'app-product',
@@ -85,17 +86,21 @@ export class ProductComponent implements OnInit, OnDestroy {
   }
 
   loadProductCategories() {
-    this.productCategoryService.getListAll().subscribe((response: ProductCategoryInListDto[]) => {
-      this.productCategoriesAll = response;
-      response.forEach(element => {
-        this.productCategories.push({
-          value: element.id,
-          label: element.name,
-        });
-      });
+    this.productCategories = [];
 
-      this.loadData();
-    });
+    this.productCategoryService
+      .getListAll()
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((response: ProductCategoryInListDto[]) => {
+        this.productCategoriesAll = response;
+
+        this.productCategories = response.map(x => ({
+          value: x.id,
+          label: x.name,
+        }));
+
+        this.loadData();
+      });
   }
 
   pageChanged(event: any): void {
@@ -113,7 +118,7 @@ export class ProductComponent implements OnInit, OnDestroy {
     ref.onClose.subscribe((data: ProductDto) => {
       if (data) {
         this.loadData();
-        this.notificationService.showSuccess('Thêm Sản Phẩm Thành Công');
+        this.notificationService.showSuccess(MessageConstants.CREATED_OK_MSG);
         this.selectedItems = [];
       }
     });
@@ -121,7 +126,7 @@ export class ProductComponent implements OnInit, OnDestroy {
 
   showEditModal() {
     if (this.selectedItems.length == 0) {
-      this.notificationService.showError('Bản Phải Chọn 1 Bản Ghi');
+      this.notificationService.showError(MessageConstants.NOT_CHOOSE_ANY_RECORD);
       return;
     }
     const id = this.selectedItems[0].id;
@@ -136,7 +141,7 @@ export class ProductComponent implements OnInit, OnDestroy {
     ref.onClose.subscribe((data: ProductDto) => {
       if (data) {
         this.loadData();
-        this.notificationService.showSuccess('Cập Nhật Sản Phẩm Thành Công');
+        this.notificationService.showSuccess(MessageConstants.UPDATED_OK_MSG);
         this.selectedItems = [];
       }
     });
@@ -154,7 +159,7 @@ export class ProductComponent implements OnInit, OnDestroy {
     ref.onClose.subscribe((data: ProductDto) => {
       if (data) {
         this.loadData();
-        this.notificationService.showSuccess('Cập Nhật Thuộc Tính Sản Phẩm Thành Công');
+        this.notificationService.showSuccess(MessageConstants.CREATED_OK_MSG);
         this.selectedItems = [];
       }
     });
@@ -162,7 +167,7 @@ export class ProductComponent implements OnInit, OnDestroy {
 
   deleteItems() {
     if (this.selectedItems.length == 0) {
-      this.notificationService.showError('Bản Phải Chọn Ít Nhất 1 Bản Ghi');
+      this.notificationService.showError(MessageConstants.NOT_CHOOSE_ANY_RECORD);
       return;
     }
     var ids = [];
@@ -170,7 +175,7 @@ export class ProductComponent implements OnInit, OnDestroy {
       ids.push(element.id);
     });
     this.confirmationService.confirm({
-      message: 'Bạn Có Muốn Xoá Bản Ghi Này Không?',
+      message: MessageConstants.CONFIRM_DELETE_MSG,
       accept: () => {
         this.deleteItemsConfirmed(ids);
       },
@@ -185,7 +190,7 @@ export class ProductComponent implements OnInit, OnDestroy {
     .subscribe({
       next: () => {
         this.loadData();
-        this.notificationService.showSuccess('Xóa Bản Ghi Thành Công');
+        this.notificationService.showSuccess(MessageConstants.DELETED_OK_MSG);
         this.selectedItems = [];
         this.toggleBlockUI(false);
       },
@@ -205,7 +210,7 @@ export class ProductComponent implements OnInit, OnDestroy {
     } else {
       setTimeout(() => {
         this.blockedPanel = false;
-      }, 1000);
+      }, 1000); 
     }
   }
 }

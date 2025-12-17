@@ -10,6 +10,7 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { forkJoin, Subject, takeUntil } from 'rxjs';
 import { NotificationService } from 'src/app/shared/services/notification.service'; 
 import { UtilityService } from 'src/app/shared/services/utility.service'; 
+import { MessageConstants } from 'src/app/shared/constants/messages.const';
 
 @Component({
   selector: 'app-product-attribute',
@@ -54,29 +55,29 @@ export class ProductAttributeComponent implements OnInit, OnDestroy {
   }
 
   initFormData() {
-    var attributes = this.productAttributeService.getListAll();
-    this.toggleBlockUI(true);
-    forkJoin({
-      attributes,
-    })
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe({
-        next: (response: any) => {
-          this.fullAttributes = response.attributes;
-          var attributes = response.attributes as ProductAttributeInListDto[];
-          attributes.forEach(element => {
-            this.attributes.push({
-              value: element.id,
-              label: element.label,
-            });
-          });
+    const attributes$ = this.productAttributeService.getListAll();
 
-          this.loadFormDetails(this.config.data?.id);
-        },
-        error: () => {
-          this.toggleBlockUI(false);
-        },
-      });
+    this.toggleBlockUI(true);
+
+    forkJoin({ attributes: attributes$ })
+    .pipe(takeUntil(this.ngUnsubscribe))
+    .subscribe({
+      next: (response) => {
+        const attributes = response.attributes as ProductAttributeInListDto[];
+
+        this.fullAttributes = attributes;
+
+        this.attributes = attributes.map(x => ({
+          value: x.id,
+          label: x.name,
+        }));
+
+        this.loadFormDetails(this.config.data?.id);
+      },
+      error: () => {
+        this.toggleBlockUI(false);
+      },
+    });
   }
 
   loadFormDetails(id: string) {
@@ -139,11 +140,28 @@ export class ProductAttributeComponent implements OnInit, OnDestroy {
       id = attribute.varcharId;
     }
     this.confirmationService.confirm({
-      message: 'Bạn Có Muốn Xoá Bản Ghi Này Không?',
+      message: MessageConstants.CONFIRM_DELETE_MSG,
       accept: () => {
         this.deleteItemsConfirmed(attribute, id);
       },
     });
+  }
+
+  deleteItemsConfirmed(attribute: ProductAttributeValueDto, id: string) {
+    this.toggleBlockUI(true);
+    this.productService
+      .removeProductAttribute(attribute.attributeId, id)
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe({
+        next: () => {
+          this.notificationService.showSuccess(MessageConstants.DELETED_OK_MSG);
+          this.loadFormDetails(this.config.data?.id);
+          this.toggleBlockUI(false);
+        },
+        error: () => {
+          this.toggleBlockUI(false);
+        },
+      });
   }
 
   selectAttribute(event: any) {
@@ -164,23 +182,6 @@ export class ProductAttributeComponent implements OnInit, OnDestroy {
     } else if (dataType == AttributeType.Varchar) {
       this.showVarcharControl = true;
     }
-  }
-
-  deleteItemsConfirmed(attribute: ProductAttributeValueDto, id: string) {
-    this.toggleBlockUI(true);
-    this.productService
-      .removeProductAttribute(attribute.attributeId, id)
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe({
-        next: () => {
-          this.notificationService.showSuccess('Xóa Thuộc Tính Thành Công');
-          this.loadFormDetails(this.config.data?.id);
-          this.toggleBlockUI(false);
-        },
-        error: () => {
-          this.toggleBlockUI(false);
-        },
-      });
   }
 
   getDataTypeName(value: number) {

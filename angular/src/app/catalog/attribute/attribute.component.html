@@ -55,9 +55,24 @@
         <th>
           <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
         </th>
-        <th>Mã Thuộc Tính</th>
+        <th (click)="sort('id')" style="cursor: pointer">
+          Mã Thuộc Tính
+          <i *ngIf="sortField === 'id' && sortOrder === 'ASC'" class="fa fa-sort-up"></i>
+          <i *ngIf="sortField === 'id' && sortOrder === 'DESC'" class="fa fa-sort-down"></i>
+        </th>
+
+        <th (click)="sort('name')" style="cursor: pointer">
+          Tên Thuộc Tính
+          <i *ngIf="sortField === 'name' && sortOrder === 'ASC'" class="fa fa-sort-up"></i>
+          <i *ngIf="sortField === 'name' && sortOrder === 'DESC'" class="fa fa-sort-down"></i>
+        </th>
+
+        <th (click)="sort('code')" style="cursor: pointer">
+          Code
+          <i *ngIf="sortField === 'code' && sortOrder === 'ASC'" class="fa fa-sort-up"></i>
+          <i *ngIf="sortField === 'code' && sortOrder === 'DESC'" class="fa fa-sort-down"></i>
+        </th>
         <th>Kiểu Dữ liệu</th>
-        <th>Tên Thuộc Tính</th>
         <th>Bắt Buộc Nhập</th>
         <th>Duy Nhất</th>
         <th>Hiển Thị</th>
@@ -70,9 +85,10 @@
           <span class="ui-column-title"></span>
           <p-tableCheckbox [value]="row"></p-tableCheckbox>
         </td>
+        <td>{{ row.id }}</td>
+        <td>{{ row.name }}</td>
         <td>{{ row.code }}</td>
         <td>{{ getAttributeTypeName(row.dataType) }}</td>
-        <td>{{ row.label }}</td>
         <td>
           <p-badge *ngIf="row.isRequired == 1" severity="success" value="Có"></p-badge>
           <p-badge *ngIf="row.isRequired == 0" severity="danger" value="Không"></p-badge>

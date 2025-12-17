@@ -32,10 +32,6 @@ export class ManufacturerDetailComponent implements OnInit, OnDestroy {
     private sanitizer: DomSanitizer
   ) {}
 
-  validationMessages = {
-    
-  };
-
   ngOnDestroy(): void {
     if (this.ref) {
       this.ref.close();

@@ -21,7 +21,7 @@ export interface ProductAttributeValueDto {
   attributeId?: string;
   code?: string;
   dataType: AttributeType;
-  label?: string;
+  name?: string;
   dateTimeValue?: string;
   decimalValue?: number;
   intValue?: number;

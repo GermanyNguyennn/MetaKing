@@ -5,13 +5,13 @@ using Volo.Abp.Application.Dtos;
 namespace MetaKing.Admin.Catalog.Products.Attributes
 {
     public class ProductAttributeValueDto : IEntityDto<Guid>
-    {
+    {   
         public Guid Id { get; set; }
         public Guid ProductId { get; set; }
         public Guid AttributeId { get; set; }
         public string Code { get; set; }
         public AttributeType DataType { get; set; }
-        public string Label { get; set; }
+        public string Name { get; set; }
         public DateTime? DateTimeValue { get; set; }
         public decimal? DecimalValue { get; set; }
         public int? IntValue { get; set; }

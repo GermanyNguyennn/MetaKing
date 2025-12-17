@@ -43,7 +43,7 @@ namespace MetaKing.Admin.System.Users
         public async Task DeleteMultipleAsync(IEnumerable<Guid> ids)
         {
             await Repository.DeleteManyAsync(ids);
-            await UnitOfWorkManager.Current.SaveChangesAsync();
+            await UnitOfWorkManager.Current!.SaveChangesAsync();
         }
 
         //[Authorize(IdentityPermissions.Users.Default)]

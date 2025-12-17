@@ -133,7 +133,7 @@ namespace MetaKing.Catalog.Products
                            && (aText == null || aText.ProductId == productId)
                         select new ProductAttributeValueDto()
                         {
-                            Label = a.Label,
+                            Name = a.Name,
                             AttributeId = a.Id,
                             DataType = a.DataType,
                             Code = a.Code,
@@ -186,7 +186,7 @@ namespace MetaKing.Catalog.Products
                            && (aText == null || aText.ProductId == input.ProductId)
                         select new ProductAttributeValueDto()
                         {
-                            Label = a.Label,
+                            Name = a.Name,
                             AttributeId = a.Id,
                             DataType = a.DataType,
                             Code = a.Code,

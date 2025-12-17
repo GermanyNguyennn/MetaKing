@@ -148,40 +148,48 @@ namespace MetaKing.Admin.Catalog.Manufacturers
         //[Authorize(MetaKingPermissions.Manufacturer.Default)]
         public async Task<PagedResultDto<ManufacturerInListDto>> GetListFilterAsync(BaseListFilterDto input)
         {
+            // Base query
             var query = await Repository.GetQueryableAsync();
-            query = query.WhereIf(!string.IsNullOrWhiteSpace(input.Keyword), x => x.Name.Contains(input.Keyword!));
 
-            query = ApplySorting(query, input.SortField, input.SortOrder);
+            // Filter
+            query = query.WhereIf(
+                !string.IsNullOrWhiteSpace(input.Keyword),
+                x => x.Name.Contains(input.Keyword!)
+            );
 
-            var totalCount = await AsyncExecuter.LongCountAsync(query);
-            var data = await AsyncExecuter.ToListAsync(query.Skip(input.SkipCount).Take(input.MaxResultCount));
+            // Chuẩn hoá sort
+            var sortField = input.SortField?.ToLower();
+            var sortOrder = input.SortOrder?.ToUpper() ?? "ASC";
+            bool isAsc = sortOrder == "ASC";
 
-            return new PagedResultDto<ManufacturerInListDto>(totalCount, ObjectMapper.Map<List<Manufacturer>, List<ManufacturerInListDto>>(data));
-        }
-
-        private IQueryable<Manufacturer> ApplySorting(IQueryable<Manufacturer> query, string? sortField, string? sortOrder)
-        {
-            // Mặc định không có sắp xếp → sắp xếp theo Name
-            if (string.IsNullOrWhiteSpace(sortField))
-                sortField = "Name";
-
-            if (string.IsNullOrWhiteSpace(sortOrder))
-                sortOrder = "ASC";
-
-            bool isAsc = sortOrder.Equals("ASC", StringComparison.OrdinalIgnoreCase);
-
-            return sortField switch
+            // Apply sorting
+            query = sortField switch
             {
-                "Name" => isAsc ? query.OrderBy(x => x.Name) : query.OrderByDescending(x => x.Name),
-                "Code" => isAsc ? query.OrderBy(x => x.Code) : query.OrderByDescending(x => x.Code),
-                "Slug" => isAsc ? query.OrderBy(x => x.Slug) : query.OrderByDescending(x => x.Slug),
-                "Country" => isAsc ? query.OrderBy(x => x.Country) : query.OrderByDescending(x => x.Country),
-                "CoverPicture" => isAsc ? query.OrderBy(x => x.CoverPicture) : query.OrderByDescending(x => x.CoverPicture),
-                "Visibility" => isAsc ? query.OrderBy(x => x.IsVisibility) : query.OrderByDescending(x => x.IsVisibility),
-                "IsActive" => isAsc ? query.OrderBy(x => x.IsActive) : query.OrderByDescending(x => x.IsActive),
+                "id" => isAsc ? query.OrderBy(x => x.Id) : query.OrderByDescending(x => x.Id),
+                "name" => isAsc ? query.OrderBy(x => x.Name) : query.OrderByDescending(x => x.Name),
+                "code" => isAsc ? query.OrderBy(x => x.Code) : query.OrderByDescending(x => x.Code),
+                "slug" => isAsc ? query.OrderBy(x => x.Slug) : query.OrderByDescending(x => x.Slug),
+                "country" => isAsc ? query.OrderBy(x => x.Country) : query.OrderByDescending(x => x.Country),
+                "coverpicture" => isAsc ? query.OrderBy(x => x.CoverPicture) : query.OrderByDescending(x => x.CoverPicture),
+                "visibility" => isAsc ? query.OrderBy(x => x.IsVisibility) : query.OrderByDescending(x => x.IsVisibility),
+                "isactive" => isAsc ? query.OrderBy(x => x.IsActive) : query.OrderByDescending(x => x.IsActive),
                 _ => isAsc ? query.OrderBy(x => x.Name) : query.OrderByDescending(x => x.Name),
             };
-        }
 
+            // Count
+            var totalCount = await AsyncExecuter.LongCountAsync(query);
+
+            // Paging
+            var items = await AsyncExecuter.ToListAsync(
+                query
+                    .Skip(input.SkipCount)
+                    .Take(input.MaxResultCount)
+            );
+
+            return new PagedResultDto<ManufacturerInListDto>(
+                totalCount,
+                ObjectMapper.Map<List<Manufacturer>, List<ManufacturerInListDto>>(items)
+            );
+        }
     }
 }

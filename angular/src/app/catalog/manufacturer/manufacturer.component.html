@@ -79,17 +79,9 @@
           <i *ngIf="sortField === 'country' && sortOrder === 'DESC'" class="fa fa-sort-down"></i>
         </th>
 
-        <th (click)="sort('isVisibility')" style="cursor: pointer">
-          Hiển Thị
-          <i *ngIf="sortField === 'isVisibility' && sortOrder === 'ASC'" class="fa fa-sort-up"></i>
-          <i *ngIf="sortField === 'isVisibility' && sortOrder === 'DESC'" class="fa fa-sort-down"></i>
-        </th>
+        <th>Hiển Thị</th>
 
-        <th (click)="sort('isActive')" style="cursor: pointer">
-          Kích Hoạt
-          <i *ngIf="sortField === 'isActive' && sortOrder === 'ASC'" class="fa fa-sort-up"></i>
-          <i *ngIf="sortField === 'isActive' && sortOrder === 'DESC'" class="fa fa-sort-down"></i>
-        </th>
+        <th>Kích Hoạt</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-row>

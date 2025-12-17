@@ -4,7 +4,7 @@ import type { EntityDto } from '@abp/ng.core';
 export interface CreateUpdateProductAttributeDto {
   code?: string;
   dataType: AttributeType;
-  label?: string;
+  name?: string;
   isVisibility: boolean;
   isActive: boolean;
   isRequired: boolean;
@@ -15,7 +15,7 @@ export interface CreateUpdateProductAttributeDto {
 export interface ProductAttributeDto {
   code?: string;
   dataType: AttributeType;
-  label?: string;
+  name?: string;
   isVisibility: boolean;
   isActive: boolean;
   isRequired: boolean;
@@ -25,9 +25,9 @@ export interface ProductAttributeDto {
 }
 
 export interface ProductAttributeInListDto extends EntityDto<string> {
+  name?: string;
   code?: string;
   dataType: AttributeType;
-  label?: string;
   isVisibility: boolean;
   isActive: boolean;
   isRequired: boolean;

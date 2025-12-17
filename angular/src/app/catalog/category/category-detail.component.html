@@ -1,6 +1,7 @@
 <form [formGroup]="form" skipValidation (ngSubmit)="saveChanged()">
   <p-panel #pnl header="Chi Tiết Danh Mục">
     <div class="formgrid grid">
+
       <div class="field col-12">
         <label for="name" class="block">Tên Danh Mục <span class="required">*</span></label>
         <input 
@@ -10,31 +11,19 @@
           type="text" 
           class="w-full" 
           formControlName="name"
-        />
-        <app-validation-message
-          [entityForm]="form"
-          fieldName="name"
-          [validationMessages]="validationMessages"
-        ></app-validation-message>
+        />        
       </div>
+
       <div class="field col-12">
         <label for="code" class="block">Code <span class="required">*</span></label>
         <input id="code" pInputText type="text" class="w-full" formControlName="code" />
-        <app-validation-message
-          [entityForm]="form"
-          fieldName="code"
-          [validationMessages]="validationMessages"
-        ></app-validation-message>
       </div>  
+
       <div class="field col-12">
         <label for="slug" class="block">Slug <span class="required">*</span></label>
         <input id="slug" pInputText type="text" class="w-full" formControlName="slug" />
-        <app-validation-message
-          [entityForm]="form"
-          fieldName="slug"
-          [validationMessages]="validationMessages"
-        ></app-validation-message>
-      </div>         
+      </div>   
+            
       <div class="field col-12">
         <label for="parentId" class="block">Danh Mục Cha</label>
         <p-dropdown 
@@ -47,6 +36,7 @@
           [style]="{ width: '100%' }"
         ></p-dropdown>
       </div>
+
       <div class="field col-12 md:col-6">
         <label for="coverPicture" class="block">Hình Ảnh <span class="required">*</span></label>
         <input id="coverPicture" type="file" (change)="onFileChanged($event)" class="w-full">
@@ -58,10 +48,12 @@
           [preview]="true"
         ></p-image>
       </div>
+
       <div class="field-checkbox col-12 md:col-6">
         <p-checkbox formControlName="isVisibility" binary="true" id="isVisibility"></p-checkbox>
         <label for="isVisibility">Hiển Thị</label>
       </div>
+
       <div class="field-checkbox col-12 md:col-6">
         <p-checkbox formControlName="isActive" binary="true" id="isActive"></p-checkbox>
         <label for="isActive">Kích Hoạt</label>

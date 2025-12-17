@@ -14,7 +14,7 @@ namespace MetaKing.ProductAttributes
                 .IsUnicode(false)
                 .IsRequired();
 
-            builder.Property(x => x.Label)
+            builder.Property(x => x.Name)
                 .HasMaxLength(50)
                 .IsRequired();
         }

@@ -33,10 +33,6 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
     private sanitizer: DomSanitizer
   ) {}
 
-  validationMessages = {
-    
-  };
-
   ngOnDestroy(): void {
     if (this.ref) {
       this.ref.close();

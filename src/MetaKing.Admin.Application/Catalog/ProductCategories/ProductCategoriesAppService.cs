@@ -74,8 +74,8 @@ namespace MetaKing.Admin.Catalog.ProductCategories
             // Xử lý upload ảnh
             if (input.CoverPictureContent != null && input.CoverPictureContent.Length > 0)
             {
-                await SaveThumbnailImageAsync(input.CoverPictureName, input.CoverPictureContent);
-                productCategory.CoverPicture = input.CoverPictureName;
+                await SaveThumbnailImageAsync(input.CoverPictureName!, input.CoverPictureContent);
+                productCategory.CoverPicture = input.CoverPictureName!;
             }
 
             var result = await Repository.InsertAsync(productCategory);
@@ -192,13 +192,49 @@ namespace MetaKing.Admin.Catalog.ProductCategories
         //[Authorize(MetaKingPermissions.ProductCategory.Default)]
         public async Task<PagedResultDto<ProductCategoryInListDto>> GetListFilterAsync(BaseListFilterDto input)
         {
-            var query = await Repository.GetQueryableAsync();
-            query = query.WhereIf(!string.IsNullOrWhiteSpace(input.Keyword), x => x.Name.Contains(input.Keyword!));
+            // Base query
+            var baseQuery = await Repository.GetQueryableAsync();
 
+            // Filter
+            var query = baseQuery.WhereIf(
+                !string.IsNullOrWhiteSpace(input.Keyword),
+                x => x.Name.Contains(input.Keyword!)
+            );
+
+            // Chuẩn hoá sort
+            var sortField = input.SortField?.ToLower();
+            var sortOrder = input.SortOrder?.ToUpper() ?? "ASC";
+            bool isAsc = sortOrder == "ASC";
+
+            // Sort entity fields (TRỪ ParentName)
+            bool sortByParentName = false;
+
+            query = sortField switch
+            {
+                "id" => isAsc ? query.OrderBy(x => x.Id) : query.OrderByDescending(x => x.Id),
+                "name" => isAsc ? query.OrderBy(x => x.Name) : query.OrderByDescending(x => x.Name),
+                "code" => isAsc ? query.OrderBy(x => x.Code) : query.OrderByDescending(x => x.Code),
+                "slug" => isAsc ? query.OrderBy(x => x.Slug) : query.OrderByDescending(x => x.Slug),
+                "coverpicture" => isAsc ? query.OrderBy(x => x.CoverPicture) : query.OrderByDescending(x => x.CoverPicture),
+                "visibility" => isAsc ? query.OrderBy(x => x.IsVisibility) : query.OrderByDescending(x => x.IsVisibility),
+                "isactive" => isAsc ? query.OrderBy(x => x.IsActive) : query.OrderByDescending(x => x.IsActive),
+
+                // Đánh dấu sort ParentName
+                "parentname" => SetSortByParent(query, out sortByParentName),
+
+                // Default
+                _ => isAsc ? query.OrderBy(x => x.Name) : query.OrderByDescending(x => x.Name)
+            };
+
+            // Parent query (KHÔNG filter, KHÔNG sort)
+            var parentQuery = baseQuery;
+
+            // Join cha – con
             var joinedQuery =
                 from category in query
-                join parent in query on category.ParentId equals parent.Id into groupCategory
-                from parent in groupCategory.DefaultIfEmpty()
+                join parent in parentQuery
+                    on category.ParentId equals parent.Id into g
+                from parent in g.DefaultIfEmpty()
                 select new ProductCategoryInListDto
                 {
                     Id = category.Id,
@@ -210,11 +246,31 @@ namespace MetaKing.Admin.Catalog.ProductCategories
                     IsActive = category.IsActive,
                 };
 
+            // Sort theo ParentName (SAU JOIN)
+            if (sortByParentName)
+            {
+                joinedQuery = isAsc
+                    ? joinedQuery.OrderBy(x => x.ParentName)
+                    : joinedQuery.OrderByDescending(x => x.ParentName);
+            }
+
+            // Count
             var totalCount = await AsyncExecuter.LongCountAsync(joinedQuery);
 
-            var data = await AsyncExecuter.ToListAsync(joinedQuery.Skip(input.SkipCount).Take(input.MaxResultCount));
+            // Paging
+            var items = await AsyncExecuter.ToListAsync(
+                joinedQuery
+                    .Skip(input.SkipCount)
+                    .Take(input.MaxResultCount)
+            );
 
-            return new PagedResultDto<ProductCategoryInListDto>(totalCount, data);
+            return new PagedResultDto<ProductCategoryInListDto>(totalCount, items);
+        }
+
+        private static IQueryable<ProductCategory> SetSortByParent(IQueryable<ProductCategory> query, out bool sortByParent)
+        {
+            sortByParent = true;
+            return query;
         }
     }
 }

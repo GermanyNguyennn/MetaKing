@@ -55,16 +55,33 @@
         <th>
           <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
         </th>
-        <th>Mã Danh Mục</th>
-        <th>Tên Danh Mục</th>
-        <th>Code</th>
+        <th (click)="sort('id')" style="cursor: pointer">
+          Mã Danh Mục
+          <i *ngIf="sortField === 'id' && sortOrder === 'ASC'" class="fa fa-sort-up"></i>
+          <i *ngIf="sortField === 'id' && sortOrder === 'DESC'" class="fa fa-sort-down"></i>
+        </th>
+
+        <th (click)="sort('name')" style="cursor: pointer">
+          Tên Danh Mục
+          <i *ngIf="sortField === 'name' && sortOrder === 'ASC'" class="fa fa-sort-up"></i>
+          <i *ngIf="sortField === 'name' && sortOrder === 'DESC'" class="fa fa-sort-down"></i>
+        </th>
+
+        <th (click)="sort('code')" style="cursor: pointer">
+          Code
+          <i *ngIf="sortField === 'code' && sortOrder === 'ASC'" class="fa fa-sort-up"></i>
+          <i *ngIf="sortField === 'code' && sortOrder === 'DESC'" class="fa fa-sort-down"></i>
+        </th>
+
         <th>Danh Mục Cha</th>
+        
         <th>Hiển Thị</th>
+
         <th>Kích Hoạt</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-row>
-      <tr [pSelectableRow]="row" [ngStyle]="{'background-color': getRowColor(row)}">
+      <tr [pSelectableRow]="row">
         <td style="width: 10px">
           <span class="ui-column-title"></span>
           <p-tableCheckbox [value]="row"></p-tableCheckbox>

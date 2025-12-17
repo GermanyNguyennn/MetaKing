@@ -13,6 +13,7 @@
         </p-dropdown>
       </div>
     </div>
+
     <div class="col-3">
       <div class="field">
         <p-calendar *ngIf="showDateTimeControl" formControlName="dateTimeValue"></p-calendar>
@@ -22,11 +23,13 @@
         <input *ngIf="showTextControl" type="text" pInputText formControlName="textValue" class="w-full" />
       </div>
     </div>
+
     <div class="col-3">
       <button type="button" (click)="saveChanged()" [disabled]="!form.valid || btnDisabled" pButton>
-        Thêm
+        Lưu
       </button>
     </div>
+    
   </div>
 </form>
 <p-table #tableCourses [value]="productAttributes" dataKey="id">

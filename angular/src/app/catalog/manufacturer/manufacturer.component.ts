@@ -6,6 +6,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { Subject, take, takeUntil } from 'rxjs';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 import { ManufacturerDetailComponent } from './manufacturer-detail.component';
+import { MessageConstants } from 'src/app/shared/constants/messages.const';
 
 @Component({
   selector: 'app-manufacturer',
@@ -98,7 +99,7 @@ export class ManufacturerComponent implements OnInit, OnDestroy {
     ref.onClose.subscribe((data: ManufacturerDto) => {
       if (data) {
         this.loadData();
-        this.notificationService.showSuccess('Thêm Nhà Sản Xuất Thành Công');
+        this.notificationService.showSuccess(MessageConstants.CREATED_OK_MSG);
         this.selectedItems = [];
       }
     });
@@ -106,7 +107,7 @@ export class ManufacturerComponent implements OnInit, OnDestroy {
 
   showEditModal() {
     if (this.selectedItems.length == 0) {
-      this.notificationService.showError('Bạn Phải Chọn Một Bản Ghi');
+      this.notificationService.showError(MessageConstants.NOT_CHOOSE_ANY_RECORD);
       return;
     }
     const id = this.selectedItems[0].id;
@@ -122,14 +123,14 @@ export class ManufacturerComponent implements OnInit, OnDestroy {
       if (data) {
         this.loadData();
         this.selectedItems = [];
-        this.notificationService.showSuccess('Cập Nhà Sản Xuất Thành Công');
+        this.notificationService.showSuccess(MessageConstants.UPDATED_OK_MSG);
       }
     });
   }
   
   deleteItems(){
     if(this.selectedItems.length == 0){
-      this.notificationService.showError("Bạn Phải Chọn Ít Nhất Một Bản Ghi");
+      this.notificationService.showError(MessageConstants.NOT_CHOOSE_ANY_RECORD);
       return;
     }
     var ids =[];
@@ -137,7 +138,7 @@ export class ManufacturerComponent implements OnInit, OnDestroy {
       ids.push(element.id);
     });
     this.confirmationService.confirm({
-      message:'Bạn Có Muốn Xoá Bản Ghi Này Không?',
+      message:MessageConstants.CONFIRM_DELETE_MSG,
       accept:()=>{
         this.deleteItemsConfirmed(ids);
       }
@@ -148,7 +149,7 @@ export class ManufacturerComponent implements OnInit, OnDestroy {
     this.toggleBlockUI(true);
     this.categoryService.deleteMultiple(ids).pipe(takeUntil(this.ngUnsubscribe)).subscribe({
       next: ()=>{
-        this.notificationService.showSuccess("Xóa Nhà Sản Xuất Thành Công");
+        this.notificationService.showSuccess(MessageConstants.DELETED_OK_MSG);
         this.loadData();
         this.selectedItems = [];
         this.toggleBlockUI(false);

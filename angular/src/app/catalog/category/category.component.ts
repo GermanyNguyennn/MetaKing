@@ -6,6 +6,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { Subject, take, takeUntil } from 'rxjs';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 import { CategoryDetailComponent } from './category-detail.component';
+import { MessageConstants } from 'src/app/shared/constants/messages.const';
 
 @Component({
   selector: 'app-category',
@@ -27,6 +28,9 @@ export class CategoryComponent implements OnInit, OnDestroy {
   keyword: string = '';
   categoryId: string = '';
 
+  sortField: string = 'name';
+  sortOrder: string = 'ASC';
+
   constructor(
     private categoryService: ProductCategoriesService,
     private dialogService: DialogService,
@@ -43,27 +47,18 @@ export class CategoryComponent implements OnInit, OnDestroy {
     this.loadData();
   }
 
-  private generateColors(count: number): string[] {
-    const colors: string[] = [];
-    for (let i = 0; i < count; i++) {
-      const hue = (i * 360) / count;
-      colors.push(`hsl(${hue}, 80%, 85%)`);
+  sort(field: string) {
+    // Nếu click lại cùng field → đảo chiều SORT
+    if (this.sortField === field) {
+      this.sortOrder = this.sortOrder === 'ASC' ? 'DESC' : 'ASC';
+    } else {
+      // Click cột mới → reset sortOrder về ASC
+      this.sortField = field;
+      this.sortOrder = 'ASC';
     }
-    return colors;
-  }
 
-  private assignColors() {
-    const parentIds = Array.from(new Set(this.items.map(x => x.parentId || x.id)));
-    const colors = this.generateColors(parentIds.length);
-
-    parentIds.forEach((id, index) => {
-      this.rowColors[id] = colors[index];
-    });
-  }
-
-  getRowColor(row: ProductCategoryInListDto): string {
-    const parentKey = row.parentId || row.id;
-    return this.rowColors[parentKey] || 'transparent';
+    // Load lại dữ liệu từ API
+    this.loadData();
   }
 
   loadData() {
@@ -73,13 +68,14 @@ export class CategoryComponent implements OnInit, OnDestroy {
         keyword: this.keyword,
         maxResultCount: this.maxResultCount,
         skipCount: this.skipCount,
+        sortField: this.sortField,
+        sortOrder: this.sortOrder
       })
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe({
         next: (response: PagedResultDto<ProductCategoryInListDto>) => {
           this.items = response.items;
           this.totalCount = response.totalCount;
-          this.assignColors();
           this.toggleBlockUI(false);
         },
         error: () => {
@@ -103,7 +99,7 @@ export class CategoryComponent implements OnInit, OnDestroy {
     ref.onClose.subscribe((data: ProductCategoryDto) => {
       if (data) {
         this.loadData();
-        this.notificationService.showSuccess('Thêm Danh Mục Thành Công');
+        this.notificationService.showSuccess(MessageConstants.CREATED_OK_MSG);
         this.selectedItems = [];
       }
     });
@@ -111,7 +107,7 @@ export class CategoryComponent implements OnInit, OnDestroy {
 
   showEditModal() {
     if (this.selectedItems.length == 0) {
-      this.notificationService.showError('Bạn Phải Chọn Một Bản Ghi');
+      this.notificationService.showError(MessageConstants.NOT_CHOOSE_ANY_RECORD);
       return;
     }
     const id = this.selectedItems[0].id;
@@ -127,14 +123,14 @@ export class CategoryComponent implements OnInit, OnDestroy {
       if (data) {
         this.loadData();
         this.selectedItems = [];
-        this.notificationService.showSuccess('Cập Nhật Danh Mục Thành Công');
+        this.notificationService.showSuccess(MessageConstants.UPDATED_OK_MSG);
       }
     });
   }
   
   deleteItems(){
     if(this.selectedItems.length == 0){
-      this.notificationService.showError("Bạn Phải Chọn Ít Nhất Một Bản Ghi");
+      this.notificationService.showError(MessageConstants.NOT_CHOOSE_ANY_RECORD);
       return;
     }
     var ids =[];
@@ -142,7 +138,7 @@ export class CategoryComponent implements OnInit, OnDestroy {
       ids.push(element.id);
     });
     this.confirmationService.confirm({
-      message:'Bạn Có Muốn Xoá Bản Ghi Này Không?',
+      message:MessageConstants.CONFIRM_DELETE_MSG,
       accept:()=>{
         this.deleteItemsConfirmed(ids);
       }
@@ -153,7 +149,7 @@ export class CategoryComponent implements OnInit, OnDestroy {
     this.toggleBlockUI(true);
     this.categoryService.deleteMultiple(ids).pipe(takeUntil(this.ngUnsubscribe)).subscribe({
       next: ()=>{
-        this.notificationService.showSuccess("Xóa Danh Mục Thành Công");
+        this.notificationService.showSuccess(MessageConstants.DELETED_OK_MSG);
         this.loadData();
         this.selectedItems = [];
         this.toggleBlockUI(false);

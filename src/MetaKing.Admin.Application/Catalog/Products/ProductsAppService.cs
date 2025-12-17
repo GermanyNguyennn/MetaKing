@@ -147,7 +147,7 @@ namespace MetaKing.Admin.Catalog.Products
         public async Task DeleteMultipleAsync(IEnumerable<Guid> ids)
         {
             await Repository.DeleteManyAsync(ids);
-            await UnitOfWorkManager.Current.SaveChangesAsync();
+            await UnitOfWorkManager.Current!.SaveChangesAsync();
         }
 
         //[Authorize(MetaKingPermissions.Product.Default)]
@@ -165,19 +165,55 @@ namespace MetaKing.Admin.Catalog.Products
 
         public async Task<PagedResultDto<ProductInListDto>> GetListFilterAsync(ProductListFilterDto input)
         {
+            // Base query
             var query = await Repository.GetQueryableAsync();
-            query = query.WhereIf(!string.IsNullOrWhiteSpace(input.Keyword), x => x.Name.Contains(input.Keyword!));
-            query = query.WhereIf(input.CategoryId.HasValue, x => x.CategoryId == input.CategoryId);
 
+            // Filter
+            query = query.WhereIf(
+                !string.IsNullOrWhiteSpace(input.Keyword),
+                x => x.Name.Contains(input.Keyword!)
+            );
+
+            query = query.WhereIf(
+                input.CategoryId.HasValue,
+                x => x.CategoryId == input.CategoryId
+            );
+
+            // Chuẩn hoá sort
+            var sortField = input.SortField?.ToLower();
+            var sortOrder = input.SortOrder?.ToUpper() ?? "ASC";
+            bool isAsc = sortOrder == "ASC";
+
+            // Apply sorting
+            query = sortField switch
+            {
+                "id" => isAsc ? query.OrderBy(x => x.Id) : query.OrderByDescending(x => x.Id),
+                "name" => isAsc ? query.OrderBy(x => x.Name): query.OrderByDescending(x => x.Name),
+                "code" => isAsc ? query.OrderBy(x => x.Code): query.OrderByDescending(x => x.Code),
+                "slug" => isAsc ? query.OrderBy(x => x.Slug): query.OrderByDescending(x => x.Slug),
+                "sku" => isAsc ? query.OrderBy(x => x.SKU): query.OrderByDescending(x => x.SKU),
+                "producttype" => isAsc ? query.OrderBy(x => x.ProductType): query.OrderByDescending(x => x.ProductType),
+                "visibility" => isAsc ? query.OrderBy(x => x.IsVisibility): query.OrderByDescending(x => x.IsVisibility),
+                "isactive" => isAsc ? query.OrderBy(x => x.IsActive): query.OrderByDescending(x => x.IsActive),
+                _ => isAsc ? query.OrderBy(x => x.Name) : query.OrderByDescending(x => x.Name)
+            };
+
+            // Count
             var totalCount = await AsyncExecuter.LongCountAsync(query);
-            var data = await AsyncExecuter.ToListAsync(
-                query.OrderByDescending(x => x.CreationTime)
-                .Skip(input.SkipCount)
-                .Take(input.MaxResultCount)
-                );
 
-            return new PagedResultDto<ProductInListDto>(totalCount, ObjectMapper.Map<List<Product>, List<ProductInListDto>>(data));
+            // Paging
+            var items = await AsyncExecuter.ToListAsync(
+                query
+                    .Skip(input.SkipCount)
+                    .Take(input.MaxResultCount)
+            );
+
+            return new PagedResultDto<ProductInListDto>(
+                totalCount,
+                ObjectMapper.Map<List<Product>, List<ProductInListDto>>(items)
+            );
         }
+
 
         //[Authorize(MetaKingPermissions.Product.Update)]
 
@@ -201,13 +237,13 @@ namespace MetaKing.Admin.Catalog.Products
         {
             if (string.IsNullOrEmpty(fileName))
             {
-                return null;
+                return null!;
             }
             var thumbnailContent = await _fileContainer.GetAllBytesOrNullAsync(fileName);
 
             if (thumbnailContent is null)
             {
-                return null;
+                return null!;
             }
             var result = Convert.ToBase64String(thumbnailContent);
             return result;
@@ -277,15 +313,16 @@ namespace MetaKing.Admin.Catalog.Products
             return new ProductAttributeValueDto()
             {
                 AttributeId = input.AttributeId,
+                Name = attribute.Name,
                 Code = attribute.Code,
                 DataType = attribute.DataType,
                 DateTimeValue = input.DateTimeValue,
                 DecimalValue = input.DecimalValue,
                 Id = newAttributeId,
                 IntValue = input.IntValue,
-                Label = attribute.Label,
                 ProductId = input.ProductId,
-                TextValue = input.TextValue
+                TextValue = input.TextValue,
+                VarcharValue = input.VarcharValue
             };
         }
 
@@ -340,7 +377,7 @@ namespace MetaKing.Admin.Catalog.Products
                     await _productAttributeTextRepository.DeleteAsync(productAttributeText);
                     break;
             }
-            await UnitOfWorkManager.Current.SaveChangesAsync();
+            await UnitOfWorkManager.Current!.SaveChangesAsync();
         }
 
         //[Authorize(MetaKingPermissions.Product.Default)]
@@ -373,7 +410,7 @@ namespace MetaKing.Admin.Catalog.Products
                            && (aText == null || aText.ProductId == productId)
                         select new ProductAttributeValueDto()
                         {
-                            Label = a.Label,
+                            Name = a.Name,
                             AttributeId = a.Id,
                             DataType = a.DataType,
                             Code = a.Code,
@@ -427,7 +464,7 @@ namespace MetaKing.Admin.Catalog.Products
                            && (aText == null || aText.ProductId == input.ProductId)
                         select new ProductAttributeValueDto()
                         {
-                            Label = a.Label,
+                            Name = a.Name,
                             AttributeId = a.Id,
                             DataType = a.DataType,
                             Code = a.Code,
@@ -450,7 +487,7 @@ namespace MetaKing.Admin.Catalog.Products
             || x.VarcharId != null);
             var totalCount = await AsyncExecuter.LongCountAsync(query);
             var data = await AsyncExecuter.ToListAsync(
-                query.OrderByDescending(x => x.Label)
+                query.OrderByDescending(x => x.Name)
                 .Skip(input.SkipCount)
                 .Take(input.MaxResultCount)
                 );
@@ -537,19 +574,20 @@ namespace MetaKing.Admin.Catalog.Products
                     await _productAttributeTextRepository.UpdateAsync(productAttributeText);
                     break;
             }
-            await UnitOfWorkManager.Current.SaveChangesAsync();
+            await UnitOfWorkManager.Current!.SaveChangesAsync();
             return new ProductAttributeValueDto()
             {
                 AttributeId = input.AttributeId,
+                Name = attribute.Name,
                 Code = attribute.Code,
                 DataType = attribute.DataType,
                 DateTimeValue = input.DateTimeValue,
                 DecimalValue = input.DecimalValue,
                 Id = id,
                 IntValue = input.IntValue,
-                Label = attribute.Label,
                 ProductId = input.ProductId,
-                TextValue = input.TextValue
+                TextValue = input.TextValue,
+                VarcharValue = input.VarcharValue
             };
         }
     }

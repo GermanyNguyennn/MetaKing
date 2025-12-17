@@ -30,10 +30,6 @@ export class AttributeDetailComponent implements OnInit, OnDestroy {
     private notificationService: NotificationService
   ) {}
 
-  validationMessages = {
-    
-  };
-
   ngOnDestroy(): void {
     if (this.ref) {
       this.ref.close();
@@ -107,18 +103,16 @@ export class AttributeDetailComponent implements OnInit, OnDestroy {
   }
 
   loadAttributeTypes() {
-    attributeTypeOptions.forEach(element => {
-      this.dataTypes.push({
-        value: element.value,
-        label: element.key,
-      });
-    });
+    this.dataTypes = attributeTypeOptions.map(x => ({
+      label: x.key,
+      value: x.value
+    }));
   }
 
   private buildForm() {
     this.form = this.fb.group({
-      label: new FormControl(
-        this.selectedEntity.label || null,
+      name: new FormControl(
+        this.selectedEntity.name || null,
         Validators.compose([Validators.required, Validators.maxLength(250)])
       ),
       code: new FormControl(this.selectedEntity.code || null, Validators.required),

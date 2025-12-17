@@ -9,9 +9,9 @@ namespace MetaKing.ProductAttributes
 {
     public class ProductAttribute : CreationAuditedAggregateRoot<Guid>
     {
+        public string Name { get; set; }
         public string Code { get; set; }
         public AttributeType DataType { get; set; }
-        public string Label { get; set; }
         public bool IsVisibility { get; set; }
         public bool IsActive { get; set; }
         public bool IsRequired { get; set; }
