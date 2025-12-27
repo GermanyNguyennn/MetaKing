@@ -35,7 +35,7 @@ namespace MetaKing.Orders
             var orderId = Guid.NewGuid();
 
             var order = new Order(orderId)
-            {
+            {   
                 Code = await _orderCodeGenerator.GenerateAsync(),
                 CustomerAddress = input.CustomerAddress,
                 CustomerName = input.CustomerName,
@@ -65,8 +65,9 @@ namespace MetaKing.Orders
                     OrderId = orderId,
                     Price = item.Price,
                     ProductId = item.ProductId,
-                    Quantity = item.Quantity,
-                    SKU = product.SKU
+                    ProductName = product.Name,
+                    ProductCode = product.Code,
+                    Quantity = item.Quantity
                 });
             }
 
@@ -98,7 +99,8 @@ namespace MetaKing.Orders
                     .Select(i => new OrderItemDto
                     {
                         ProductId = i.ProductId,
-                        SKU = i.SKU,
+                        ProductName = i.ProductName,
+                        ProductCode = i.ProductCode,
                         Quantity = i.Quantity,
                         Price = i.Price
                     }).ToList();

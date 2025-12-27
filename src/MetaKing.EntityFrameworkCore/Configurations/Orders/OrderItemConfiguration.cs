@@ -9,7 +9,7 @@ namespace MetaKing.Orders
         {
             builder.ToTable(MetaKingConsts.DbTablePrefix + "OrderItems");
             builder.HasKey(x => new { x.ProductId, x.OrderId });
-            builder.Property(x => x.SKU)
+            builder.Property(x => x.ProductCode)
                  .HasMaxLength(50)
                  .IsUnicode(false)
                  .IsRequired();

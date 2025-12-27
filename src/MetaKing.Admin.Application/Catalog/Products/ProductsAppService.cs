@@ -82,10 +82,9 @@ namespace MetaKing.Admin.Catalog.Products
             var product = await _productManager.CreateAsync(
                 input.ManufacturerId,
                 input.Name,
-                input.Code,
                 input.Slug,
                 input.ProductType,
-                input.SKU,
+                input.Code,
                 input.IsVisibility,
                 input.IsActive,
                 input.CategoryId,
@@ -113,10 +112,9 @@ namespace MetaKing.Admin.Catalog.Products
                 throw new BusinessException(MetaKingDomainErrorCodes.ProductIsNotExists);
             product.ManufacturerId = input.ManufacturerId;
             product.Name = input.Name;
-            product.Code = input.Code;
             product.Slug = input.Slug;
             product.ProductType = input.ProductType;
-            product.SKU = input.SKU;
+            product.Code = input.Code;
             product.IsVisibility = input.IsVisibility;
             product.IsActive = input.IsActive;
 
@@ -189,9 +187,8 @@ namespace MetaKing.Admin.Catalog.Products
             {
                 "id" => isAsc ? query.OrderBy(x => x.Id) : query.OrderByDescending(x => x.Id),
                 "name" => isAsc ? query.OrderBy(x => x.Name): query.OrderByDescending(x => x.Name),
-                "code" => isAsc ? query.OrderBy(x => x.Code): query.OrderByDescending(x => x.Code),
                 "slug" => isAsc ? query.OrderBy(x => x.Slug): query.OrderByDescending(x => x.Slug),
-                "sku" => isAsc ? query.OrderBy(x => x.SKU): query.OrderByDescending(x => x.SKU),
+                "sku" => isAsc ? query.OrderBy(x => x.Code): query.OrderByDescending(x => x.Code),
                 "producttype" => isAsc ? query.OrderBy(x => x.ProductType): query.OrderByDescending(x => x.ProductType),
                 "visibility" => isAsc ? query.OrderBy(x => x.IsVisibility): query.OrderByDescending(x => x.IsVisibility),
                 "isactive" => isAsc ? query.OrderBy(x => x.IsActive): query.OrderByDescending(x => x.IsActive),

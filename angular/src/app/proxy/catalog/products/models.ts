@@ -5,10 +5,9 @@ import type { BaseListFilterDto } from '../../models';
 export interface CreateUpdateProductDto {
   manufacturerId?: string;
   name?: string;
-  code?: string;
   slug?: string;
   productType: ProductType;
-  sku?: string;
+  code?: string;
   isVisibility: boolean;
   isActive: boolean;
   sellPrice: number;
@@ -22,10 +21,9 @@ export interface CreateUpdateProductDto {
 export interface ProductDto {
   manufacturerId?: string;
   name?: string;
-  code?: string;
   slug?: string;
   productType: ProductType;
-  sku?: string;
+  code?: string;
   isVisibility: boolean;
   isActive: boolean;
   categoryId?: string;
@@ -41,10 +39,9 @@ export interface ProductDto {
 export interface ProductInListDto extends EntityDto<string> {
   manufacturerId?: string;
   name?: string;
-  code?: string;
   slug?: string;
   productType: ProductType;
-  sku?: string;
+  code?: string;
   isVisibility: boolean;
   isActive: boolean;
   categoryId?: string;

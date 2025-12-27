@@ -22,21 +22,17 @@ namespace MetaKing.Products
         }
 
         public async Task<Product> CreateAsync(Guid manufacturerId,
-            string name, string code, string slug,
-            ProductType productType, string sKU,  bool isVisibility,
+            string name, string slug,
+            ProductType productType, string code,  bool isVisibility,
             bool isActive, Guid categoryId,
             string seoMetaDescription, string description, double sellPrice)
         {
             if (await _productRepository.AnyAsync(x => x.Name == name))
                 throw new UserFriendlyException("Tên sản phẩm đã tồn tại", MetaKingDomainErrorCodes.ProductNameAlreadyExists);
-            if (await _productRepository.AnyAsync(x => x.Code == code))
-                throw new UserFriendlyException("Mã sản phẩm đã tồn tại", MetaKingDomainErrorCodes.ProductCodeAlreadyExists);
-            if (await _productRepository.AnyAsync(x => x.SKU == sKU))
-                throw new UserFriendlyException("Mã SKU sản phẩm đã tồn tại", MetaKingDomainErrorCodes.ProductSKUAlreadyExists);
 
             var category =  await _productCategoryRepository.GetAsync(categoryId);
 
-            return new Product(Guid.NewGuid(), manufacturerId, name, code, slug, productType, sKU, isVisibility, isActive, categoryId, seoMetaDescription, description, string.Empty, sellPrice, category?.Name!, category?.Slug!);
+            return new Product(Guid.NewGuid(), manufacturerId, name, slug, productType, code, isVisibility, isActive, categoryId, seoMetaDescription, description, string.Empty, sellPrice, category?.Name!, category?.Slug!);
         }
     }
 }

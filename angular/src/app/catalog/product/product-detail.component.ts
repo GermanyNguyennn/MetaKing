@@ -92,7 +92,6 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         }));
 
         if (this.utilService.isEmpty(this.config.data?.id)) {
-          this.getNewSuggestionCode();
           this.toggleBlockUI(false);
         } else {
           this.loadFormDetails(this.config.data?.id);
@@ -113,19 +112,6 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
       }
     }
     this.form.patchValue({ categoryId: null });
-  }
-
-  getNewSuggestionCode() {
-    this.productService
-    .getSuggestNewCode()
-    .pipe(takeUntil(this.ngUnsubscribe))
-    .subscribe({
-      next: (response: string) => {
-        this.form.patchValue({
-          code: response,
-        });
-      }
-    });
   }
 
   loadFormDetails(id: string) {
@@ -208,9 +194,8 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         this.selectedEntity.name || null,
         Validators.compose([Validators.required, Validators.maxLength(250)])
       ),
-      code: new FormControl(this.selectedEntity.code || null, Validators.required),
       slug: new FormControl(this.selectedEntity.slug || null, Validators.required),
-      sku: new FormControl(this.selectedEntity.sku || null, Validators.required),
+      code: new FormControl(this.selectedEntity.code || null, Validators.required),
       manufacturerId: new FormControl(this.selectedEntity.manufacturerId || null,Validators.required),
       categoryId: new FormControl(this.selectedEntity.categoryId || null, Validators.required),
       parentCategoryId: new FormControl(this.selectedEntity['parentCategoryId'] || null),

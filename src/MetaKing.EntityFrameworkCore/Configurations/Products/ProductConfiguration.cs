@@ -18,21 +18,31 @@ namespace MetaKing.Products
                 .HasMaxLength(50)
                 .IsRequired();
 
-            builder.Property(x => x.Code)
-                 .HasMaxLength(50)
-                 .IsUnicode(false)
-                 .IsRequired();
-
             builder.Property(x => x.Slug)
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .IsRequired();
 
-            builder.Property(x => x.SKU)
+            builder.Property(x => x.Code)
                .HasMaxLength(50)
                .IsUnicode(false)
                .IsRequired();
 
+            builder.Property(x => x.ProductType)
+                .IsRequired();
+
+            builder.Property(x => x.CategoryId)
+                .IsRequired();
+
+            builder.Property(x => x.SellPrice)
+                .HasColumnType("decimal(18,2)")
+                .IsRequired();
+
+            builder.Property(x => x.SeoMetaDescription)
+                .HasMaxLength(250);
+
+            builder.Property(x => x.Description)
+                .HasColumnType("nvarchar(max)");
 
             builder.Property(x => x.ThumbnailPicture)
                .HasMaxLength(250);

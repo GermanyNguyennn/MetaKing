@@ -22,10 +22,10 @@ export interface UpdateUserDto {
 }
 
 export interface UserDto extends AuditedEntityDto<string> {
-  name?: string;
   userName?: string;
-  email?: string;
+  name?: string;
   surname?: string;
+  email?: string;
   phoneNumber?: string;
   roles: string[];
   isActive: boolean;

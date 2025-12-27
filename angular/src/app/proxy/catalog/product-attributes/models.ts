@@ -2,9 +2,9 @@ import type { AttributeType } from '../../meta-king/product-attributes/attribute
 import type { EntityDto } from '@abp/ng.core';
 
 export interface CreateUpdateProductAttributeDto {
+  name?: string;
   code?: string;
   dataType: AttributeType;
-  name?: string;
   isVisibility: boolean;
   isActive: boolean;
   isRequired: boolean;
@@ -13,9 +13,9 @@ export interface CreateUpdateProductAttributeDto {
 }
 
 export interface ProductAttributeDto {
+  name?: string;
   code?: string;
   dataType: AttributeType;
-  name?: string;
   isVisibility: boolean;
   isActive: boolean;
   isRequired: boolean;
@@ -32,5 +32,6 @@ export interface ProductAttributeInListDto extends EntityDto<string> {
   isActive: boolean;
   isRequired: boolean;
   isUnique: boolean;
+  note?: string;
   id?: string;
 }

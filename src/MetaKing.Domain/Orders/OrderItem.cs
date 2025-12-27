@@ -11,7 +11,8 @@ namespace MetaKing.Orders
     {
         public Guid OrderId { get; set; }
         public Guid ProductId { get; set; }
-        public string SKU { get; set; }
+        public string ProductName { get; set; }
+        public string ProductCode { get; set; }
         public int Quantity { get; set; }
         public double Price { get; set; }
 

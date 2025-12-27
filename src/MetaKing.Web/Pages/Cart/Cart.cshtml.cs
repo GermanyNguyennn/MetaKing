@@ -84,7 +84,6 @@ namespace MetaKing.Pages.Cart
             return Page();
         }
 
-
         // --- Xóa sản phẩm
         public IActionResult OnGetRemove(string id)
         {

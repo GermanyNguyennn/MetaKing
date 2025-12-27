@@ -11,8 +11,8 @@ namespace MetaKing.Products
     {
         public Product() { }
         public Product(Guid id, Guid manufacturerId, 
-            string name, string code, string slug, 
-            ProductType productType, string sKU,
+            string name, string slug, 
+            ProductType productType, string code,
             bool isVisibility, 
             bool isActive, Guid categoryId, 
             string seoMetaDescription, string description,
@@ -22,10 +22,9 @@ namespace MetaKing.Products
             Id = id;
             ManufacturerId = manufacturerId;
             Name = name;
-            Code = code;
             Slug = slug;
             ProductType = productType;
-            SKU = sKU;
+            Code = code;
             IsVisibility = isVisibility;
             IsActive = isActive;
             CategoryId = categoryId;
@@ -39,10 +38,9 @@ namespace MetaKing.Products
 
         public Guid ManufacturerId { get; set; }
         public string Name { get; set; }
-        public string  Code { get; set; }
         public string Slug { get; set; }
         public ProductType ProductType { get; set; }
-        public string SKU { get; set; }
+        public string Code { get; set; }
         public bool IsVisibility { get; set; }
         public bool IsActive { get; set; }
         public Guid CategoryId { get; set; }

@@ -167,9 +167,28 @@
 
 <script>
     async function addToCart(productId) {
+        const isAuthenticated = @User.Identity.IsAuthenticated.ToString().ToLower();
+
+        if (!isAuthenticated) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Bạn chưa đăng nhập',
+                text: 'Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng',
+                confirmButtonText: 'OK'
+            });
+            return;
+        }
+
         try {
-            const res = await fetch(`/cart?handler=Add&id=${productId}`, { method: 'GET' });
-            const html = await res.text();
+            const res = await fetch(`/cart?handler=Add&id=${productId}`, {
+                method: 'GET'
+            });
+
+            if (!res.ok) {
+                throw new Error("Add to cart failed");
+            }
+
+            await res.text();
 
             Swal.fire({
                 icon: 'success',
@@ -180,6 +199,14 @@
 
         } catch (err) {
             console.error(err);
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Cannot add product to cart!',
+                confirmButtonText: 'OK'
+            });
         }
     }
 </script>
+

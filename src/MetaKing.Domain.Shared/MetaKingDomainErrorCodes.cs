@@ -6,7 +6,6 @@ public static class MetaKingDomainErrorCodes
     public const string ProductNameAlreadyExists = "MetaKing:ProductNameAlreadyExists";
     public const string ProductCodeAlreadyExists = "MetaKing:ProductCodeAlreadyExists";
 
-    public const string ProductSKUAlreadyExists = "MetaKing:ProductSKUAlreadyExists";
     public const string ProductIsNotExists = "MetaKing:ProductIsNotExists";
     public const string ProductAttributeIdIsNotExists = "MetaKing:ProductAttributeIdIsNotExists";
 

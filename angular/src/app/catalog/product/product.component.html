@@ -63,7 +63,7 @@
           <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
         </th>
         <th>Mã Sản Phẩm</th>
-        <th>SKU</th>
+        <th>Code</th>
         <th>Tên Sản Phẩm</th>
         <th>Loại Sản Phẩm</th>
         <th>Danh Mục Cha</th>
@@ -79,8 +79,8 @@
           <span class="ui-column-title"></span>
           <p-tableCheckbox [value]="row"></p-tableCheckbox>
         </td>
+        <td>{{ row.id }}</td>
         <td>{{ row.code }}</td>
-        <td>{{ row.sku }}</td>
         <td>{{ row.name }}</td>
         <td>{{ getProductTypeName(row.productType) }}</td>
         <td>{{ row.parentCategoryName }}</td>

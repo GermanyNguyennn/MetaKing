@@ -7,6 +7,7 @@
             <thead class="bg-secondary text-dark">
                 <tr>
                     <th>Username</th>
+                    <th>Surname</th>
                     <th>Name</th>
                     <th>Email</th>
                     <th>Phone Number</th>
@@ -19,10 +20,14 @@
                     <tr>
                         <td class="align-middle">
                             @Model.UserInfo.UserName
+                        </td>   
+
+                        <td class="align-middle">
+                            @Model.UserInfo.Surname
                         </td>
 
                         <td class="align-middle">
-                            @Model.UserInfo.Surname @Model.UserInfo.Name
+                            @Model.UserInfo.Name
                         </td>
 
                         <td class="align-middle">

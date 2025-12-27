@@ -8056,6 +8056,18 @@
       "genericArguments": null,
       "properties": [
         {
+          "name": "Name",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
           "name": "Code",
           "jsonName": null,
           "type": "System.String",
@@ -8072,18 +8084,6 @@
           "jsonName": null,
           "type": "MetaKing.ProductAttributes.AttributeType",
           "typeSimple": "enum",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Name",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,
@@ -8161,6 +8161,18 @@
       "genericArguments": null,
       "properties": [
         {
+          "name": "Name",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
           "name": "Code",
           "jsonName": null,
           "type": "System.String",
@@ -8177,18 +8189,6 @@
           "jsonName": null,
           "type": "MetaKing.ProductAttributes.AttributeType",
           "typeSimple": "enum",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Name",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,
@@ -8354,6 +8354,18 @@
           "jsonName": null,
           "type": "System.Boolean",
           "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Note",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,
@@ -9049,18 +9061,6 @@
           "regex": null
         },
         {
-          "name": "Code",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
           "name": "Slug",
           "jsonName": null,
           "type": "System.String",
@@ -9085,7 +9085,7 @@
           "regex": null
         },
         {
-          "name": "SKU",
+          "name": "Code",
           "jsonName": null,
           "type": "System.String",
           "typeSimple": "string",
@@ -9226,18 +9226,6 @@
           "regex": null
         },
         {
-          "name": "Code",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
           "name": "Slug",
           "jsonName": null,
           "type": "System.String",
@@ -9262,7 +9250,7 @@
           "regex": null
         },
         {
-          "name": "SKU",
+          "name": "Code",
           "jsonName": null,
           "type": "System.String",
           "typeSimple": "string",
@@ -9427,18 +9415,6 @@
           "regex": null
         },
         {
-          "name": "Code",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
           "name": "Slug",
           "jsonName": null,
           "type": "System.String",
@@ -9463,7 +9439,7 @@
           "regex": null
         },
         {
-          "name": "SKU",
+          "name": "Code",
           "jsonName": null,
           "type": "System.String",
           "typeSimple": "string",
@@ -9847,18 +9823,6 @@
       "genericArguments": null,
       "properties": [
         {
-          "name": "Name",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
           "name": "UserName",
           "jsonName": null,
           "type": "System.String",
@@ -9871,7 +9835,7 @@
           "regex": null
         },
         {
-          "name": "Email",
+          "name": "Name",
           "jsonName": null,
           "type": "System.String",
           "typeSimple": "string",
@@ -9884,6 +9848,18 @@
         },
         {
           "name": "Surname",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Email",
           "jsonName": null,
           "type": "System.String",
           "typeSimple": "string",
